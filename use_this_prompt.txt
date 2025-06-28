@@ -1,0 +1,16 @@
+создай скрипт
+AC_print2.py
+
+если значение переменной
+candle_1_high
+из файла
+ZZ_clone_candles.json 
+
+ниже чем значение переменной
+
+candle_0_close
+из файла
+AA_fetch_candles.json
+
+
+

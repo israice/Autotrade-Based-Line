@@ -2,10 +2,9 @@ import sys
 import os
 sys.dont_write_bytecode = True
 
-# Sequentially execute ABA_check_green.py and ABB_check_red.py
 scripts = [
-    'ACBA_run1.py',
-    'ACBB_run2.py',
+    'AA_fetch_candles.py',
+    'AB_create_trend.py',
 ]
 
 for script in scripts:

@@ -5,9 +5,21 @@ import aiohttp
 import asyncio
 from datetime import datetime
 
-def load_settings(path='settings.yaml'):
+# ================= НАСТРОЙКИ =================
+SETTINGS_PATH = 'settings.yaml'  # Путь к файлу настроек
+OUTPUT_PATH = 'CORE/DATA/A_fetch_candles.yaml'  # Путь к выходному YAML-файлу
+
+def load_settings(path=SETTINGS_PATH):
     with open(path, 'r') as f:
         return yaml.safe_load(f)
+
+settings = load_settings()
+symbol = settings['symbol'].upper()
+interval = settings['interval']
+exchange = settings['exchange'].lower()
+market_type = settings['market_type'].upper()
+candles_limit = settings['candles_limit']
+# =============================================
 
 async def get_binance_futures_kline(session, symbol, interval, limit):
     url = 'https://fapi.binance.com/fapi/v1/klines'
@@ -27,13 +39,6 @@ def ms_to_readable(ts):
     return datetime.fromtimestamp(int(ts) // 1000, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
 async def main():
-    settings = load_settings()
-    symbol = settings['symbol'].upper()
-    interval = settings['interval']
-    exchange = settings['exchange'].lower()
-    market_type = settings['market_type'].upper()
-    candles_limit = settings['candles_limit']
-
     if exchange != 'binance' or market_type != 'PERPETUAL':
         print('Only Binance Perpetual is supported in this script.')
         sys.exit(1)
@@ -54,7 +59,7 @@ async def main():
                 candle_dict[f"candle_{i}_open_time"] = ms_to_readable(candle_dict[f"candle_{i}_open_time"])
                 candle_dict[f"candle_{i}_close_time"] = ms_to_readable(candle_dict[f"candle_{i}_close_time"])
                 readable_candles.append(candle_dict)
-            with open('CHECK_CHANGE/AA_fetch_candles.yaml', 'w', encoding='utf-8') as f:
+            with open(OUTPUT_PATH, 'w', encoding='utf-8') as f:
                 yaml.dump(readable_candles, f, allow_unicode=True, sort_keys=False)
     except aiohttp.ClientResponseError as e:
         print(f"HTTP error: {e}\nResponse: {e.message}")

@@ -1,8 +1,16 @@
 import yaml
 import os
-yaml_path = 'CHECK_CHANGE/AB_check_trend.yaml'
-yaml_path_0 = 'CHECK_CHANGE/AA_fetch_candles.yaml'
-yaml_path_1 = 'CHECK_CHANGE/ZZ_clone_candles.yaml'
+import re
+
+# ==== НАСТРОЙКИ (ТОЛЬКО ВВЕРХУ) ====
+YAML_PATH_TREND = 'CORE/DATA/B_check_trend.yaml'
+YAML_PATH_CANDLES_0 = 'CORE/DATA/A_fetch_candles.yaml'
+YAML_PATH_CANDLES_1 = 'CORE/DATA/Z_clone_candles.yaml'
+KEY_PERCENTAGE_CHANGE = 'PERCENTAGE_CHANGE'
+KEY_TREND = 'TREND'
+KEY_CANDLE_0_CLOSE = 'candle_0_close'
+KEY_CANDLE_1_CLOSE = 'candle_1_close'
+# ====================================
 
 def read_close_from_yaml(path, key, index):
     if not os.path.exists(path):
@@ -25,8 +33,38 @@ def read_close_from_yaml(path, key, index):
         return None
     return data[index][key]
 
+import re
+
+def update_yaml_values_preserve_order(filepath, updates):
+    """
+    updates: dict, например {'PERCENTAGE_CHANGE': '0.123', 'TREND': 'RED'}
+    Меняет только значения переменных, порядок и формат сохраняется.
+    """
+    with open(filepath, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+
+    for i, line in enumerate(lines):
+        for key, value in updates.items():
+            # ищем строку вида KEY: ... (без учёта пробелов)
+            if re.match(rf'^{re.escape(key)}\s*:', line):
+                # заменяем только значение
+                prefix = re.match(rf'^({re.escape(key)}\s*:\s*)', line)
+                if prefix:
+                    lines[i] = prefix.group(1) + str(value) + '\n'
+                break
+
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.writelines(lines)
+
 def write_percentage_and_trend(path, percent_value, trend_value=None):
-    # Прочитать существующий YAML, если есть
+    # Только для YAML_PATH_TREND используем точечную замену
+    if os.path.basename(path) == os.path.basename(YAML_PATH_TREND):
+        updates = {KEY_PERCENTAGE_CHANGE: percent_value}
+        if trend_value is not None:
+            updates[KEY_TREND] = trend_value
+        update_yaml_values_preserve_order(path, updates)
+        return
+    # Для других файлов — стандартная логика
     data = {}
     if os.path.exists(path):
         try:
@@ -36,17 +74,17 @@ def write_percentage_and_trend(path, percent_value, trend_value=None):
                     data = loaded
         except Exception:
             pass
-    data['PERCENTAGE_CHANGE'] = percent_value
+    data[KEY_PERCENTAGE_CHANGE] = percent_value
     if trend_value is not None:
-        data['TREND'] = trend_value
+        data[KEY_TREND] = trend_value
     with open(path, 'w', encoding='utf-8') as f:
         yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
 
 def main():
-    # candle_0_close из первого элемента (индекс 0) файла AA_fetch_candles.yaml
-    candle_0_close = read_close_from_yaml(yaml_path_0, 'candle_0_close', 0)
-    # candle_1_close из второго элемента (индекс 1) файла ZZ_clone_candles.yaml
-    candle_1_close = read_close_from_yaml(yaml_path_1, 'candle_1_close', 1)
+    # candle_0_close из первого элемента (индекс 0) файла YAML_PATH_CANDLES_0
+    candle_0_close = read_close_from_yaml(YAML_PATH_CANDLES_0, KEY_CANDLE_0_CLOSE, 0)
+    # candle_1_close из второго элемента (индекс 1) файла YAML_PATH_CANDLES_1
+    candle_1_close = read_close_from_yaml(YAML_PATH_CANDLES_1, KEY_CANDLE_1_CLOSE, 1)
 
     if candle_0_close is None or candle_1_close is None:
         print('Одна из необходимых переменных не найдена. Проверьте наличие файлов и ключей.')
@@ -73,7 +111,7 @@ def main():
     elif percent < 0:
         trend = 'RED'
     # Если percent == 0, trend не меняем
-    write_percentage_and_trend(yaml_path, percent_str, trend)
+    write_percentage_and_trend(YAML_PATH_TREND, percent_str, trend)
 
 if __name__ == '__main__':
     main()

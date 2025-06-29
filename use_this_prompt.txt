@@ -1,33 +1,44 @@
-создай скрипт
-testtesttesttest.py
+исправь скрипт
+CORE\ACA_check_green.py
 
 если значение переменной
 candle_0_close
 из файла
-AA_fetch_candles.json
+CORE\AA_fetch_candles.yaml
 
 выше чем значение переменной
 
-candle_1_close
+candle_1_high
 из файла
-ZZ_clone_candles.json 
+CORE\ZZ_clone_candles.yaml
 
 то в файле 
-testtesttesttest.yaml
+testtesttesttest2.yaml
 
-замени значение на 
-TREND: GREEN
-если значение мы заменили то запускаем по очереди 
-ABA_check_green.py
-ABB_check_red.py
+надо указать в переменной 
+PERCENTAGE_CHANGE
+значение в процентах
+PERCENTAGE_CHANGE: 3%
 
+если 
+candle_0_close
+ниже чем 
+candle_1_close
+то в файле 
+testtesttesttest2.yaml
+надо указать в переменной 
+PERCENTAGE_CHANGE
+значение в процентах
+PERCENTAGE_CHANGE: -3%
 
-если проверка 
-ниже чем значение переменной
-
-замени значение на 
-TREND: RED
-если значение мы заменили то запускаем по очереди 
-ABC_check_green.py
-ABD_check_red.py
+если 
+candle_0_close
+равно 
+candle_1_close
+то в файле 
+testtesttesttest2.yaml
+надо указать в переменной 
+PERCENTAGE_CHANGE
+значение в процентах
+PERCENTAGE_CHANGE: 0%
 

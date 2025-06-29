@@ -1,138 +1,157 @@
 # Autotrade-Based-Line
 
-## Project Overview
-autotrade-based-line is a cryptocurrency data monitoring system that fetches candle data from Binance and processes it through a series of Python scripts. The system runs in a continuous loop, executing each script in sequence based on the configuration in the settings file.
+## Обзор проекта
+autotrade-based-line — это система мониторинга данных по криптовалютам, которая получает данные свечей с Binance и обрабатывает их с помощью серии Python-скриптов. Система работает в непрерывном цикле, выполняя каждый скрипт по очереди согласно настройкам в конфигурационном файле.
 
-## Features
-- Fetches real-time cryptocurrency candle data from Binance Futures API
-- Supports perpetual contracts (PERPETUAL market type)
-- Configurable symbol, interval, and other settings
-- Sequential execution of multiple processing scripts
-- Automatic memory management with garbage collection
+## Возможности
+- Получение актуальных данных по свечам криптовалют с Binance Futures API
+- Поддержка бессрочных контрактов (тип рынка PERPETUAL)
+- Настраиваемые параметры: торговая пара, интервал и другие
+- Последовательное выполнение нескольких скриптов обработки
+- Автоматическое управление памятью с помощью сборщика мусора
 
-## Requirements
+## Требования
 - Python 3.7+
-- Required Python packages:
+- Необходимые Python-пакеты:
   - PyYAML
   - aiohttp
   - asyncio
 
-## Project Structure
+## Структура проекта
 ```
 autotrade-based-line/
-├── run.py                  # Main script that orchestrates execution
-├── settings.yaml           # Configuration settings
-├── index.html              # Web page for displaying candlestick chart
-├── candles.json            # JSON file with candle data for chart
-└── CHECK_CHANGE/
-    ├── AA_fetch_candles.py # Script that fetches candle data from Binance
-    ├── AA_fetch_candles.json # JSON output of fetched candle data
-    ├── AB_print1.py        # Processing script 1
-    ├── AC_print2.py        # Processing script 2
-    └── AD_print3.py        # Processing script 3
+├── run.py                  # Главный скрипт, управляющий выполнением
+├── settings.yaml           # Конфигурационный файл
+├── index.html              # Веб-страница для отображения графика свечей
+├── candles.json            # JSON-файл с данными свечей для графика
+└── CORE/
+    ├── AA_fetch_candles.py # Скрипт для получения свечей с Binance
+    ├── AA_fetch_candles.json # JSON-вывод полученных данных свечей
+    ├── AB_print1.py        # Скрипт обработки 1
+    ├── AC_print2.py        # Скрипт обработки 2
+    └── AD_print3.py        # Скрипт обработки 3
 ```
 
 
-## Installation
-1. Clone the repository or download the project files
-2. Install the required dependencies:
+## Установка
+1. Клонируйте репозиторий или скачайте файлы проекта
+2. Установите необходимые зависимости:
    ```
    pip install pyyaml aiohttp
    ```
 
-## Configuration
-Edit the `settings.yaml` file to configure the system:
+## Конфигурация
+Отредактируйте файл `settings.yaml` для настройки системы:
 
 ```yaml
-symbol: XRPUSDT           # Trading pair symbol
-interval: 1m              # Candle interval (e.g., 1m, 5m, 15m, 1h)
-market_type: PERPETUAL    # Market type (currently only PERPETUAL is supported)
-exchange: binance         # Exchange (currently only binance is supported)
-candles_limit: 2          # Number of candles to fetch
-delay: 5                  # Delay between execution cycles (in seconds)
+symbol: XRPUSDT           # Торговая пара
+interval: 1m              # Интервал свечей (например, 1m, 5m, 15m, 1h)
+market_type: PERPETUAL    # Тип рынка (в данный момент поддерживается только PERPETUAL)
+exchange: binance         # Биржа (в данный момент поддерживается только binance)
+candles_limit: 2          # Количество свечей для получения
+delay: 5                  # Задержка между циклами выполнения (в секундах)
 ```
 
-## Usage
-Run the main script to start the system:
+## Использование
+Запустите главный скрипт для старта системы:
 
 ```
 python run.py
 ```
 
-The system will:
-1. Fetch candle data from Binance based on the configuration
-2. Save the data to `CHECK_CHANGE/AA_fetch_candles.json`
-3. Execute the processing scripts in sequence
-4. Wait for the configured delay period
-5. Repeat the process until interrupted (Ctrl+C)
+Система будет:
+1. Получать данные свечей с Binance согласно настройкам
+2. Сохранять данные в `CORE/AA_fetch_candles.json`
+3. Последовательно запускать скрипты обработки
+4. Ожидать заданную задержку
+5. Повторять процесс до прерывания (Ctrl+C)
 
-### Web Interface
-The project includes a web interface for visualizing candlestick data as a Japanese candlestick chart using [lightweight-charts](https://github.com/tradingview/lightweight-charts).
+### Веб-интерфейс
+В проекте имеется веб-интерфейс для визуализации данных в виде японских свечей с помощью [lightweight-charts](https://github.com/tradingview/lightweight-charts).
 
-- `index.html` loads data from `candles.json` and renders the chart.
-- `candles.json` should contain the candle data in JSON format.
+- `index.html` загружает данные из `candles.json` и отображает график.
+- `candles.json` должен содержать данные свечей в формате JSON.
 
-#### Launching the Local Web Server
-To view the chart, start a local server in the project directory. For example, using Python:
+#### Запуск локального веб-сервера
+Чтобы просмотреть график, запустите локальный сервер в директории проекта. Например, с помощью Python:
 
 ```
 python -m http.server 8000
 ```
 
-Then open [http://localhost:8000/index.html](http://localhost:8000/index.html) in your browser.
+Затем откройте [http://localhost:8000/index.html](http://localhost:8000/index.html) в вашем браузере.
 
-## Extending the System
-To add additional processing scripts:
-1. Create new Python script(s) in the `CHECK_CHANGE` directory
-2. Add the script path(s) to the `files` list in `run.py`
+## Расширение системы
+Чтобы добавить дополнительные скрипты обработки:
+1. Создайте новый Python-скрипт(ы) в директории `CORE`
+2. Добавьте путь(и) к скрипту(ам) в список `files` в `run.py`
 
-## Notes
-- The system will handle keyboard interrupts gracefully, completing the current iteration before exiting
-- Memory is cleared after each cycle using garbage collection
+## Примечания
+- Система корректно обрабатывает прерывания с клавиатуры, завершая текущую итерацию перед выходом
+- Память очищается после каждого цикла с помощью сборщика мусора
 
 
-## Dev
+## Разработка
 <details>
-  <summary>DEV Log</summary>
+  <summary>Журнал DEV</summary>
 
 ## v0.0.1
-- PROJECT CREATED DATE 2025.06.29
-- created run.py that runing check list
-- created settings.yaml with all needed settings
-- created fetch candles.py that fetching candles from binance
-- created clone candles.py that cloning candles file
+- ДАТА СОЗДАНИЯ ПРОЕКТА: 2025.06.29
+- создан run.py, который выполняет чек-лист
+- создан settings.yaml со всеми необходимыми настройками
+- создан fetch candles.py для получения свечей с binance
+- создан clone candles.py для клонирования файла свечей
 
 ## v0.0.2
-- created price compaire script
+- создан скрипт сравнения цен
 
 ## v0.0.3
-- Added trend analysis logic based on YAML file AB_check_trend.py
-- Automatic logic execution by trend AC_use_trend.py, ACA_check_green.py, ACB_check_red.py, and sub-scripts
-- Logic for comparing and writing percentage change
-- Improved error handling and graceful shutdown
+- Добавлена логика анализа тренда на основе YAML-файла AB_check_trend.py
+- Автоматическое выполнение логики по тренду: AC_use_trend.py, ACA_check_green.py, ACB_check_red.py и подскрипты
+- Логика сравнения и записи процентного изменения
+- Улучшена обработка ошибок и корректное завершение работы
 
-## FUTURE PLANS
-- create config when price hitting the line 
+## v0.0.4
+- Введён единый цикл запуска всех скриптов через основной run.py
+- Добавлено автоматическое измерение времени выполнения цикла
+- Реализована очистка памяти после каждого цикла (gc.collect)
+- Добавлена обработка сигнала SIGINT для корректного завершения работы
+- Вынесены настройки в отдельный YAML-файл и реализована централизованная загрузка настроек
+- Введены отдельные скрипты для зелёного/красного тренда и их автоматический запуск в зависимости от значения TREND
+- Добавлены сообщения об ошибках при работе с файлами и внешними сервисами
+- Улучшена структура backend: разделение на A_GET_DATA, B_CHECK_TREND, Z_CLONE_CANDLE
+- Добавлены тестовые скрипты для отладки (test1.py, test2.py и др.)
+
+## ПЛАНЫ НА БУДУЩЕЕ
+- создать конфиг для реакции на достижение ценой линии
 
 </details>
 
 <details>
-  <summary>Github CHEATSHEET</summary>
+  <summary>Github ШПАРГАЛКА</summary>
 
-## Load last updates and replace existing local files
+## Загрузить последние обновления и заменить локальные файлы
+```
 git fetch origin; git reset --hard origin/master; git clean -fd  
+```
 
-## Select a hash from the last 10 commits
+## Посмотреть последние 10 коммитов и выбрать hash
+```
 git log --oneline -n 10  
+```
 
-## Use the hash to get that exact version locally
+## Использовать hash для получения нужной версии локально
+```
 git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx  
+```
 
-## Update repository
+## Обновить репозиторий
+```
 git add .  
-git commit -m "Added trend analysis logic based on YAML file AB_check_trend.py"  
+git commit -m "Улучшена структура backend: разделение на A_GET_DATA, B_CHECK_TREND, Z_CLONE_CANDLE"  
 git push
 
+```
 
 
 </details>

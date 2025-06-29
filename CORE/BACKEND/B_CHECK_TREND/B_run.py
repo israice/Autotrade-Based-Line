@@ -3,11 +3,14 @@ import os
 import yaml
 sys.dont_write_bytecode = True
 
-# Путь к yaml-файлу с трендом
-trend_yaml = os.path.join(os.path.dirname(__file__), 'AB_check_trend.yaml')
+# ================= НАСТРОЙКИ ПУТЕЙ =================
+TREND_YAML_PATH = 'CORE/DATA/B_check_trend.yaml'
+GREEN_SCRIPT_PATH = 'CORE/BACKEND/B_CHECK_TREND/BA_check_green.py'
+RED_SCRIPT_PATH = 'CORE/BACKEND/B_CHECK_TREND/BB_check_red.py'
+# ===================================================
 
 try:
-    with open(trend_yaml, encoding='utf-8') as f:
+    with open(TREND_YAML_PATH, encoding='utf-8') as f:
         data = yaml.safe_load(f)
         trend = data.get('TREND', '').strip().upper()
 except Exception as e:
@@ -15,16 +18,16 @@ except Exception as e:
     sys.exit(1)
 
 if trend == 'GREEN':
-    script = 'ACA_check_green.py'
+    script = GREEN_SCRIPT_PATH
 elif trend == 'RED':
-    script = 'ACB_check_red.py'
+    script = RED_SCRIPT_PATH
 else:
     print(f'Неизвестное значение TREND: {trend}')
     sys.exit(2)
 
 import subprocess
 
-script_path = os.path.join(os.path.dirname(__file__), script)
+script_path = script
 try:
     result = subprocess.run([sys.executable, script_path], check=True)
 except Exception as e:

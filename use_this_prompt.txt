@@ -1,16 +1,33 @@
 создай скрипт
-AC_print2.py
+testtesttesttest.py
 
 если значение переменной
-candle_1_high
-из файла
-ZZ_clone_candles.json 
-
-ниже чем значение переменной
-
 candle_0_close
 из файла
 AA_fetch_candles.json
 
+выше чем значение переменной
 
+candle_1_close
+из файла
+ZZ_clone_candles.json 
+
+то в файле 
+testtesttesttest.yaml
+
+замени значение на 
+TREND: GREEN
+если значение мы заменили то запускаем по очереди 
+ABA_check_green.py
+ABB_check_red.py
+
+
+если проверка 
+ниже чем значение переменной
+
+замени значение на 
+TREND: RED
+если значение мы заменили то запускаем по очереди 
+ABC_check_green.py
+ABD_check_red.py
 

@@ -6,9 +6,8 @@ import gc
 
 files = [
     "CHECK_CHANGE/AA_fetch_candles.py",
-    "CHECK_CHANGE/BB_print1.py",
-    "CHECK_CHANGE/AC_print2.py",
-    "CHECK_CHANGE/AD_print3.py",
+    "CHECK_CHANGE/AB_check_trend.py",
+    "CHECK_CHANGE/AC_use_trend.py",
     "CHECK_CHANGE/ZZ_clone_candles.py"
 ]
 

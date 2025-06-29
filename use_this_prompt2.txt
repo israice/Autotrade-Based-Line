@@ -1,0 +1,44 @@
+создай скрипт
+testtesttesttest2.py
+
+если значение переменной
+candle_0_close
+из файла
+AA_fetch_candles.json
+
+выше чем значение переменной
+
+candle_1_close
+из файла
+ZZ_clone_candles.json 
+
+то в файле 
+testtesttesttest2.yaml
+
+надо указать в переменной 
+PERCENTAGE_CHANGE
+значение в процентах
+PERCENTAGE_CHANGE: 3%
+
+если 
+candle_0_close
+ниже чем 
+candle_1_close
+то в файле 
+testtesttesttest2.yaml
+надо указать в переменной 
+PERCENTAGE_CHANGE
+значение в процентах
+PERCENTAGE_CHANGE: -3%
+
+если 
+candle_0_close
+равно 
+candle_1_close
+то в файле 
+testtesttesttest2.yaml
+надо указать в переменной 
+PERCENTAGE_CHANGE
+значение в процентах
+PERCENTAGE_CHANGE: 0%
+

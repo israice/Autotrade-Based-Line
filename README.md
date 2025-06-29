@@ -1,4 +1,4 @@
-# autotrade-based-line
+# Autotrade-Based-Line
 
 ## Project Overview
 autotrade-based-line is a cryptocurrency data monitoring system that fetches candle data from Binance and processes it through a series of Python scripts. The system runs in a continuous loop, executing each script in sequence based on the configuration in the settings file.
@@ -102,26 +102,22 @@ To add additional processing scripts:
 - created fetch candles.py that fetching candles from binance
 - created clone candles.py that cloning candles file
 
+## v0.0.2
+- created price compaire script
 
-
+## v0.0.3
+- Added trend analysis logic based on YAML file AB_check_trend.py
+- Automatic logic execution by trend AC_use_trend.py, ACA_check_green.py, ACB_check_red.py, and sub-scripts
+- Logic for comparing and writing percentage change
+- Improved error handling and graceful shutdown
 
 ## FUTURE PLANS
 - create config when price hitting the line 
 
 </details>
 
-
-
-
-
 <details>
   <summary>Github CHEATSHEET</summary>
-
-## CREATE NEW REPOSITORY
-git init
-git add .
-git commit -m "PROJECT CREATED DATE 2025.06.29"
-gh repo create
 
 ## Load last updates and replace existing local files
 git fetch origin; git reset --hard origin/master; git clean -fd  
@@ -134,7 +130,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ## Update repository
 git add .  
-git commit -m "PROJECT CREATED DATE 2025.06.29"  
+git commit -m "Added trend analysis logic based on YAML file AB_check_trend.py"  
 git push
 
 

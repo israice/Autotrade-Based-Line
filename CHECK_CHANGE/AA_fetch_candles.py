@@ -54,7 +54,6 @@ async def main():
                 candle_dict[f"candle_{i}_open_time"] = ms_to_readable(candle_dict[f"candle_{i}_open_time"])
                 candle_dict[f"candle_{i}_close_time"] = ms_to_readable(candle_dict[f"candle_{i}_close_time"])
                 readable_candles.append(candle_dict)
-                print(f"Time: {candle_dict[f'candle_{i}_open_time']}, Open: {candle_dict[f'candle_{i}_open']}, High: {candle_dict[f'candle_{i}_high']}, Low: {candle_dict[f'candle_{i}_low']}, Close: {candle_dict[f'candle_{i}_close']}, Volume: {candle_dict[f'candle_{i}_volume']}")
             with open('CHECK_CHANGE/AA_fetch_candles.yaml', 'w', encoding='utf-8') as f:
                 yaml.dump(readable_candles, f, allow_unicode=True, sort_keys=False)
     except aiohttp.ClientResponseError as e:
@@ -65,6 +64,6 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("KeyboardInterrupt caught. Exiting AA_fetch_candles.py.")
+        pass
     except asyncio.CancelledError:
         print("Async task was cancelled at top-level.")

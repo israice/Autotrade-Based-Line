@@ -3,8 +3,7 @@ import os
 sys.dont_write_bytecode = True
 
 scripts = [
-    'AA_fetch_candles.py',
-    'AB_create_trend.py',
+    'AA_reset_clone_candles_file.py',
 ]
 
 for script in scripts:

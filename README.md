@@ -122,6 +122,10 @@ python -m http.server 8000
 - Улучшена структура backend: разделение на A_GET_DATA, B_CHECK_TREND, Z_CLONE_CANDLE
 - Добавлены тестовые скрипты для отладки (test1.py, test2.py и др.)
 
+## v0.0.5
+- добавлнно A_CLEAR_ON_RUN для обнуления данных 
+
+
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
 
@@ -148,7 +152,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "Улучшена структура backend: разделение на A_GET_DATA, B_CHECK_TREND, Z_CLONE_CANDLE"  
+git commit -m "добавлнно A_CLEAR_ON_RUN для обнуления данных"  
 git push
 
 ```

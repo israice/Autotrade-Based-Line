@@ -3,22 +3,19 @@ sys.dont_write_bytecode = True
 import subprocess
 import time
 import gc
-from CORE.BACKEND.A_GET_DATA.AA_fetch_candles import load_settings
+from CORE.BACKEND.B_GET_DATA.BA_fetch_candles import load_settings
 
 settings = load_settings()
 delay = settings.get('delay')
 
 clear_files = [
-    "test1.py",
-    "test2.py",
-    "test3.py",
-    "test4.py",
+    "CORE/BACKEND/A_CLEAR_ON_RUN/A_run.py",
 ]
 
 loop_check = [
-    "CORE/BACKEND/A_GET_DATA/A_run.py",
-    "CORE/BACKEND/B_CHECK_TREND/B_run.py",
-    "CORE/BACKEND/Z_CLONE_CANDLE/Z_run.py"
+    "CORE/BACKEND/B_GET_DATA/B_run.py",
+    "CORE/BACKEND/C_CHECK_TREND/C_run.py",
+    "CORE/BACKEND/Z_CLONE_CANDLE/Z_run.py",
 ]
 
 import signal
@@ -47,4 +44,4 @@ try:
             break
         time.sleep(delay)
 except Exception as e:
-    print(f"Ошибка: {e}")
+    pass

@@ -3,7 +3,7 @@ import os
 import re
 
 # ==== НАСТРОЙКИ (ТОЛЬКО ВВЕРХУ) ====
-YAML_PATH_TREND = 'CORE/DATA/B_check_trend.yaml'
+YAML_PATH_TREND = 'CORE/DATA/B_trade_config.yaml'
 YAML_PATH_CANDLES_0 = 'CORE/DATA/A_fetch_candles.yaml'
 YAML_PATH_CANDLES_1 = 'CORE/DATA/Z_clone_candles.yaml'
 KEY_PERCENTAGE_CHANGE = 'PERCENTAGE_CHANGE'
@@ -87,7 +87,6 @@ def main():
     candle_1_close = read_close_from_yaml(YAML_PATH_CANDLES_1, KEY_CANDLE_1_CLOSE, 1)
 
     if candle_0_close is None or candle_1_close is None:
-        print('Одна из необходимых переменных не найдена. Проверьте наличие файлов и ключей.')
         return
 
     try:

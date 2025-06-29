@@ -1,6 +1,7 @@
 import sys
 sys.dont_write_bytecode = True
 import yaml
+import platform  # Workaround for Windows freeze
 import aiohttp
 import asyncio
 from datetime import datetime
@@ -69,6 +70,7 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        pass
+        # Тихое завершение без вывода каких-либо сообщений
+        sys.exit(0)
     except asyncio.CancelledError:
         print("Async task was cancelled at top-level.")

@@ -1,14 +1,14 @@
 # run settings
-delay: 2                  # Delay between execution cycles (in seconds)
+delay: 2                          # Delay between execution cycles (in seconds)
 
 # exchange settings
-symbol: XRPUSDT           # Trading pair symbol
-interval: 1m              # Candle interval (e.g., 1m, 5m, 15m, 1h)
-market_type: PERPETUAL    # Market type (currently only PERPETUAL is supported)
-exchange: binance         # Exchange (currently only binance is supported)
-candles_limit: 2          # Number of candles to fetch
+symbol: XRPUSDT                   # Trading pair symbol
+interval: 1m                      # Candle interval (e.g., 1m, 5m, 15m, 1h)
+market_type: PERPETUAL            # Market type (currently only PERPETUAL is supported)
+exchange: binance                 # Exchange (currently only binance is supported)
+candles_limit: 2                  # Number of candles to fetch
 
 # trade settings
-START_AMOUNT: 1
-SELL_WHEN_PERCENT_CHANGE: 3%
-SELL_AMOUNT_WHEN_CANDLE_ENDS: 20
+START_AMOUNT: 1                   # USDT
+SELL_WHEN_PERCENT_CHANGE: 3       # %
+SELL_AMOUNT_WHEN_CANDLE_ENDS: 20  # USDT

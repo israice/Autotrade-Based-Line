@@ -25,5 +25,3 @@ else:
 # Сохранение обратно в файл
 with open(yaml_path, 'w', encoding='utf-8') as f:
     yaml.dump(new_data, f, allow_unicode=True, default_flow_style=False)
-
-print(f"Все значения в {yaml_path} заменены на None.")

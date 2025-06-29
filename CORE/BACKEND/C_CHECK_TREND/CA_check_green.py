@@ -3,8 +3,8 @@ import os
 sys.dont_write_bytecode = True
 
 scripts = [
-    'BAA_run1.py',
-    'BAB_run2.py',
+    'CAA_run1.py',
+    'CAB_run2.py',
 ]
 
 for script in scripts:

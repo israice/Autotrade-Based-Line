@@ -4,9 +4,9 @@ import yaml
 sys.dont_write_bytecode = True
 
 # ================= НАСТРОЙКИ ПУТЕЙ =================
-TREND_YAML_PATH = 'CORE/DATA/B_check_trend.yaml'
-GREEN_SCRIPT_PATH = 'CORE/BACKEND/B_CHECK_TREND/BA_check_green.py'
-RED_SCRIPT_PATH = 'CORE/BACKEND/B_CHECK_TREND/BB_check_red.py'
+TREND_YAML_PATH = 'CORE/DATA/B_trade_config.yaml'
+GREEN_SCRIPT_PATH = 'CORE/BACKEND/C_CHECK_TREND/CA_check_green.py'
+RED_SCRIPT_PATH = 'CORE/BACKEND/C_CHECK_TREND/CB_check_red.py'
 # ===================================================
 
 try:
@@ -14,7 +14,7 @@ try:
         data = yaml.safe_load(f)
         trend = data.get('TREND', '').strip().upper()
 except Exception as e:
-    print(f'Ошибка при чтении AB_check_trend.yaml: {e}')
+    print(f'Ошибка при чтении AB_trade_config.yaml: {e}')
     sys.exit(1)
 
 if trend == 'GREEN':

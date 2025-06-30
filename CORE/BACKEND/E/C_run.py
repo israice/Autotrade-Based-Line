@@ -4,9 +4,10 @@ import yaml
 sys.dont_write_bytecode = True
 
 # ================= НАСТРОЙКИ ПУТЕЙ =================
-TREND_YAML_PATH = 'CORE/DATA/B_trade_config.yaml'
-GREEN_SCRIPT_PATH = 'CORE/BACKEND/C_CHECK_TREND/CA_check_green.py'
-RED_SCRIPT_PATH = 'CORE/BACKEND/C_CHECK_TREND/CB_check_red.py'
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
+TREND_YAML_PATH = os.path.join(project_root, 'CORE/DATA/B_trade_config.yaml')
+GREEN_SCRIPT_PATH = os.path.join(project_root, 'CORE/BACKEND/C_CHECK_TREND/CA_check_green.py')
+RED_SCRIPT_PATH = os.path.join(project_root, 'CORE/BACKEND/C_CHECK_TREND/CB_check_red.py')
 # ===================================================
 
 try:
@@ -18,18 +19,17 @@ except Exception as e:
     sys.exit(1)
 
 if trend == 'GREEN':
-    script = GREEN_SCRIPT_PATH
+    script_path = GREEN_SCRIPT_PATH
 elif trend == 'RED':
-    script = RED_SCRIPT_PATH
+    script_path = RED_SCRIPT_PATH
 else:
     print(f'Неизвестное значение TREND: {trend}')
     sys.exit(2)
 
 import subprocess
 
-script_path = script
 try:
     result = subprocess.run([sys.executable, script_path], check=True)
 except Exception as e:
-    print(f'Ошибка при запуске {script}: {e}')
+    print(f'Ошибка при запуске {script_path}: {e}')
     sys.exit(3)

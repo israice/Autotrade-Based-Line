@@ -14,7 +14,7 @@ clear_files = [
 
 loop_check = [
     "CORE/BACKEND/B_GET_DATA/B_run.py",
-    "CORE/BACKEND/C_CHECK_TREND/C_run.py",
+    "CORE/BACKEND/C_CHECK_CANDLE_END/C_run.py",
     "CORE/BACKEND/Z_CLONE_CANDLE/Z_run.py",
 ]
 
@@ -36,12 +36,14 @@ try:
         start_time = time.time()
         for file in loop_check:
             subprocess.run(["python", file], check=True)
-        end_time = time.time()
-        elapsed = end_time - start_time
-        print(f"Execution time: {elapsed:.2f} seconds.")
+        end_main = time.time()
         gc.collect() # Clear memory
         if stop_requested:
             break
         time.sleep(delay)
+        end_total = time.time()
+        elapsed_main = end_main - start_time
+        elapsed_total = end_total - start_time
+        print(f"Execution time: {elapsed_main:.2f}s (main), {elapsed_total:.2f}s (with delay)")
 except Exception as e:
     pass

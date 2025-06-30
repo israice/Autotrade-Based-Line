@@ -1,0 +1,16 @@
+
+
+# ---------------------
+NEXT_LONG_PERCENT: 3
+# ---------------------
+PERCENTAGE_CHANGE: -0.274%
+TREND: RED
+STEP_AMOUNT_NOW: 0.2
+# ---------------------
+NEXT_SHORT_PERCENT: -3
+# ---------------------
+
+# ---------------------
+CANDLE_ACTIVATED: STARTED       # GREEN_OUT | GREEN_IN | RED_OUT | RED_IN | STARTED
+CROSSING_COUNTER: 0             # counter of buy orders
+# ---------------------

@@ -16,7 +16,7 @@ def load_settings(path=SETTINGS_PATH):
 
 settings = load_settings()
 symbol = settings['symbol'].upper()
-interval = settings['interval']
+interval = settings['buy_interval']
 exchange = settings['exchange'].lower()
 market_type = settings['market_type'].upper()
 candles_limit = settings['candles_limit']
@@ -66,11 +66,36 @@ async def main():
         print(f"HTTP error: {e}\nResponse: {e.message}")
         sys.exit(1)
 
+import signal
+
+async def shutdown(loop, signal=None):
+    if signal:
+        print(f"\nReceived exit signal {signal.name}... Shutting down gracefully.")
+    tasks = [t for t in asyncio.all_tasks(loop) if t is not asyncio.current_task(loop)]
+    [task.cancel() for task in tasks]
+    await asyncio.gather(*tasks, return_exceptions=True)
+    loop.stop()
+
 if __name__ == "__main__":
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    signals = (signal.SIGINT, signal.SIGTERM) if hasattr(signal, 'SIGTERM') else (signal.SIGINT,)
+    for s in signals:
+        try:
+            loop.add_signal_handler(s, lambda s=s: asyncio.create_task(shutdown(loop, signal=s)))
+        except NotImplementedError:
+            # Windows compatibility: add_signal_handler may not be implemented
+            pass
     try:
-        asyncio.run(main())
+        loop.run_until_complete(main())
     except KeyboardInterrupt:
-        # Тихое завершение без вывода каких-либо сообщений
-        sys.exit(0)
-    except asyncio.CancelledError:
-        print("Async task was cancelled at top-level.")
+        pass
+    finally:
+        pending = asyncio.all_tasks(loop)
+        for task in pending:
+            task.cancel()
+        try:
+            loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
+        except Exception:
+            pass
+        loop.close()

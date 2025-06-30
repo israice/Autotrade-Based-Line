@@ -1,0 +1,1 @@
+print('🪙  - SELL SHORT')

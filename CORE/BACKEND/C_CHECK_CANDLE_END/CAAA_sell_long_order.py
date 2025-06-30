@@ -1,1 +1,1 @@
-print('- - 💰 SELL LONG 💰')
+print('🪙  - SELL LONG')

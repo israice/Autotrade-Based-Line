@@ -3,13 +3,13 @@ import os
 sys.dont_write_bytecode = True
 
 scripts = [
-    'BA_fetch_candles.py',
-    'BB_create_trend.py',
+    'CORE/BACKEND/B_GET_DATA/BA_1m.py',
+    'CORE/BACKEND/B_GET_DATA/BB_1d.py',
 ]
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
 for script in scripts:
-    script_path = os.path.join(project_root, 'CORE/BACKEND/B_GET_DATA', script)
+    script_path = os.path.join(project_root, script)
     try:
         with open(script_path, encoding='utf-8') as f:
             code = compile(f.read(), script_path, 'exec')

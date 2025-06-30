@@ -1,15 +1,17 @@
+
+
 import sys
 import os
 sys.dont_write_bytecode = True
 
 scripts = [
-    'CBA_finished_as_short.py',
-    'CBB_price_now_lower_then_low.py',
+    'CORE/BACKEND/D_CHECK_SELL_PERCENT/DAA_sell_long_order.py',
+    'CORE/BACKEND/D_CHECK_SELL_PERCENT/DAB_add_CANDLE_PERCENT_NEXT.py',
 ]
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
 for script in scripts:
-    script_path = os.path.join(project_root, 'CORE/BACKEND/C_CHECK_TREND', script)
+    script_path = os.path.join(project_root, script)
     try:
         with open(script_path, encoding='utf-8') as f:
             code = compile(f.read(), script_path, 'exec')

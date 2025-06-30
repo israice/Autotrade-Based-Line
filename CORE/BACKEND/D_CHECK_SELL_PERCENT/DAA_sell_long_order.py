@@ -1,0 +1,1 @@
+print('🪙  - 3% SELL LONG')

@@ -1,13 +1,10 @@
-
-
 import sys
 import os
 sys.dont_write_bytecode = True
 
 scripts = [
-    'CORE/BACKEND/C_CHECK_CANDLE_END/CAAA_sell_long_order.py',
-    'CORE/BACKEND/C_CHECK_CANDLE_END/CAAB_reset_CANDLE_PERCENT_NEXT.py',
-    'CORE/BACKEND/C_CHECK_CANDLE_END/CAAC_reset_CANDLE_AMOUNT_NEXT.py',
+    'CORE/BACKEND/B_GET_DATA/BBA_get_1d_candles.py',
+    'CORE/BACKEND/B_GET_DATA/BBB_create_1d_data.py',
 ]
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))

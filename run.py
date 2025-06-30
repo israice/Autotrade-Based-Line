@@ -15,6 +15,7 @@ clear_files = [
 loop_check = [
     "CORE/BACKEND/B_GET_DATA/B_run.py",
     "CORE/BACKEND/C_CHECK_CANDLE_END/C_run.py",
+    "CORE/BACKEND/D_CHECK_SELL_PERCENT/D_run.py",
     "CORE/BACKEND/Z_CLONE_CANDLE/Z_run.py",
 ]
 

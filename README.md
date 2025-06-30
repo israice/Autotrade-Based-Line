@@ -110,6 +110,7 @@ python -m http.server 8000
 - добавлнно A_CLEAR_ON_RUN для обнуления данных 
 - осущестовлен CHECK_CANDLE_END
 - добавленна переменная CANDLE_PERCENT_NOW в config
+- добавлен скрипт reset_CANDLE_AMOUNT_NOW
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
@@ -137,7 +138,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "добавленна переменная CANDLE_PERCENT_NOW в config"  
+git commit -m "добавлен скрипт reset_CANDLE_AMOUNT_NOW"  
 git push
 
 ```

@@ -7,6 +7,7 @@ sys.dont_write_bytecode = True
 scripts = [
     'CORE/BACKEND/C_CHECK_CANDLE_END/CAAA_sell_long_order.py',
     'CORE/BACKEND/C_CHECK_CANDLE_END/CAAB_reset_CANDLE_PERCENT_NOW.py',
+    'CORE/BACKEND/C_CHECK_CANDLE_END/CAAC_reset_CANDLE_AMOUNT_NOW.py',
 ]
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))

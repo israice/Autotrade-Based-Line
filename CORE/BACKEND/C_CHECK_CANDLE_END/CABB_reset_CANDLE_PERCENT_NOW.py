@@ -1,25 +1,35 @@
-# Скрипт для сброса значения CANDLE_PERCENT_NOW в 0 в файле B_trade_config.yaml
-# Не изменяет порядок и формат остальных строк.
+import re
 
-import os
+SETTINGS_PATH = r"c:/0_PROJECTS/05-PIEHOOK-based_line/settings.yaml"
+TRADE_CONFIG_PATH = r"c:/0_PROJECTS/05-PIEHOOK-based_line/CORE/DATA/B_trade_config.yaml"
 
-CONFIG_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'DATA', 'B_trade_config.yaml')
-CONFIG_PATH = os.path.abspath(CONFIG_PATH)
+# 1. Получить значение SELL_ON_PERCENT_CHANGE из settings.yaml
+def get_sell_on_percent_change(settings_path):
+    with open(settings_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            if line.strip().startswith('SELL_ON_PERCENT_CHANGE:'):
+                # Получить только число (или строку после ':')
+                return line.split(':', 1)[1].strip().split()[0]
+    raise ValueError('SELL_ON_PERCENT_CHANGE not found in settings.yaml')
 
-KEY = 'CANDLE_PERCENT_NOW:'
-NEW_VALUE = 'CANDLE_PERCENT_NOW: 0\n'
+# 2. Обновить только CANDLE_PERCENT_NOW в B_trade_config.yaml
 
-def reset_candle_percent_now():
-    with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
+def update_candle_percent_now(trade_config_path, new_value):
+    with open(trade_config_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-
+    pattern = re.compile(r'^(CANDLE_PERCENT_NOW:)\s*.*$')
     for i, line in enumerate(lines):
-        if line.strip().startswith(KEY):
-            lines[i] = NEW_VALUE
+        if pattern.match(line.strip()):
+            prefix = line.split(':', 1)[0]
+            # Сохраняем отступы
+            indent = re.match(r'^(\s*)', line).group(1)
+            lines[i] = f'{indent}{prefix}: {new_value}\n'
             break
-
-    with open(CONFIG_PATH, 'w', encoding='utf-8') as f:
+    else:
+        raise ValueError('CANDLE_PERCENT_NOW not found in B_trade_config.yaml')
+    with open(trade_config_path, 'w', encoding='utf-8') as f:
         f.writelines(lines)
 
-if __name__ == '__main__':
-    reset_candle_percent_now()
+if __name__ == "__main__":
+    new_value = get_sell_on_percent_change(SETTINGS_PATH)
+    update_candle_percent_now(TRADE_CONFIG_PATH, new_value)

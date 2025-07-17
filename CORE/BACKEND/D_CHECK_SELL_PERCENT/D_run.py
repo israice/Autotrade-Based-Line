@@ -6,7 +6,7 @@ import os
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
 
 # Путь к конфигу
-CONFIG_PATH = os.path.join(project_root, 'CORE', 'DATA', 'B_trade_config.yaml')
+CONFIG_PATH = os.path.join(project_root, 'CORE', 'DATA', 'C_temp_config.yaml')
 
 # Скрипты для запуска (пути будут формироваться динамически)
 SCRIPTS_LONG = [
@@ -37,7 +37,7 @@ def run_scripts(scripts):
 
 def main():
     config = read_config(CONFIG_PATH)
-    percent_change = parse_percent(config.get('PERCENTAGE_CHANGE'))
+    percent_change = parse_percent(config.get('PERCENTAGE_CHANGE_LARGE'))
     next_long = float(config.get('NEXT_LONG_PERCENT'))
     next_short = float(config.get('NEXT_SHORT_PERCENT'))
 

@@ -1,7 +1,7 @@
 import re
 
 SETTINGS_PATH = "settings.yaml"
-TRADE_CONFIG_PATH = "CORE/DATA/B_trade_config.yaml"
+TRADE_CONFIG_PATH = "CORE/DATA/C_temp_config.yaml"
 
 # 1. Получить значение SELL_ON_PERCENT_CHANGE из settings.yaml
 def get_sell_on_percent_change(settings_path):
@@ -12,7 +12,7 @@ def get_sell_on_percent_change(settings_path):
                 return line.split(':', 1)[1].strip().split()[0]
     raise ValueError('SELL_ON_PERCENT_CHANGE not found in settings.yaml')
 
-# 2. Обновить только NEXT_LONG_PERCENT в B_trade_config.yaml
+# 2. Обновить только NEXT_LONG_PERCENT в C_temp_config.yaml
 
 def update_NEXT_LONG_PERCENT(trade_config_path, new_value):
     with open(trade_config_path, 'r', encoding='utf-8') as f:
@@ -27,7 +27,7 @@ def update_NEXT_LONG_PERCENT(trade_config_path, new_value):
             lines[i] = f'{indent}{prefix}: {new_value_str}\n'
             break
     else:
-        raise ValueError('NEXT_LONG_PERCENT not found in B_trade_config.yaml')
+        raise ValueError('NEXT_LONG_PERCENT not found in C_temp_config.yaml')
     with open(trade_config_path, 'w', encoding='utf-8') as f:
         f.writelines(lines)
 
@@ -54,7 +54,7 @@ def update_NEXT_SHORT_PERCENT(trade_config_path, add_value):
             lines[i] = f'{indent}{prefix} {new_value_str}\n'
             break
     else:
-        raise ValueError('NEXT_SHORT_PERCENT not found in B_trade_config.yaml')
+        raise ValueError('NEXT_SHORT_PERCENT not found in C_temp_config.yaml')
     with open(trade_config_path, 'w', encoding='utf-8') as f:
         f.writelines(lines)
 
@@ -77,3 +77,5 @@ if __name__ == "__main__":
     except Exception:
         negative_value = f'-{str(new_value).lstrip("-")}'
     update_NEXT_SHORT_PERCENT(TRADE_CONFIG_PATH, negative_value)
+
+print("- - D - - Candles percent added successfully.")

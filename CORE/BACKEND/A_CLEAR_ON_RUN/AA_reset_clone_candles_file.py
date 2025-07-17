@@ -1,27 +1,49 @@
 import yaml
+import os
 
-# Путь к YAML-файлу
-yaml_path = "CORE/DATA/Z_clone_candles.yaml"
+# Configuration settings
+FILE_PATHS = [
+    "CORE/DATA/D_small_old_candles_data.yaml",
+    "CORE/DATA/E_large_old_candles_data.yaml"
+]
 
-# Функция для рекурсивной замены всех значений на None
-def replace_values_with_none(data):
+def load_yaml_file(file_path):
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return yaml.safe_load(file)
+
+def save_yaml_file(file_path, data):
+    with open(file_path, 'w', encoding='utf-8') as file:
+        yaml.safe_dump(data, file, allow_unicode=True)
+
+def set_non_null_to_null(data):
     if isinstance(data, dict):
-        return {k: replace_values_with_none(v) for k, v in data.items()}
+        return {key: set_non_null_to_null(value) for key, value in data.items()}
     elif isinstance(data, list):
-        return [replace_values_with_none(item) for item in data]
-    else:
+        return [set_non_null_to_null(item) for item in data]
+    elif data is not None:
         return None
+    return data
 
-# Загрузка YAML-файла
-with open(yaml_path, 'r', encoding='utf-8') as f:
-    yaml_data = yaml.safe_load(f)
+def main():
+    for file_path in FILE_PATHS:
+        try:
+            # Load YAML file
+            data = load_yaml_file(file_path)
+            
+            # Process data to set non-null values to null
+            modified_data = set_non_null_to_null(data)
+            
+            # Save modified data back to file
+            save_yaml_file(file_path, modified_data)
+            
+        except FileNotFoundError as e:
+            raise e
+        except Exception as e:
+            raise Exception(f"Error processing {file_path}: {str(e)}")
 
-# Замена всех значений на None
-if isinstance(yaml_data, list):
-    new_data = [replace_values_with_none(item) for item in yaml_data]
-else:
-    new_data = replace_values_with_none(yaml_data)
+if __name__ == "__main__":
+    main()
 
-# Сохранение обратно в файл
-with open(yaml_path, 'w', encoding='utf-8') as f:
-    yaml.dump(new_data, f, allow_unicode=True, default_flow_style=False)
+print(f"- - A - - Old files nulled")

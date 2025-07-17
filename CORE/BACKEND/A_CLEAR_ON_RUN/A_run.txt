@@ -1,0 +1,20 @@
+
+создай python скрипт
+
+
+SCRIPTS = [
+    'CORE/BACKEND/A_CLEAR_ON_RUN/AA_reset_clone_candles_file.py',
+    'CORE/BACKEND/A_CLEAR_ON_RUN/AB_get_large_candles.py',
+    'CORE/BACKEND/A_CLEAR_ON_RUN/AC_reset_CANDLE_PERCENT_NEXT.py',
+    'CORE/BACKEND/A_CLEAR_ON_RUN/AD_reset_CANDLE_AMOUNT_NEXT.py',
+]
+
+выводи в косноль только сообщения из скриптов
+убедись что между ними не выводятся пустые строки в консоль
+
+отоброжай замер времени выполнения скрипта СПИСКА
+
+все пути указаны от корня проекта там где находится файл .env
+
+не создовай дефолтные значения в коде, выводи ошибку если значение не найдено
+

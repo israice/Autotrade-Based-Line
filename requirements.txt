@@ -1,0 +1,9 @@
+aiohttp>=3.12.0
+aiosignal
+attrs
+frozenlist
+multidict
+propcache
+yarl
+PyYAML
+ruamel.yaml

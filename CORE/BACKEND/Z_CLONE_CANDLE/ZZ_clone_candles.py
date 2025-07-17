@@ -1,10 +1,27 @@
+import shutil
 import sys
 import os
-import shutil
-sys.dont_write_bytecode = True
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
-shutil.copyfile(
-    os.path.join(project_root, 'CORE/DATA/A_fetch_candles.yaml'),
-    os.path.join(project_root, 'CORE/DATA/Z_clone_candles.yaml'),
-)
+# Список пар (откуда, куда)
+file_pairs = [
+    (
+        "CORE/DATA/A_small_new_candles_data.yaml", 
+        "CORE/DATA/D_small_old_candles_data.yaml"
+    ),
+    (
+        "CORE/DATA/B_large_new_candles_data.yaml", 
+        "CORE/DATA/E_large_old_candles_data.yaml"
+    ),
+]
+
+for src, dst in file_pairs:
+    if not os.path.isfile(src):
+        print(f"Ошибка: файл {src} не найден!")
+        sys.exit(1)
+    try:
+        shutil.copyfile(src, dst)
+    except Exception as e:
+        print(f"Ошибка при копировании {src} -> {dst}: {e}")
+        sys.exit(1)
+
+print("- - Z - - Candles cloned successfully.")

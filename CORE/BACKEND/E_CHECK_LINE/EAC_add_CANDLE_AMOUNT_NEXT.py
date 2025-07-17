@@ -1,7 +1,7 @@
 import re
 
 SETTINGS_PATH = "settings.yaml"
-TRADE_CONFIG_PATH = "CORE/DATA/B_trade_config.yaml"
+TRADE_CONFIG_PATH = "CORE/DATA/C_temp_config.yaml"
 
 # 1. Получить значение START_AMOUNT из settings.yaml
 def get_sell_on_percent_change(settings_path):
@@ -12,7 +12,7 @@ def get_sell_on_percent_change(settings_path):
                 return line.split(':', 1)[1].strip().split()[0]
     raise ValueError('START_AMOUNT not found in settings.yaml')
 
-# 2. Обновить только STEP_AMOUNT_NOW в B_trade_config.yaml
+# 2. Обновить только STEP_AMOUNT_NOW в C_temp_config.yaml
 
 def update_NEXT_LONG_PERCENT(trade_config_path, add_value):
     with open(trade_config_path, 'r', encoding='utf-8') as f:
@@ -40,10 +40,12 @@ def update_NEXT_LONG_PERCENT(trade_config_path, add_value):
             lines[i] = f'{indent}{prefix} {new_value_str}\n'
             break
     else:
-        raise ValueError('STEP_AMOUNT_NOW not found in B_trade_config.yaml')
+        raise ValueError('STEP_AMOUNT_NOW not found in C_temp_config.yaml')
     with open(trade_config_path, 'w', encoding='utf-8') as f:
         f.writelines(lines)
 
 if __name__ == "__main__":
     new_value = get_sell_on_percent_change(SETTINGS_PATH)
     update_NEXT_LONG_PERCENT(TRADE_CONFIG_PATH, new_value)
+
+print("- - E - - Candles amount added successfully.")

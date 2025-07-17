@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradingView Chart - Dark Theme</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #132213; /* TradingView dark theme background color */
+        }
+        .tradingview-widget-container {
+            height: 100%;
+            width: 100%;
+        }
+        /* Hide the right panel using CSS */
+        iframe {
+            width: 100% !important;
+        }
+        #timer-container {
+            position: absolute;
+            top: 50px; /* Adjust as needed */
+            right: 15px; /* Adjust as needed */
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background-color: rgba(19, 23, 34, 0.8);
+            padding: 5px;
+            border-radius: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+        }
+        #custom-timer-display {
+            color: #d1d4dc;
+            padding: 0 10px;
+            font-size: 14px;
+            min-width: 45px; /* Prevents layout shift */
+            text-align: right;
+        }
+        #timeframe-selector {
+            background-color: #2a2e39;
+            color: #d1d4dc;
+            border: 1px solid #434651;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+        <div id="tradingview_chart" style="height: 100%; width: 100%;"></div>
+    </div>
+    <!-- TradingView Widget END -->
+
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        new TradingView.widget({
+            autosize: true,
+            symbol: "BINANCE:XRPUSDT.P",
+            interval: "1",
+            timezone: "Etc/UTC",
+            theme: "dark",
+            style: "1",
+            locale: "en",
+            toolbar_bg: "#131722",
+            enable_publishing: false,
+            hide_top_toolbar: false,
+            hide_side_toolbar: false,  // Показываем боковую панель
+            allow_symbol_change: true,
+            container_id: "tradingview_chart",
+            studies: [
+                { id: "MAExp@tv-basicstudies", inputs: {length: 20} },
+                { id: "MAExp@tv-basicstudies", inputs: {length: 50} },
+                { id: "MAExp@tv-basicstudies", inputs: {length: 100} },
+                { id: "MAExp@tv-basicstudies", inputs: {length: 200} }
+            ],
+            // Настройка цветов для всех индикаторов
+            studies_overrides: {
+                "moving average exponential.plot.color.0": "rgb(41, 146, 0)",   // EMA 20 - зеленый
+                "moving average exponential.plot.color.1": "rgb(197, 246, 0)",  // EMA 50 - желто-зеленый
+                "moving average exponential.plot.color.2": "rgb(214, 62, 62)",   // EMA 100 - красный
+                "moving average exponential.plot.color.3": "rgb(255, 255, 255)"   // EMA 200 - белый
+            },
+            // Включаем инструменты для рисования
+            drawings_access: {
+                type: 'all',
+                tools: [
+                    { name: "Trend Line" },
+                    { name: "Fibonacci Retracement" },
+                    { name: "Horizontal Line" },
+                    { name: "Rectangle" },
+                    { name: "Ellipse" },
+                    { name: "Text" }
+                ]
+            },
+            hide_volume: true,
+            withdateranges: true,
+            details: false,
+            calendar: false,
+            hideideas: true,
+            hide_legend: false,
+            left_toolbar: true,  // Включаем левую панель инструментов
+            drawing_enabled: true  // Разрешаем рисование
+        });
+
+        // Universal custom countdown timer
+        const timerDisplay = document.getElementById('custom-timer-display');
+        const timeframeSelector = document.getElementById('timeframe-selector');
+
+        let intervalId;
+
+        function startTimer() {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+
+            const timeframeInSeconds = parseInt(timeframeSelector.value, 10);
+            const timeframeInMs = timeframeInSeconds * 1000;
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                // Calculate the timestamp for the start of the next candle
+                const nextCandleTime = Math.ceil(now / timeframeInMs) * timeframeInMs;
+                const remainingMs = nextCandleTime - now;
+
+                if (remainingMs <= 0) {
+                    timerDisplay.textContent = '00:00';
+                    return;
+                }
+
+                const remainingSecondsTotal = Math.floor(remainingMs / 1000);
+                
+                const hours = Math.floor(remainingSecondsTotal / 3600);
+                const minutes = Math.floor((remainingSecondsTotal % 3600) / 60);
+                const seconds = remainingSecondsTotal % 60;
+
+                const f_hours = hours > 0 ? (hours < 10 ? '0' + hours : hours) + ':' : '';
+                const f_minutes = minutes < 10 ? '0' + minutes : minutes;
+                const f_seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                timerDisplay.textContent = `${f_hours}${f_minutes}:${f_seconds}`;
+            }
+
+            intervalId = setInterval(updateTimer, 500); // Update more frequently for smoothness
+            updateTimer(); // Initial call to prevent delay
+        }
+
+        timeframeSelector.addEventListener('change', startTimer);
+        
+        // Set default timeframe from chart widget settings to sync the timer initially
+        const defaultInterval = "1"; // This matches your widget's default interval: "1"
+        const timeframeMap = {
+            "1": 60, "3": 180, "5": 300, "15": 900, "60": 3600, "240": 14400, "D": 86400
+        };
+        const defaultSeconds = timeframeMap[defaultInterval] || 60;
+        timeframeSelector.value = defaultSeconds;
+
+        startTimer(); // Start timer on page load with the default value
+
+        // Try to hide the right panel after the chart loads
+        setTimeout(function() {
+            var iframes = document.querySelectorAll('iframe');
+            iframes.forEach(function(iframe) {
+                try {
+                    // Try to access iframe content and hide right panel
+                    var rightPanel = iframe.contentWindow.document.querySelector('.right-panel');
+                    if (rightPanel) {
+                        rightPanel.style.display = 'none';
+                    }
+                } catch (e) {
+                    // Cross-origin restrictions may prevent this
+                    console.log('Could not access iframe content due to cross-origin policy');
+                }
+            });
+        }, 3000);
+    });
+    </script>
+</body>
+</html>

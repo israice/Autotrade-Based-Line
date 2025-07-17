@@ -1,0 +1,1 @@
+print("🪙  - LARGE LONG SELL")

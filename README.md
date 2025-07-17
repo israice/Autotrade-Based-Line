@@ -45,7 +45,7 @@ python run.py
 
 Система будет:
 1. Получать данные свечей с Binance согласно настройкам
-2. Сохранять данные в `CORE/AA_fetch_candles.json`
+2. Сохранять данные в `CORE/AA_small_new_candles_data.json`
 3. Последовательно запускать скрипты обработки
 4. Ожидать заданную задержку
 5. Повторять процесс до прерывания (Ctrl+C)
@@ -113,6 +113,10 @@ python -m http.server 8000
 - добавлен скрипт reset_STEP_AMOUNT_NOW
 - начал добовлять 1д свечи
 
+## v0.0.6
+- перепроверен модуль A_CLEAR_ON_RUN
+
+
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
 
@@ -139,7 +143,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "начал добовлять 1д свечи"  
+git commit -m "перепроверен модуль A_CLEAR_ON_RUN"  
 git push
 
 ```

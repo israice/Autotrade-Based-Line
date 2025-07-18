@@ -1,24 +1,14 @@
-- candle_0_close: null
-  candle_0_close_time: null
-  candle_0_high: null
-  candle_0_ignore: null
-  candle_0_low: null
-  candle_0_number_of_trades: null
-  candle_0_open: null
-  candle_0_open_time: null
-  candle_0_quote_asset_volume: null
-  candle_0_taker_buy_base_asset_volume: null
-  candle_0_taker_buy_quote_asset_volume: null
-  candle_0_volume: null
-- candle_1_close: null
-  candle_1_close_time: null
-  candle_1_high: null
-  candle_1_ignore: null
-  candle_1_low: null
-  candle_1_number_of_trades: null
-  candle_1_open: null
-  candle_1_open_time: null
-  candle_1_quote_asset_volume: null
-  candle_1_taker_buy_base_asset_volume: null
-  candle_1_taker_buy_quote_asset_volume: null
-  candle_1_volume: null
+- candle_0_open_time: '2025-07-18 21:45:00'
+  candle_0_open: '3.4611'
+  candle_0_high: '3.4638'
+  candle_0_low: '3.4602'
+  candle_0_close: '3.4609'
+  candle_0_volume: '336621.1'
+  candle_0_close_time: '2025-07-18 21:45:59'
+- candle_1_open_time: '2025-07-18 21:44:00'
+  candle_1_open: '3.4621'
+  candle_1_high: '3.4628'
+  candle_1_low: '3.4593'
+  candle_1_close: '3.4612'
+  candle_1_volume: '763509.6'
+  candle_1_close_time: '2025-07-18 21:44:59'

@@ -16,7 +16,7 @@ delay = settings.get(DELAY_KEY)
 if delay is None:
     raise ValueError(f"{DELAY_KEY} not found in {SETTINGS_FILE}")
 
-INITIAL_SCRIPTS = [
+ON_START_SCRIPTS = [
     "CORE/BACKEND/A_CLEAR_ON_RUN/A_run.py"
 ]
 
@@ -43,12 +43,12 @@ interrupted = False
 def signal_handler(sig, frame):
     global interrupted
     interrupted = True
-    print("Interrupt received, will finish current scripts and exit.")
+    print("- - STOP - - Interrupt received, will finish current scripts and exit.")
 
 signal.signal(signal.SIGINT, signal_handler)
 
 # Run initial scripts once, without timing
-run_script_list(INITIAL_SCRIPTS, measure_time=False)
+run_script_list(ON_START_SCRIPTS, measure_time=False)
 
 while not interrupted:
     time.sleep(delay)

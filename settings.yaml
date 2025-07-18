@@ -2,8 +2,6 @@
 delay: 0.5                          # Delay between execution cycles (in seconds)
 
 # exchange settings
-exchange: binance                 # Exchange (currently only binance is supported)
-market_type: PERPETUAL            # Market type (currently only PERPETUAL is supported)
 symbol: XRPUSDT                   # Trading pair symbol
 buy_interval: 1m                  # Candle interval (e.g., 1m, 5m, 15m, 1h)
 sell_interval: 1h                 # Candle interval for sell (e.g., 1m, 5m, 15m, 1h)

@@ -68,10 +68,11 @@ def main():
     candles = fetch_binance_candles(SYMBOL, INTERVAL, LIMIT)
     if candles:
         save_candles_to_yaml(candles)
-        print(f"Successfully saved {LIMIT} candles for {SYMBOL} at {INTERVAL} interval")
     
     execution_time = time.time() - start_time
-    print(f"Script execution time: {execution_time:.2f} seconds")
+    print(f"- - A - - Successfully saved {LIMIT} candles for {SYMBOL} at {INTERVAL} interval")
+    # print(f"Script execution time: {execution_time:.2f} seconds")
 
 if __name__ == "__main__":
     main()
+

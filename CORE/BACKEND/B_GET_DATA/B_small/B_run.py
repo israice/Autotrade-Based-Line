@@ -1,25 +1,50 @@
-import sys
 import os
-sys.dont_write_bytecode = True
+import subprocess
+import time
+from pathlib import Path
 
-# ==== НАСТРОЙКИ ====
-PROJECT_ROOT_LEVELS_UP = 4
+# List of scripts to run
 SCRIPTS = [
     'CORE/BACKEND/B_GET_DATA/B_small/BA_get_small_candles.py',
-    'CORE/BACKEND/B_GET_DATA/B_small/BB_create_small_data.py',
-    'CORE/BACKEND/B_GET_DATA/B_small/BC_create_large_data.py',
 ]
-SCRIPT_ENCODING = 'utf-8'
 
-# ==== ОСНОВНОЙ КОД ====
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), *(['..'] * PROJECT_ROOT_LEVELS_UP)))
-for script in SCRIPTS:
-    script_path = os.path.join(project_root, script)
-    try:
-        with open(script_path, encoding=SCRIPT_ENCODING) as f:
-            code = compile(f.read(), script_path, 'exec')
-            exec(code, {'__name__': '__main__', '__file__': script_path})
-    except Exception as e:
-        print(f'Error while running {script}: {e}')
-        break
+def run_scripts():
+    # Record start time
+    start_time = time.time()
+    
+    # Get project root directory (where .env file is located)
+    project_root = Path(__file__).parent
+    while not (project_root / '.env').exists():
+        project_root = project_root.parent
+        if project_root == project_root.parent:  # Reached filesystem root
+            raise FileNotFoundError(".env file not found in project directory or its parents")
+    
+    # Run each script
+    for script_path in SCRIPTS:
+        full_path = project_root / script_path
+        if not full_path.exists():
+            print(f"Error: Script {script_path} not found")
+            continue
+            
+        try:
+            # Run script and capture output
+            result = subprocess.run(
+                ['python', str(full_path)],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            # Print non-empty output lines
+            for line in result.stdout.splitlines():
+                if line.strip():
+                    print(line)
+                    
+        except subprocess.CalledProcessError as e:
+            print(f"Error running {script_path}: {e.stderr}")
+    
+    # Calculate and display execution time
+    execution_time = time.time() - start_time
+    # print(f"- B - - Total execution time: {execution_time:.2f} seconds")
 
+if __name__ == '__main__':
+    run_scripts()

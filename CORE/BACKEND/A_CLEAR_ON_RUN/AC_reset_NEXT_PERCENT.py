@@ -56,7 +56,6 @@ def update_target_yaml(target_path, target_keys, new_value):
             print(f"Warning: Key '{key}' not found in {target_path}")
     if updated:
         save_yaml(target_data, target_path)
-        print(f"Successfully updated")
     else:
         print(f"No updates made to {target_path}")
 
@@ -77,7 +76,8 @@ def main():
         
         # Calculate and display execution time
         execution_time = time.time() - start_time
-        print(f"Script execution time: {execution_time:.4f} seconds")
+        print(f"- - A - - Successfully updated")
+        # print(f"Script execution time: {execution_time:.4f} seconds")
         
     except Exception as e:
         print(f"Error: {str(e)}")
@@ -85,3 +85,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

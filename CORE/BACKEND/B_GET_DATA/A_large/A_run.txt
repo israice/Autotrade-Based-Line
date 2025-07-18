@@ -4,10 +4,7 @@
 скрипт запускает по очереди скрипты из списка SCRIPTS
 
 SCRIPTS = [
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AA_reset_clone_candles_file.py',
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AB_get_large_candles.py',
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AC_reset_NEXT_PERCENT.py',
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AD_reset_NEXT_AMOUNT.py',
+    'CORE/BACKEND/B_GET_DATA/A_large/AA_get_large_candles.py',
 ]
 
 выводи в косноль сообщения из запущенных скриптов

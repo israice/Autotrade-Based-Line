@@ -35,9 +35,11 @@ def main():
             # Process data to set non-null values to null
             modified_data = set_non_null_to_null(data)
             
+
             # Save modified data back to file
             save_yaml_file(file_path, modified_data)
             
+
         except FileNotFoundError as e:
             raise e
         except Exception as e:

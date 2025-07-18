@@ -63,9 +63,10 @@ def update_yaml_value():
     end_time = time.time()
     execution_time = end_time - start_time
     print("- - A - - Candles amount reset")
-    print(f"Script execution time: {execution_time:.4f} seconds")
+    # print(f"Script execution time: {execution_time:.4f} seconds")
 
 if __name__ == "__main__":
     update_yaml_value()
+
 
 

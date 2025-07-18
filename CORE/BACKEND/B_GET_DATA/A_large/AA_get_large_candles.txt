@@ -1,0 +1,52 @@
+
+создай python скрипт
+
+в файле settings.yaml 
+находится переменные с значениями
+symbol: XRPUSDT 
+sell_interval: 3m 
+candles_limit: 2
+
+надо сделать запрос на binance perpetual futures на публичный API
+для получения свечей symbol в интервале sell_interval количество свечей candles_limit
+
+полученные свечи надо записать в файл
+CORE\DATA\B_large_new_candles_data.yaml
+
+формат записи 
+- candle_0_open_time: '2025-07-17 00:28:00'
+  candle_0_open: '3.0617'
+  candle_0_high: '3.0617'
+  candle_0_low: '3.0598'
+  candle_0_close: '3.0599'
+  candle_0_volume: '162915.6'
+  candle_0_close_time: '2025-07-17 00:28:59'
+- candle_1_open_time: '2025-07-17 00:27:00'
+  candle_1_open: '3.0671'
+  candle_1_high: '3.0674'
+  candle_1_low: '3.0617'
+  candle_1_close: '3.0617'
+  candle_1_volume: '777271.9'
+  candle_1_close_time: '2025-07-17 00:27:59'
+
+candle_0 это текущая свеча
+candle_1 это предыдущая свеча
+и так далее, начинается все именно с текущей свечи 
+
+
+
+все пути указаны от корня проекта там где находится файл .env
+пути используй с прямые слэши 
+
+отоброжай замер времени выполнения всего скрипта
+
+сделай максимально универсально 
+с поддержкой всех интервалов и недельных и месячных 
+
+настройки вверху
+функции в низу
+
+не варху настройки 
+    symbol = settings.get('symbol')
+    interval = settings.get('sell_interval')
+    limit = settings.get('candles_limit')

@@ -116,6 +116,7 @@ python -m http.server 8000
 ## v0.0.6
 - перепроверен модуль A_CLEAR_ON_RUN
 - перепроверен модуль B_GET_DATA
+- перепроверен модуль C_CHECK_CANDLE_END
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
@@ -143,7 +144,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "перепроверен модуль B_GET_DATA"  
+git commit -m "перепроверен модуль C_CHECK_CANDLE_END"  
 git push
 
 ```

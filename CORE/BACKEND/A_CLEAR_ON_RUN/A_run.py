@@ -6,9 +6,8 @@ from pathlib import Path
 # List of scripts to run
 SCRIPTS = [
     'CORE/BACKEND/A_CLEAR_ON_RUN/AA_reset_clone_candles_file.py',
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AB_get_large_candles.py',
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AC_reset_NEXT_PERCENT.py',
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AD_reset_NEXT_AMOUNT.py',
+    'CORE/BACKEND/A_CLEAR_ON_RUN/AB_reset_NEXT_PERCENT.py',
+    'CORE/BACKEND/A_CLEAR_ON_RUN/AC_reset_NEXT_AMOUNT.py',
 ]
 
 def run_scripts():
@@ -47,7 +46,7 @@ def run_scripts():
     
     # Calculate and display execution time
     execution_time = time.time() - start_time
-    print(f"- A - - Total execution time: {execution_time:.2f} seconds")
+    # print(f"- A - - Total execution time: {execution_time:.2f} seconds")
 
 if __name__ == '__main__':
     run_scripts()

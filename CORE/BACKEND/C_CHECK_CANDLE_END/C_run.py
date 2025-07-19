@@ -4,8 +4,12 @@ import time
 from pathlib import Path
 
 # Configuration
-B_CANDLES_FILE = 'CORE/DATA/B_large_new_candles_data.yaml'
-E_CANDLES_FILE = 'CORE/DATA/E_large_old_candles_data.yaml'
+PROJECT_ROOT = Path.cwd()
+B_LARGE_YAML = 'CORE/DATA/B_large_new_candles_data.yaml'
+E_LARGE_YAML = 'CORE/DATA/E_large_old_candles_data.yaml'
+A_SMALL_YAML = 'CORE/DATA/A_small_new_candles_data.yaml'
+D_SMALL_YAML = 'CORE/DATA/D_small_old_candles_data.yaml'
+
 SCRIPTS_LARGE = [
     'CORE/BACKEND/C_CHECK_CANDLE_END/A_large/A_run_large.py',
 ]
@@ -13,46 +17,46 @@ SCRIPTS_SMALL = [
     'CORE/BACKEND/C_CHECK_CANDLE_END/B_small/B_run_small.py',
 ]
 
-def read_candle_close_time(file_path):
-    """Read candle_0_close_time from a YAML file."""
+def load_yaml_file(file_path):
     try:
-        with open(file_path, 'r') as file:
+        with open(PROJECT_ROOT / file_path, 'r') as file:
             data = yaml.safe_load(file)
-            return data[0]['candle_0_close_time']
-    except Exception as e:
-        print(f"Error reading {file_path}: {e}")
+            return data[0].get('candle_0_open_time') if data else None
+    except (FileNotFoundError, yaml.YAMLError) as e:
+        print(f"Error loading {file_path}: {e}")
         return None
 
 def run_scripts(scripts):
-    """Run a list of scripts and print their output."""
+    start_time = time.time()
     for script in scripts:
+        script_path = PROJECT_ROOT / script
         try:
-            result = subprocess.run(['python', script], capture_output=True, text=True, check=True)
-            output = result.stdout.strip()
-            if output:
-                print(output)
+            result = subprocess.run(['python', str(script_path)], capture_output=True, text=True, check=True)
+            if result.stdout:
+                print(result.stdout.strip())
+            if result.stderr:
+                print(result.stderr.strip())
         except subprocess.CalledProcessError as e:
             print(f"Error running {script}: {e}")
-            print(e.stderr.strip())
+    end_time = time.time()
+    # print(f"Script execution time: {end_time - start_time:.2f} seconds")
 
 def main():
-    """Compare candle close times and run appropriate scripts."""
-    start_time = time.time()
-    
-    b_close_time = read_candle_close_time(B_CANDLES_FILE)
-    e_close_time = read_candle_close_time(E_CANDLES_FILE)
-    
-    if b_close_time is None or e_close_time is None:
-        # print("Failed to read one or both candle close times.")
-        return
-    
-    if b_close_time != e_close_time:
-        run_scripts(SCRIPTS_LARGE)
-    else:
-        run_scripts(SCRIPTS_SMALL)
-    
-    execution_time = time.time() - start_time
-    # print(f"Script execution time: {execution_time:.2f} seconds")
+    # Compare large candle times
+    b_large_time = load_yaml_file(B_LARGE_YAML)
+    e_large_time = load_yaml_file(E_LARGE_YAML)
 
-if __name__ == "__main__":
+    if b_large_time is None or e_large_time is None or b_large_time == e_large_time:
+        # Compare small candle times
+        a_small_time = load_yaml_file(A_SMALL_YAML)
+        d_small_time = load_yaml_file(D_SMALL_YAML)
+        
+        if a_small_time is not None and d_small_time is not None and a_small_time != d_small_time:
+            print("Small candle times differ, running small scripts...")
+            run_scripts(SCRIPTS_SMALL)
+    else:
+        print("Large candle times differ, running large scripts...")
+        run_scripts(SCRIPTS_LARGE)
+
+if __name__ == '__main__':
     main()

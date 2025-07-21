@@ -6,7 +6,7 @@ import os
 
 # Configuration
 SETTINGS_FILE = 'settings.yaml'
-OUTPUT_FILE = 'CORE/DATA/A_small_new_candles_data.yaml'
+OUTPUT_FILE = 'CORE/DATA/B_large_new_candles_data.yaml'
 BINANCE_API_URL = 'https://fapi.binance.com/fapi/v1/klines'
 
 # Load settings from YAML file
@@ -14,7 +14,7 @@ with open(SETTINGS_FILE, 'r') as file:
     settings = yaml.safe_load(file)
 
 SYMBOL = settings.get('symbol')
-INTERVAL = settings.get('buy_interval')
+INTERVAL = settings.get('sell_interval')
 LIMIT = settings.get('candles_limit')
 
 def fetch_binance_candles(symbol, interval, limit):
@@ -70,7 +70,7 @@ def main():
         save_candles_to_yaml(candles)
     
     execution_time = time.time() - start_time
-    print(f"- - B - - Successfully saved {LIMIT} candles for {SYMBOL} at {INTERVAL} interval")
+    print(f"- - A - - Successfully saved {LIMIT} candles for {SYMBOL} at {INTERVAL} interval")
     # print(f"Script execution time: {execution_time:.2f} seconds")
 
 if __name__ == "__main__":

@@ -4,14 +4,14 @@
 в файле settings.yaml 
 находится переменные с значениями
 symbol: XRPUSDT 
-buy_interval: 3m 
+sell_interval: 3m 
 candles_limit: 2
 
 надо сделать запрос на binance perpetual futures на публичный API
-для получения свечей symbol в интервале buy_interval количество свечей candles_limit
+для получения свечей symbol в интервале sell_interval количество свечей candles_limit
 
 полученные свечи надо записать в файл
-CORE\DATA\A_small_new_candles_data.yaml
+CORE\DATA\B_large_new_candles_data.yaml
 
 формат записи 
 - candle_0_open_time: '2025-07-17 00:28:00'
@@ -48,5 +48,5 @@ candle_1 это предыдущая свеча
 
 не варху настройки 
     symbol = settings.get('symbol')
-    interval = settings.get('buy_interval')
+    interval = settings.get('sell_interval')
     limit = settings.get('candles_limit')

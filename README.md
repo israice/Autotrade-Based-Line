@@ -50,6 +50,7 @@ autotrade-based-line — это система мониторинга данны
 - перепроверен модуль B_GET_DATA
 - перепроверен модуль C_CHECK_CANDLE_END
 - исправленно получение первых свечей
+- перепроверен модуль D_CHECK_SELL_PERCENT
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
@@ -77,7 +78,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "исправленно получение первых свечей"  
+git commit -m "перепроверен модуль D_CHECK_SELL_PERCENT"  
 git push
 
 ```

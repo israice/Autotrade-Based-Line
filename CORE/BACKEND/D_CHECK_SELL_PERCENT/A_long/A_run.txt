@@ -4,11 +4,11 @@
 скрипт запускает по очереди скрипты из списка SCRIPTS
 
 SCRIPTS = [
-    'CORE/BACKEND/B_GET_DATA/A_large/AA_get_large_candles.py',
+    'CORE/BACKEND/C_CHECK_CANDLE_END/A_large/A_long/AA_sell_short_order.py',
 ]
 
 выводи в косноль сообщения из запущенных скриптов
-не выводятся пустые строки в консоль
+запрети вывод дополнительных пустых строк в консоле 
 
 отоброжай замер времени выполнения скрипта СПИСКА в консоли
 

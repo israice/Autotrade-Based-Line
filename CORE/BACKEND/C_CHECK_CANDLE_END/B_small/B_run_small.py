@@ -4,71 +4,48 @@ import time
 from pathlib import Path
 
 # Configuration
-NEW_CANDLES_FILE = 'CORE/DATA/A_small_new_candles_data.yaml'
-OLD_CANDLES_FILE = 'CORE/DATA/D_small_old_candles_data.yaml'
+CONFIG_FILE = "CORE/DATA/C_temp_config.yaml"
+TREND_KEY = "TREND_SMALL"
+GREEN_VALUE = "GREEN"
+RED_VALUE = "RED"
+
 SCRIPTS_LONG = [
     'CORE/BACKEND/C_CHECK_CANDLE_END/B_small/A_long/A_run.py',
 ]
 SCRIPTS_SHORT = [
     'CORE/BACKEND/C_CHECK_CANDLE_END/B_small/B_short/B_run.py',
 ]
-CANDLE_KEY = 'candle_0_open'
 
-def load_yaml_file(file_path):
-    """Load and return data from a YAML file."""
-    try:
-        with open(file_path, 'r') as file:
-            return yaml.safe_load(file)
-    except Exception as e:
-        print(f"Error loading {file_path}: {e}")
-        return None
+# Functions
+def load_config(file_path):
+    with open(file_path, 'r') as file:
+        return yaml.safe_load(file)
 
-def get_candle_value(data, key):
-    """Extract candle value from YAML data."""
-    if data and isinstance(data, list) and len(data) > 0:
-        return float(data[0].get(key, 0))
-    return None
-
-def run_scripts(scripts):
-    """Execute a list of scripts and print their output."""
-    start_time = time.time()
-    for script in scripts:
-        script_path = Path(script)
-        if script_path.exists():
-            try:
-                result = subprocess.run(['python', str(script_path)], 
-                                     capture_output=True, 
-                                     text=True, 
-                                     check=True)
-                if result.stdout:
-                    print(result.stdout.strip())
-                if result.stderr:
-                    print(result.stderr.strip())
-            except subprocess.CalledProcessError as e:
-                print(f"Error running {script}: {e}")
-        else:
-            print(f"Script not found: {script}")
-    end_time = time.time()
-    # print(f"Total execution time: {end_time - start_time:.2f} seconds")
+def run_script(script_path):
+    result = subprocess.run(['python', script_path], capture_output=True, text=True)
+    output = result.stdout.strip()
+    if output:
+        print(output)
 
 def main():
-    """Compare candle values and run appropriate scripts."""
-    new_data = load_yaml_file(NEW_CANDLES_FILE)
-    old_data = load_yaml_file(OLD_CANDLES_FILE)
-    
-    new_value = get_candle_value(new_data, CANDLE_KEY)
-    old_value = get_candle_value(old_data, CANDLE_KEY)
-    
-    if new_value is None or old_value is None:
-        print("Error: Could not retrieve candle values")
-        return
-    
-    if new_value > old_value:
-        run_scripts(SCRIPTS_LONG)
-    elif new_value < old_value:
-        run_scripts(SCRIPTS_SHORT)
-    # else:
-    #     print("Candle values are equal. No scripts will be executed.")
+    start_time = time.time()
+    project_root = Path.cwd()
+    config_path = project_root / CONFIG_FILE
+    config = load_config(config_path)
+    trend_value = config.get(TREND_KEY)
+
+    scripts_to_run = []
+    if trend_value == GREEN_VALUE:
+        scripts_to_run = SCRIPTS_LONG
+    elif trend_value == RED_VALUE:
+        scripts_to_run = SCRIPTS_SHORT
+
+    for script in scripts_to_run:
+        script_path = project_root / script
+        run_script(script_path)
+
+    execution_time = time.time() - start_time
+    # print(f"Total execution time: {execution_time:.2f} seconds")
 
 if __name__ == "__main__":
     main()

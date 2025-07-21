@@ -1,48 +1,54 @@
-import yaml
+import os
 import subprocess
 import time
-from datetime import datetime
+from pathlib import Path
 
-# Settings
-B_CANDLES_FILE = 'CORE/DATA/B_large_new_candles_data.yaml'
-E_CANDLES_FILE = 'CORE/DATA/E_large_old_candles_data.yaml'
-SCRIPTS_LARGE = ['CORE/BACKEND/B_GET_DATA/A_large/A_run.py']
-SCRIPTS_SMALL = ['CORE/BACKEND/B_GET_DATA/B_small/B_run.py']
+# List of scripts to run
+SCRIPTS = [
+    'CORE/BACKEND/B_GET_DATA/BA_check_if_new_large_candle_needed.py',
+    'CORE/BACKEND/B_GET_DATA/BB_get_small_candles.py',
+    'CORE/BACKEND/B_GET_DATA/BC_create_percent.py',
+]
 
-# Functions
-def load_yaml_file(file_path):
-    with open(file_path, 'r') as file:
-        return yaml.safe_load(file)
-
-def get_candle_close_time(data):
-    return data[0]['candle_0_close_time']
-
-def run_scripts(scripts):
-    for script in scripts:
-        result = subprocess.run(['python', script], capture_output=True, text=True)
-        if result.stdout:
-            print(result.stdout.strip())
-        if result.stderr:
-            print(result.stderr.strip())
-
-def main():
+def run_scripts():
+    # Get the project root directory (where .env is located)
+    project_root = Path(__file__).parent
+    while not (project_root / '.env').exists() and project_root != project_root.parent:
+        project_root = project_root.parent
+    
     start_time = time.time()
     
-    # Load YAML files
-    b_data = load_yaml_file(B_CANDLES_FILE)
-    e_data = load_yaml_file(E_CANDLES_FILE)
-    
-    # Get close times
-    b_close_time = get_candle_close_time(b_data)
-    e_close_time = get_candle_close_time(e_data)
-    
-    # Compare and run appropriate scripts
-    scripts_to_run = SCRIPTS_LARGE if b_close_time != e_close_time else SCRIPTS_SMALL
-    run_scripts(scripts_to_run)
-    
-    # Print execution time
-    execution_time = time.time() - start_time
-    # print(f"Script execution time: {execution_time:.2f} seconds")
+    for script in SCRIPTS:
+        script_path = project_root / script
+        if not script_path.exists():
+            print(f"Error: Script {script} not found")
+            continue
+            
+        try:
+            # Run script and capture output
+            process = subprocess.run(
+                ['python', str(script_path)],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            
+            # Print non-empty output lines
+            output = process.stdout.strip()
+            if output:
+                print(output)
+                
+            # Print non-empty error lines
+            error = process.stderr.strip()
+            if error:
+                print(error)
+                
+        except subprocess.CalledProcessError as e:
+            print(f"Error running {script}: {e.stderr.strip()}")
+            
+    end_time = time.time()
+    execution_time = end_time - start_time
+    # print(f"Total execution time: {execution_time:.2f} seconds")
 
 if __name__ == "__main__":
-    main()
+    run_scripts()

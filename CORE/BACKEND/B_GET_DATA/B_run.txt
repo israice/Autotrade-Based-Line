@@ -1,26 +1,14 @@
 
 создай python скрипт
 
-скрипт сравнивает значение переменной 
-candle_0_close_time: '2025-07-18 09:38:59'
-из файла
-CORE/DATA/B_large_new_candles_data.yaml
+скрипт запускает по очереди скрипты из списка SCRIPTS
 
-сравнивает значение переменной 
-candle_0_close_time: '2025-07-18 09:38:59'
-из файла
-CORE/DATA/E_large_old_candles_data.yaml
 
-если значения не совпадают, то запускает скрипт
-
-SCRIPTS_LARGE = [
-    'CORE/BACKEND/B_GET_DATA/A_large/A_run.py',
+SCRIPTS = [
+    'CORE/BACKEND/B_GET_DATA/B_large/B_run.py',
+    'CORE/BACKEND/B_GET_DATA/A_small/A_run.py',
 ]
 
-если значения совпадают, то запускает скрипт
-SCRIPTS_SMALL = [
-    'CORE/BACKEND/B_GET_DATA/B_small/B_run.py',
-]
 
 выводи в косноль сообщения из запущенных скриптов
 убедись что не выводятся пустые строки в консоль
@@ -28,24 +16,3 @@ SCRIPTS_SMALL = [
 отоброжай замер времени выполнения скрипта СПИСКА в консоли
 
 все пути указаны от корня проекта там где находится файл .env
-
-все настройки вверху
-функции в низу
-
-
-
-вот пример файла yaml
-- candle_0_open_time: '2025-07-18 09:38:00'
-  candle_0_open: '3.5613'
-  candle_0_high: '3.5629'
-  candle_0_low: '3.5600'
-  candle_0_close: '3.5629'
-  candle_0_volume: '324334.0'
-  candle_0_close_time: '2025-07-18 09:38:59'
-- candle_1_open_time: '2025-07-18 09:37:00'
-  candle_1_open: '3.5533'
-  candle_1_high: '3.5628'
-  candle_1_low: '3.5472'
-  candle_1_close: '3.5613'
-  candle_1_volume: '1252038.3'
-  candle_1_close_time: '2025-07-18 09:37:59'

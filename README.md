@@ -53,6 +53,7 @@ autotrade-based-line — это система мониторинга данны
 - перепроверен модуль D_CHECK_SELL_PERCENT
 - создание D_CHECK_SELL_PERCENT
 - создание .env
+- переименование .env2 в .env
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
@@ -80,7 +81,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "создание .env"  
+git commit -m "спереименование .env2 в .env"  
 git push
 
 ```

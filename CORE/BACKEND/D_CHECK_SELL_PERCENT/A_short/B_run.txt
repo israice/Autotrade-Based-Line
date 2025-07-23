@@ -4,7 +4,8 @@
 скрипт запускает по очереди скрипты из списка SCRIPTS
 
 SCRIPTS = [
-    'CORE/BACKEND/C_CHECK_CANDLE_END/A_large/A_long/AA_sell_short_order.py',
+    'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/BA_add_to_NEXT_SHORT_PERCENT.py',
+    'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/BB_sell_short_order.py',
 ]
 
 выводи в косноль сообщения из запущенных скриптов
@@ -13,3 +14,5 @@ SCRIPTS = [
 отоброжай замер времени выполнения скрипта СПИСКА в консоли
 
 все пути указаны от корня проекта там где находится файл .env
+
+в консоли не должно быть пустых строк 

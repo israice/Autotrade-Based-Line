@@ -24,4 +24,4 @@ for src, dst in file_pairs:
         print(f"Ошибка при копировании {src} -> {dst}: {e}")
         sys.exit(1)
 
-print("- - Z - - Candles cloned successfully.")
+# print("- - Z - - Candles cloned successfully.")

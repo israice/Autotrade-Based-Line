@@ -4,9 +4,9 @@
 в файле 
 CORE/DATA/C_temp_config.yaml
 есть переменные 
-PERCENTAGE_CHANGE_LARGE: -0.191%
+PERCENTAGE_CHANGE_LARGE: -0.191
 TREND_LARGE: RED
-PERCENTAGE_CHANGE_SMALL: -0.060%
+PERCENTAGE_CHANGE_SMALL: -0.060
 TREND_SMALL: RED
 
 скрипт 
@@ -26,11 +26,11 @@ CORE/DATA/C_temp_config.yaml
 в переменных надо записать разницу в прецнтах
 и в зависимости от того отрецательное значение или положительное процетное соотношение 
 
-PERCENTAGE_CHANGE_SMALL: -0.235%
+PERCENTAGE_CHANGE_SMALL: -0.235
 TREND_SMALL: RED
 
 когда PERCENTAGE_CHANGE_SMALL 
-равна 0% то TREND_SMALL заменять не надо
+равна 0 то TREND_SMALL заменять не надо
 
 запись делай безопастных методом чтобы не изменить строение файла 
 надо только заменить значения переменных на тех строках где они естьне влияя на другие строки 
@@ -70,7 +70,7 @@ TREND_SMALL: RED
   candle_1_close_time: '2025-07-17 00:27:59'
 
 для 
-PERCENTAGE_CHANGE_LARGE: -0.191%
+PERCENTAGE_CHANGE_LARGE: -0.191
 TREND_LARGE: RED
 
 сравнивает значения переменных 
@@ -90,8 +90,8 @@ CORE/DATA/C_temp_config.yaml
 в переменных надо записать разницу в прецнтах
 и в зависимости от того отрецательное значение или положительное процетное соотношение 
 
-PERCENTAGE_CHANGE_LARGE: -0.191%
+PERCENTAGE_CHANGE_LARGE: -0.191
 TREND_LARGE: RED
 
 когда PERCENTAGE_CHANGE_LARGE 
-равна 0% то TREND_LARGE заменять не надо
+равна 0 то TREND_LARGE заменять не надо

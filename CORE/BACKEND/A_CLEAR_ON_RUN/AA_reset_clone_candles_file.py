@@ -48,4 +48,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-print(f"- - A - - Old files nulled")
+# print(f"- - A - - Old files nulled")

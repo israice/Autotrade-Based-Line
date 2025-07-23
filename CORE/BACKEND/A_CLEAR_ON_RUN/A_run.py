@@ -7,7 +7,7 @@ from pathlib import Path
 SCRIPTS = [
     'CORE/BACKEND/A_CLEAR_ON_RUN/AA_reset_clone_candles_file.py',
     'CORE/BACKEND/A_CLEAR_ON_RUN/AB_get_large_candles.py',
-    'CORE/BACKEND/A_CLEAR_ON_RUN/AC_reset_NEXT_PERCENT.py',
+    'CORE/BACKEND/1_TOOLS/reset_next_percent.py',
     'CORE/BACKEND/A_CLEAR_ON_RUN/AD_reset_NEXT_AMOUNT.py',
 ]
 

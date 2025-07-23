@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 
 SCRIPTS = [
-    'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/BA_add_to_NEXT_LONG_PERCENT.py',
+    'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/BA_add_to_NEXT_SHORT_PERCENT.py',
     'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/BB_sell_short_order.py',
 ]
 

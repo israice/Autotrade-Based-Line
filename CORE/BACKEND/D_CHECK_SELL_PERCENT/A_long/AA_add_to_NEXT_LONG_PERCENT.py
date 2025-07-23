@@ -1,72 +1,74 @@
-import yaml
 import os
 import time
-from pathlib import Path
+import yaml
+import math
 
-# Configuration
-TEMP_CONFIG_PATH = "CORE/DATA/C_temp_config.yaml"
-SETTINGS_PATH = "settings.yaml"
-PERCENTAGE_CHANGE_LARGE_KEY = "PERCENTAGE_CHANGE_LARGE"
-NEXT_LONG_PERCENT_KEY = "NEXT_LONG_PERCENT"
-SELL_ON_PERCENT_CHANGE_KEY = "SELL_ON_PERCENT_CHANGE"
+# Настройки
+CORE_CONFIG_PATH = 'CORE/DATA/C_temp_config.yaml'
+SETTINGS_PATH = 'settings.yaml'
+PERCENTAGE_CHANGE_LARGE_KEY = 'PERCENTAGE_CHANGE_LARGE'
+NEXT_LONG_PERCENT_KEY = 'NEXT_LONG_PERCENT'
+SELL_ON_PERCENT_CHANGE_KEY = 'SELL_ON_PERCENT_CHANGE'
 
-def read_yaml_preserve_format(file_path):
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
-        data = yaml.safe_load(''.join(lines))
-    return data, lines
+# Проверка существования файлов
+if not os.path.exists(CORE_CONFIG_PATH):
+    raise FileNotFoundError(f"File not found: {CORE_CONFIG_PATH}")
+if not os.path.exists(SETTINGS_PATH):
+    raise FileNotFoundError(f"File not found: {SETTINGS_PATH}")
 
-def write_yaml_preserve_format(file_path, lines, key, new_value):
-    with open(file_path, 'w') as file:
-        for line in lines:
-            if line.strip().startswith(f"{key}:"):
-                file.write(f"{key}: {new_value:.3f}\n")
-            else:
-                file.write(line)
+start_time = time.time()
 
-def main():
-    start_time = time.time()
-    
-    # Check if files exist
-    if not os.path.exists(TEMP_CONFIG_PATH):
-        print(f"Error: File {TEMP_CONFIG_PATH} not found")
-        return
-    if not os.path.exists(SETTINGS_PATH):
-        print(f"Error: File {SETTINGS_PATH} not found")
-        return
+# Чтение settings.yaml
+with open(SETTINGS_PATH, 'r') as f:
+    settings_data = yaml.safe_load(f)
 
-    # Read YAML files
-    try:
-        temp_config, temp_lines = read_yaml_preserve_format(TEMP_CONFIG_PATH)
-        settings_config, _ = read_yaml_preserve_format(SETTINGS_PATH)
-    except yaml.YAMLError as e:
-        print(f"Error: Failed to parse YAML files - {e}")
-        return
+sell_on_percent_change = settings_data.get(SELL_ON_PERCENT_CHANGE_KEY)
+if sell_on_percent_change is None:
+    raise ValueError(f"Key not found: {SELL_ON_PERCENT_CHANGE_KEY} in {SETTINGS_PATH}")
 
-    # Check if required keys exist
-    if PERCENTAGE_CHANGE_LARGE_KEY not in temp_config:
-        print(f"Error: {PERCENTAGE_CHANGE_LARGE_KEY} not found in {TEMP_CONFIG_PATH}")
-        return
-    if NEXT_LONG_PERCENT_KEY not in temp_config:
-        print(f"Error: {NEXT_LONG_PERCENT_KEY} not found in {TEMP_CONFIG_PATH}")
-        return
-    if SELL_ON_PERCENT_CHANGE_KEY not in settings_config:
-        print(f"Error: {SELL_ON_PERCENT_CHANGE_KEY} not found in {SETTINGS_PATH}")
-        return
+# Чтение CORE/DATA/C_temp_config.yaml как текст для сохранения структуры
+with open(CORE_CONFIG_PATH, 'r') as f:
+    core_lines = f.readlines()
 
-    # Get values
-    percentage_change_large = temp_config[PERCENTAGE_CHANGE_LARGE_KEY]
-    next_long_percent = temp_config[NEXT_LONG_PERCENT_KEY]
-    sell_on_percent_change = settings_config[SELL_ON_PERCENT_CHANGE_KEY]
+# Парсинг значений из core_config
+core_data = yaml.safe_load(''.join(core_lines))
 
-    # Compare and update if needed
-    if percentage_change_large > next_long_percent:
-        new_next_long_percent = percentage_change_large + sell_on_percent_change
-        write_yaml_preserve_format(TEMP_CONFIG_PATH, temp_lines, NEXT_LONG_PERCENT_KEY, new_next_long_percent)
+percentage_change_large = core_data.get(PERCENTAGE_CHANGE_LARGE_KEY)
+next_long_percent = core_data.get(NEXT_LONG_PERCENT_KEY)
 
-    # Print execution time
-    execution_time = time.time() - start_time
-    # print(f"Script execution time: {execution_time:.3f} seconds")
+if percentage_change_large is None:
+    raise ValueError(f"Key not found: {PERCENTAGE_CHANGE_LARGE_KEY} in {CORE_CONFIG_PATH}")
+if next_long_percent is None:
+    raise ValueError(f"Key not found: {NEXT_LONG_PERCENT_KEY} in {CORE_CONFIG_PATH}")
 
-if __name__ == "__main__":
-    main()
+if percentage_change_large > next_long_percent:
+    # Рассчет количества добавлений
+    diff = percentage_change_large - next_long_percent
+    additions_needed = math.ceil((diff + sell_on_percent_change) / sell_on_percent_change)
+    addition_total = additions_needed * sell_on_percent_change
+    new_next_long_percent = next_long_percent + addition_total
+    # Форматирование до 3 знаков
+    new_next_long_percent_str = f"{new_next_long_percent:.3f}"
+else:
+    new_next_long_percent_str = f"{next_long_percent:.3f}"
+
+# Форматирование percentage_change_large до 3 знаков (всегда заменяем для consistency)
+percentage_change_large_str = f"{percentage_change_large:.3f}"
+
+# Замена в строках
+updated_lines = []
+for line in core_lines:
+    if line.strip().startswith(PERCENTAGE_CHANGE_LARGE_KEY + ':'):
+        updated_lines.append(f"{PERCENTAGE_CHANGE_LARGE_KEY}: {percentage_change_large_str}\n")
+    elif line.strip().startswith(NEXT_LONG_PERCENT_KEY + ':'):
+        updated_lines.append(f"{NEXT_LONG_PERCENT_KEY}: {new_next_long_percent_str}\n")
+    else:
+        updated_lines.append(line)
+
+# Запись обратно
+with open(CORE_CONFIG_PATH, 'w') as f:
+    f.writelines(updated_lines)
+
+end_time = time.time()
+execution_time = end_time - start_time
+# print(f"Script execution time: {execution_time:.2f} seconds")

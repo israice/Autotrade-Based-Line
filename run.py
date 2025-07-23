@@ -23,7 +23,7 @@ ON_START_SCRIPTS = [
 MAIN_SCRIPTS = [
     "CORE/BACKEND/B_GET_DATA/B_run.py",
     "CORE/BACKEND/C_CHECK_CANDLE_END/C_run.py",
-    # "CORE/BACKEND/D_CHECK_SELL_PERCENT/D_run.py",
+    "CORE/BACKEND/D_CHECK_SELL_PERCENT/D_run.py",
     # "CORE/BACKEND/E_CHECK_LINE/E_run.py",
     "CORE/BACKEND/Z_CLONE_CANDLE/Z_run.py",
 ]
@@ -39,7 +39,7 @@ def run_script_list(scripts, measure_time=True):
     if measure_time:
         end_time = time.time()
         execution_time = end_time - start_time
-        print(f"Execution time for script list: {execution_time:.2f} seconds")
+        # print(f"Execution time for script list: {execution_time:.2f} seconds")
 
 interrupted = False
 

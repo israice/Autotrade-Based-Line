@@ -42,7 +42,7 @@ autotrade-based-line — это система мониторинга данны
 - добавлнно A_CLEAR_ON_RUN для обнуления данных 
 - осущестовлен CHECK_CANDLE_END
 - добавленна переменная NEXT_LONG_PERCENT в config
-- добавлен скрипт reset_STEP_AMOUNT_NOW
+- добавлен скрипт reset_NEXT_STEP_AMOUNT
 - начал добовлять 1д свечи
 
 ## v0.0.6
@@ -55,6 +55,7 @@ autotrade-based-line — это система мониторинга данны
 - создание .env
 - переименование .env2 в .env
 - перепроверен модуль D_CHECK_SELL_PERCENT
+- создание Y_MESSAGES
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
@@ -82,7 +83,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "перепроверен модуль D_CHECK_SELL_PERCENT"  
+git commit -m "создание Y_MESSAGES"  
 git push
 
 ```

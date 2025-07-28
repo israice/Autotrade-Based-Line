@@ -13,7 +13,7 @@ sys.dont_write_bytecode = True
 # ==== НАСТРОЙКИ ====
 PROJECT_ROOT_LEVELS_UP = 3  # сколько уровней вверх от текущего файла до корня проекта
 YAML_NEW_CANDLE_REL_PATH = 'CORE/DATA/A_small_new_candles_data.yaml'  # путь к файлу новых свечей (от корня)
-YAML_OLD_CANDLE_REL_PATH = 'CORE/DATA/D_small_old_candles_data.yaml'  # путь к файлу старых свечей (от корня)
+YAML_OLD_CANDLE_REL_PATH = 'CORE/DATA/E_small_old_candles_data.yaml'  # путь к файлу старых свечей (от корня)
 CANDLE_OPEN_TIME_KEY = 'candle_0_open_time'  # ключ времени открытия свечи
 YAML_ENCODING = 'utf-8'  # кодировка yaml-файлов
 SCRIPTS = [  # список скриптов, которые нужно запускать при смене свечи

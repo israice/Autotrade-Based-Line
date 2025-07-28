@@ -8,7 +8,7 @@ from pathlib import Path
 CONFIG_FILE = "CORE/DATA/C_temp_config.yaml"
 NEXT_LONG_PERCENT = "NEXT_LONG_PERCENT"
 NEXT_SHORT_PERCENT = "NEXT_SHORT_PERCENT"
-PERCENTAGE_CHANGE_LARGE = "PERCENTAGE_CHANGE_LARGE"
+LARGE_OPEN_CHANGE = "LARGE_OPEN_CHANGE"
 LONG_SCRIPTS = ["CORE/BACKEND/D_CHECK_SELL_PERCENT/A_long/A_run.py"]
 SHORT_SCRIPTS = ["CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/B_run.py"]
 
@@ -20,7 +20,7 @@ def load_config():
     with open(config_path, 'r') as file:
         config = yaml.safe_load(file)
     
-    required_keys = [PERCENTAGE_CHANGE_LARGE, NEXT_LONG_PERCENT, NEXT_SHORT_PERCENT]
+    required_keys = [LARGE_OPEN_CHANGE, NEXT_LONG_PERCENT, NEXT_SHORT_PERCENT]
     missing_keys = [key for key in required_keys if key not in config]
     if missing_keys:
         raise KeyError(f"Missing required configuration keys: {', '.join(missing_keys)}")
@@ -46,7 +46,7 @@ def run_scripts(scripts):
 def main():
     try:
         config = load_config()
-        percentage_change = config[PERCENTAGE_CHANGE_LARGE]
+        percentage_change = config[LARGE_OPEN_CHANGE]
         next_long_percent = config[NEXT_LONG_PERCENT]
         next_short_percent = config[NEXT_SHORT_PERCENT]
 

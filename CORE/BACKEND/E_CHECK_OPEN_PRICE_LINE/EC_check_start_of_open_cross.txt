@@ -1,0 +1,50 @@
+
+создай python скрипт
+
+в файле 
+CORE/DATA/C_temp_config.yaml
+LARGE_OPEN_STATUS: RED
+
+в файле
+CORE/DATA/D_temp_old_config.yaml
+LARGE_OPEN_STATUS: GREEN
+
+
+если в 
+C_temp_config
+GREEN
+и в 
+D_temp_old_config
+RED
+то запускай 
+CORE/BACKEND/E_CHECK_OPEN_PRICE_LINE/ZBA_sell_long_order.py
+
+если в 
+C_temp_config
+RED
+и в 
+D_temp_old_config
+GREEN
+то запускай 
+CORE/BACKEND/E_CHECK_OPEN_PRICE_LINE/ZBB_buy_short_order.py
+
+в любом другом случае ничего не делай
+
+
+
+
+пути используй с прямыми слэшами
+
+все пути указаны от корня проекта там где находится файл .env
+
+не создовай дефолтные значения в коде, выводи ошибку если значение не найдено
+
+
+полученные переменные и пути к ним 
+размести вверху в виде отдельных настроек
+для легкой настройки  
+а так же значения для записи 
+
+все переменные должны быть перечисленны
+только в верхней части кода
+включая такие как LARGE_OPEN_STATUS

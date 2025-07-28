@@ -3,8 +3,8 @@ import os
 
 # Configuration settings
 FILE_PATHS = [
-    "CORE/DATA/D_small_old_candles_data.yaml",
-    "CORE/DATA/E_large_old_candles_data.yaml"
+    "CORE/DATA/E_small_old_candles_data.yaml",
+    "CORE/DATA/F_large_old_candles_data.yaml"
 ]
 
 def load_yaml_file(file_path):

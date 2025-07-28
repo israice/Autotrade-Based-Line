@@ -4,7 +4,7 @@ import re
 SETTINGS_PATH = "settings.yaml"
 TRADE_CONFIG_PATH = "CORE/DATA/C_temp_config.yaml"
 START_AMOUNT_KEY = 'START_AMOUNT:'
-STEP_AMOUNT_NOW_KEY = 'STEP_AMOUNT_NOW:'
+NEXT_STEP_AMOUNT_KEY = 'NEXT_STEP_AMOUNT:'
 YAML_ENCODING = 'utf-8'
 
 # ==== ОСНОВНОЙ КОД ====
@@ -20,7 +20,7 @@ def get_sell_on_percent_change(settings_path):
 def update_NEXT_LONG_PERCENT(trade_config_path, new_value):
     with open(trade_config_path, 'r', encoding=YAML_ENCODING) as f:
         lines = f.readlines()
-    pattern = re.compile(rf'^({STEP_AMOUNT_NOW_KEY})\s*.*$')
+    pattern = re.compile(rf'^({NEXT_STEP_AMOUNT_KEY})\s*.*$')
     for i, line in enumerate(lines):
         if pattern.match(line.strip()):
             prefix = line.split(':', 1)[0]
@@ -28,7 +28,7 @@ def update_NEXT_LONG_PERCENT(trade_config_path, new_value):
             lines[i] = f'{indent}{prefix}: {new_value}\n'
             break
     else:
-        raise ValueError(f'{STEP_AMOUNT_NOW_KEY} not found in {trade_config_path}')
+        raise ValueError(f'{NEXT_STEP_AMOUNT_KEY} not found in {trade_config_path}')
     with open(trade_config_path, 'w', encoding=YAML_ENCODING) as f:
         f.writelines(lines)
 

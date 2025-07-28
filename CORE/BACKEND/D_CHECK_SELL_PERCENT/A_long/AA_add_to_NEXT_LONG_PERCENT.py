@@ -6,7 +6,7 @@ import math
 # Настройки
 CORE_CONFIG_PATH = 'CORE/DATA/C_temp_config.yaml'
 SETTINGS_PATH = 'settings.yaml'
-PERCENTAGE_CHANGE_LARGE_KEY = 'PERCENTAGE_CHANGE_LARGE'
+LARGE_OPEN_CHANGE_KEY = 'LARGE_OPEN_CHANGE'
 NEXT_LONG_PERCENT_KEY = 'NEXT_LONG_PERCENT'
 SELL_ON_PERCENT_CHANGE_KEY = 'SELL_ON_PERCENT_CHANGE'
 
@@ -33,17 +33,17 @@ with open(CORE_CONFIG_PATH, 'r') as f:
 # Парсинг значений из core_config
 core_data = yaml.safe_load(''.join(core_lines))
 
-percentage_change_large = core_data.get(PERCENTAGE_CHANGE_LARGE_KEY)
+LARGE_OPEN_CHANGE = core_data.get(LARGE_OPEN_CHANGE_KEY)
 next_long_percent = core_data.get(NEXT_LONG_PERCENT_KEY)
 
-if percentage_change_large is None:
-    raise ValueError(f"Key not found: {PERCENTAGE_CHANGE_LARGE_KEY} in {CORE_CONFIG_PATH}")
+if LARGE_OPEN_CHANGE is None:
+    raise ValueError(f"Key not found: {LARGE_OPEN_CHANGE_KEY} in {CORE_CONFIG_PATH}")
 if next_long_percent is None:
     raise ValueError(f"Key not found: {NEXT_LONG_PERCENT_KEY} in {CORE_CONFIG_PATH}")
 
-if percentage_change_large > next_long_percent:
+if LARGE_OPEN_CHANGE > next_long_percent:
     # Рассчет количества добавлений
-    diff = percentage_change_large - next_long_percent
+    diff = LARGE_OPEN_CHANGE - next_long_percent
     additions_needed = math.ceil((diff + sell_on_percent_change) / sell_on_percent_change)
     addition_total = additions_needed * sell_on_percent_change
     new_next_long_percent = next_long_percent + addition_total
@@ -52,14 +52,14 @@ if percentage_change_large > next_long_percent:
 else:
     new_next_long_percent_str = f"{next_long_percent:.3f}"
 
-# Форматирование percentage_change_large до 3 знаков (всегда заменяем для consistency)
-percentage_change_large_str = f"{percentage_change_large:.3f}"
+# Форматирование LARGE_OPEN_CHANGE до 3 знаков (всегда заменяем для consistency)
+LARGE_OPEN_CHANGE_str = f"{LARGE_OPEN_CHANGE:.3f}"
 
 # Замена в строках
 updated_lines = []
 for line in core_lines:
-    if line.strip().startswith(PERCENTAGE_CHANGE_LARGE_KEY + ':'):
-        updated_lines.append(f"{PERCENTAGE_CHANGE_LARGE_KEY}: {percentage_change_large_str}\n")
+    if line.strip().startswith(LARGE_OPEN_CHANGE_KEY + ':'):
+        updated_lines.append(f"{LARGE_OPEN_CHANGE_KEY}: {LARGE_OPEN_CHANGE_str}\n")
     elif line.strip().startswith(NEXT_LONG_PERCENT_KEY + ':'):
         updated_lines.append(f"{NEXT_LONG_PERCENT_KEY}: {new_next_long_percent_str}\n")
     else:

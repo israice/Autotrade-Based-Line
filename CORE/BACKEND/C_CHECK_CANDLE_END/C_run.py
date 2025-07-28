@@ -5,9 +5,9 @@ from pathlib import Path
 
 # Configuration
 LARGE_NEW_CANDLES_FILE = 'CORE/DATA/B_large_new_candles_data.yaml'
-LARGE_OLD_CANDLES_FILE = 'CORE/DATA/E_large_old_candles_data.yaml'
+LARGE_OLD_CANDLES_FILE = 'CORE/DATA/F_large_old_candles_data.yaml'
 SMALL_NEW_CANDLES_FILE = 'CORE/DATA/A_small_new_candles_data.yaml'
-SMALL_OLD_CANDLES_FILE = 'CORE/DATA/D_small_old_candles_data.yaml'
+SMALL_OLD_CANDLES_FILE = 'CORE/DATA/E_small_old_candles_data.yaml'
 CANDLE_KEY = 'candle_0_open_time'
 SCRIPTS_LARGE = ['CORE/BACKEND/C_CHECK_CANDLE_END/A_large/A_run_large.py']
 SCRIPTS_SMALL = ['CORE/BACKEND/C_CHECK_CANDLE_END/B_small/B_run_small.py']

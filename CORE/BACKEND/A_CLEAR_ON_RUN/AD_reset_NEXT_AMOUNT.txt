@@ -4,7 +4,7 @@
 в файле 
 CORE\DATA\C_temp_config.yaml
 есть переменная 
-STEP_AMOUNT_NOW: 0.266666
+NEXT_STEP_AMOUNT: 0.266666
 
 в файле 
 settings.yaml
@@ -13,7 +13,7 @@ START_AMOUNT: 0.2
 надо копировать значение из START_AMOUNT
 и присвоить это значение переменной
 чтобы получилось 
-STEP_AMOUNT_NOW: 0.2
+NEXT_STEP_AMOUNT: 0.2
 
 но записать надо только заменив значение переменной 
 на той же строке где и переменная 

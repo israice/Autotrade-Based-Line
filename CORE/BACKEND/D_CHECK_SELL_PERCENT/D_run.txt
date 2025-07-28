@@ -3,30 +3,30 @@
 
 в файле 
 CORE/DATA/C_temp_config.yaml
-PERCENTAGE_CHANGE_LARGE: 0.138
+LARGE_OPEN_CHANGE: 0.138
 значения могут быть как положительными так и отрицательными
 
 если 
 NEXT_LONG_PERCENT: 0.139
 меньше чем 
-PERCENTAGE_CHANGE_LARGE: 0.138
+LARGE_OPEN_CHANGE: 0.138
 то запускает по очереди список скриптов
 CORE/BACKEND/D_CHECK_SELL_PERCENT/A_long/A_run.py
 если больше то не запускает
 
 если значение отрицательное как в примере ниже
-PERCENTAGE_CHANGE_LARGE: -0.138
+LARGE_OPEN_CHANGE: -0.138
 то надо сверять с 
 NEXT_SHORT_PERCENT: -0.139
 если 
-PERCENTAGE_CHANGE_LARGE выше (отрицательно) чем 
+LARGE_OPEN_CHANGE выше (отрицательно) чем 
 NEXT_SHORT_PERCENT 
 то запускает по очереди список скриптов
 CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/B_run.py
 если ниже то не запускает
 
 например 
-PERCENTAGE_CHANGE_LARGE: -0.020
+LARGE_OPEN_CHANGE: -0.020
 значение не ниже чем 
 NEXT_SHORT_PERCENT: -0.070
 значит не надо запускать скрипты 

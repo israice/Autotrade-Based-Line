@@ -4,11 +4,11 @@
 в файле 
 CORE/DATA/C_temp_config.yaml
 проверяет значение пременной 
-TREND_SMALL: RED
+SMALL_OPEN_STATUS: RED
 
 
 если значение 
-TREND_SMALL: GREEN
+SMALL_OPEN_STATUS: GREEN
 то запускает список SCRIPTS_LONG по очереди 
 SCRIPTS_LONG = [
     'CORE/BACKEND/C_CHECK_CANDLE_END/B_small/A_long/A_run.py',
@@ -16,7 +16,7 @@ SCRIPTS_LONG = [
 
 
 если значение 
-TREND_SMALL: RED
+SMALL_OPEN_STATUS: RED
 то запускает список SCRIPTS_SHORT по очереди 
 SCRIPTS_SHORT = [
     'CORE/BACKEND/C_CHECK_CANDLE_END/B_small/B_short/B_run.py',

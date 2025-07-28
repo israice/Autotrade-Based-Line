@@ -12,12 +12,12 @@ def get_sell_on_percent_change(settings_path):
                 return line.split(':', 1)[1].strip().split()[0]
     raise ValueError('START_AMOUNT not found in settings.yaml')
 
-# 2. Обновить только STEP_AMOUNT_NOW в C_temp_config.yaml
+# 2. Обновить только NEXT_STEP_AMOUNT в C_temp_config.yaml
 
 def update_NEXT_LONG_PERCENT(trade_config_path, add_value):
     with open(trade_config_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-    pattern = re.compile(r'^(STEP_AMOUNT_NOW:)\s*(.*)$')
+    pattern = re.compile(r'^(NEXT_STEP_AMOUNT:)\s*(.*)$')
     for i, line in enumerate(lines):
         match = pattern.match(line.strip())
         if match:
@@ -40,7 +40,7 @@ def update_NEXT_LONG_PERCENT(trade_config_path, add_value):
             lines[i] = f'{indent}{prefix} {new_value_str}\n'
             break
     else:
-        raise ValueError('STEP_AMOUNT_NOW not found in C_temp_config.yaml')
+        raise ValueError('NEXT_STEP_AMOUNT not found in C_temp_config.yaml')
     with open(trade_config_path, 'w', encoding='utf-8') as f:
         f.writelines(lines)
 

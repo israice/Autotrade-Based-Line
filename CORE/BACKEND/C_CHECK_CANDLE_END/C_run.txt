@@ -6,7 +6,7 @@ CORE/DATA/B_large_new_candles_data.yaml
 candle_0_open_time: '2025-07-18 09:38:59'
 
 в файле 
-CORE/DATA/E_large_old_candles_data.yaml
+CORE/DATA/F_large_old_candles_data.yaml
 candle_0_open_time: '2025-07-19 09:39:59'
 
 скрипт сравнивает значения 
@@ -23,7 +23,7 @@ SCRIPTS_LARGE = [
 CORE/DATA/A_small_new_candles_data.yaml
 candle_0_open_time: '2025-07-19 09:39:59'
 и файла
-CORE/DATA/D_small_old_candles_data.yaml
+CORE/DATA/E_small_old_candles_data.yaml
 candle_0_open_time: '2025-07-19 09:39:59'
 
 если значения не совпадают и значение не null то запускает скрипты по очереди

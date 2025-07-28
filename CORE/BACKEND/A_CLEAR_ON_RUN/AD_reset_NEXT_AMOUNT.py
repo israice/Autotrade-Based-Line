@@ -7,7 +7,7 @@ PROJECT_ROOT = Path.cwd()  # Assumes script runs from project root where .env ex
 SOURCE_YAML_PATH = "settings.yaml"
 TARGET_YAML_PATH = "CORE/DATA/C_temp_config.yaml"
 SOURCE_KEY = "START_AMOUNT"
-TARGET_KEY = "STEP_AMOUNT_NOW"
+TARGET_KEY = "NEXT_STEP_AMOUNT"
 
 def read_yaml_file(file_path: str) -> dict:
     """Read YAML file and return its content as a dictionary."""
@@ -37,7 +37,7 @@ def write_yaml_file(file_path: str, data: dict) -> None:
         print(f"Error writing to {full_path}: {e}")
 
 def update_yaml_value():
-    """Update STEP_AMOUNT_NOW in target YAML with START_AMOUNT from source YAML."""
+    """Update NEXT_STEP_AMOUNT in target YAML with START_AMOUNT from source YAML."""
     start_time = time.time()
     
     # Read source YAML

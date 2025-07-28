@@ -4,11 +4,11 @@
 в файле 
 CORE/DATA/C_temp_config.yaml
 скрипт сравнивает значение переменной
-PERCENTAGE_CHANGE_LARGE: 0.138
+LARGE_OPEN_CHANGE: 0.138
 с 
 NEXT_LONG_PERCENT: 0.01
 если значение    
-PERCENTAGE_CHANGE_LARGE выше чем значение NEXT_LONG_PERCENT
+LARGE_OPEN_CHANGE выше чем значение NEXT_LONG_PERCENT
 то добавляет к значению NEXT_LONG_PERCENT
 значение из переменной 
 SELL_ON_PERCENT_CHANGE: 0.010
@@ -16,10 +16,10 @@ SELL_ON_PERCENT_CHANGE: 0.010
 settings.yaml
 
 чтобы в результате получилось значение NEXT_LONG_PERCENT
-выше чем значение PERCENTAGE_CHANGE_LARGE
+выше чем значение LARGE_OPEN_CHANGE
 
 надо при записи только заменить значения где переменные 
-NEXT_LONG_PERCENT и PERCENTAGE_CHANGE_LARGE
+NEXT_LONG_PERCENT и LARGE_OPEN_CHANGE
 не влияя на сортировку строк в файле
 и не влияя на имеющиеся комментарии 
 и пустые строки 

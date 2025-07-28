@@ -6,6 +6,8 @@ from pathlib import Path
 # List of scripts to execute
 SCRIPTS = [
     'CORE/BACKEND/1_TOOLS/reset_next_percent.py',
+    'CORE/BACKEND/1_TOOLS/renew_HIGH_LOW_price_config.py',
+    'CORE/BACKEND/1_TOOLS/reset_HIGH_LOW_counter_config.py',
     'CORE/BACKEND/C_CHECK_CANDLE_END/A_large/B_short/BA_sell_short_order.py',
 ]
 

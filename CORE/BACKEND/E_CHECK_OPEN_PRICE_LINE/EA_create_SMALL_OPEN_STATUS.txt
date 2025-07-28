@@ -1,0 +1,84 @@
+
+создай python скрипт
+
+в файле 
+CORE\DATA\B_large_new_candles_data.yaml
+candle_0_open: '3.1994'
+
+в файле
+CORE\DATA\A_small_new_candles_data.yaml
+candle_0_high: '3.2000'
+candle_0_low: '3.1988'
+
+
+скрипт проверяет
+если если значение 
+candle_0_high
+выше или равно чем 
+candle_0_open
+и 
+candle_0_low
+ниже или равно 
+
+тогда запиши значение CROSS в 
+CORE\DATA\C_temp_config.yaml
+SMALL_OPEN_STATUS: CROSS
+
+но если 
+candle_0_high
+и 
+candle_0_low
+выше чем 
+candle_0_open
+то запиши 
+SMALL_OPEN_STATUS: GREEN
+
+
+но если 
+candle_0_high
+и 
+candle_0_low
+ниже чем 
+candle_0_open
+то запиши 
+SMALL_OPEN_STATUS: RED
+
+
+
+
+
+пути используй с прямые слэши
+
+все пути указаны от корня проекта там где находится файл .env
+
+не создовай дефолтные значения в коде, выводи ошибку если значение не найдено
+
+
+вот пример содержимого файлов 
+CORE\DATA\B_large_new_candles_data.yaml
+CORE\DATA\A_small_new_candles_data.yaml
+
+
+- candle_0_open_time: '2025-07-27 14:21:00'
+  candle_0_open: '3.1994'
+  candle_0_high: '3.2000'
+  candle_0_low: '3.1988'
+  candle_0_close: '3.1991'
+  candle_0_volume: '130875.7'
+  candle_0_close_time: '2025-07-27 14:23:59'
+- candle_1_open_time: '2025-07-27 14:18:00'
+  candle_1_open: '3.2120'
+  candle_1_high: '3.2121'
+  candle_1_low: '3.1941'
+  candle_1_close: '3.1995'
+  candle_1_volume: '3322975.3'
+  candle_1_close_time: '2025-07-27 14:20:59'
+
+
+полученные переменные и пути к ним 
+размести вверху в виде отдельных настроек
+для легкой настройки  
+а так же значения для записи 
+
+при записи заменяй только значение на той строке где переменная
+не влияя на другие строки 

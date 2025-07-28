@@ -8,8 +8,8 @@
 
 меняет все значения на null там где не null
 в переменных списка файлов 
-CORE\DATA\D_small_old_candles_data.yaml
-CORE\DATA\E_large_old_candles_data.yaml
+CORE\DATA\E_small_old_candles_data.yaml
+CORE\DATA\F_large_old_candles_data.yaml
 
 
 

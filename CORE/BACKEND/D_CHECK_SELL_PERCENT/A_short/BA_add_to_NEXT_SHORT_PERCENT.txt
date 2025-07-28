@@ -4,11 +4,11 @@
 в файле 
 CORE/DATA/C_temp_config.yaml
 скрипт сравнивает значение переменной
-PERCENTAGE_CHANGE_LARGE: -0.138
+LARGE_OPEN_CHANGE: -0.138
 с 
 NEXT_SHORT_PERCENT: -0.01
 если значение    
-PERCENTAGE_CHANGE_LARGE ниже чем значение 
+LARGE_OPEN_CHANGE ниже чем значение 
 NEXT_SHORT_PERCENT
 то добавляет к значению NEXT_SHORT_PERCENT
 значение из переменной 
@@ -19,7 +19,7 @@ settings.yaml
 чтобы в результате получилось значение 
 в NEXT_SHORT_PERCENT
 получилось ниже чем значение 
-PERCENTAGE_CHANGE_LARGE
+LARGE_OPEN_CHANGE
 
 
 надо при записи только заменить значения 

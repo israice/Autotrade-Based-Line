@@ -5,7 +5,7 @@ from pathlib import Path
 # Configuration settings
 CONFIG_FILE = Path("CORE/DATA/C_temp_config.yaml")
 SETTINGS_FILE = Path("settings.yaml")
-PERCENTAGE_CHANGE_LARGE_KEY = "PERCENTAGE_CHANGE_LARGE"
+LARGE_OPEN_CHANGE_KEY = "LARGE_OPEN_CHANGE"
 NEXT_SHORT_PERCENT_KEY = "NEXT_SHORT_PERCENT"
 SELL_ON_PERCENT_CHANGE_KEY = "SELL_ON_PERCENT_CHANGE"
 
@@ -36,8 +36,8 @@ def main():
     settings_data = read_yaml(SETTINGS_FILE)
     
     # Validate required keys
-    if PERCENTAGE_CHANGE_LARGE_KEY not in config_data:
-        print(f"Error: {PERCENTAGE_CHANGE_LARGE_KEY} not found in {CONFIG_FILE}")
+    if LARGE_OPEN_CHANGE_KEY not in config_data:
+        print(f"Error: {LARGE_OPEN_CHANGE_KEY} not found in {CONFIG_FILE}")
         return
     if NEXT_SHORT_PERCENT_KEY not in config_data:
         print(f"Error: {NEXT_SHORT_PERCENT_KEY} not found in {CONFIG_FILE}")
@@ -46,15 +46,15 @@ def main():
         print(f"Error: {SELL_ON_PERCENT_CHANGE_KEY} not found in {SETTINGS_FILE}")
         return
     
-    percentage_change_large = config_data[PERCENTAGE_CHANGE_LARGE_KEY]
+    LARGE_OPEN_CHANGE = config_data[LARGE_OPEN_CHANGE_KEY]
     next_short_percent = config_data[NEXT_SHORT_PERCENT_KEY]
     sell_on_percent_change = settings_data[SELL_ON_PERCENT_CHANGE_KEY]
     
     # Check if adjustment is needed
-    if percentage_change_large < next_short_percent:
+    if LARGE_OPEN_CHANGE < next_short_percent:
         
         # Calculate how many times to apply sell_on_percent_change
-        while next_short_percent >= percentage_change_large:
+        while next_short_percent >= LARGE_OPEN_CHANGE:
             next_short_percent -= sell_on_percent_change
         
         # Round to 3 decimal places

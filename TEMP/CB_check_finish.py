@@ -5,7 +5,7 @@ import subprocess
 
 # Пути к файлам
 file_new = 'CORE/DATA/A_small_new_candles_data.yaml'
-file_old = 'CORE/DATA/D_small_old_candles_data.yaml'
+file_old = 'CORE/DATA/E_small_old_candles_data.yaml'
 
 # Список скриптов для запуска
 scripts = [

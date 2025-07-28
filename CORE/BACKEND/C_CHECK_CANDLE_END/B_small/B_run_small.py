@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Configuration
 CONFIG_FILE = "CORE/DATA/C_temp_config.yaml"
-TREND_KEY = "TREND_SMALL"
+TREND_KEY = "SMALL_OPEN_STATUS"
 GREEN_VALUE = "GREEN"
 RED_VALUE = "RED"
 

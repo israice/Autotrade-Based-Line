@@ -1,0 +1,19 @@
+
+создай python скрипт
+
+скрипт запускает по очереди скрипты из списка SCRIPTS
+
+SCRIPTS = [
+    'CORE/BACKEND/E_CHECK_OPEN_PRICE_LINE/B_end/BA_create_SMALL_OPEN_STATUS.py',
+    'CORE/BACKEND/E_CHECK_OPEN_PRICE_LINE/B_end/BB_check_end_of_open_cross.py',
+    'CORE/BACKEND/E_CHECK_OPEN_PRICE_LINE/B_end/BC_check_start_of_open_cross.py',
+]
+
+выводи в косноль сообщения из запущенных скриптов
+запрети вывод дополнительных пустых строк в консоле 
+
+отоброжай замер времени выполнения скрипта СПИСКА в консоли
+
+все пути указаны от корня проекта там где находится файл .env
+
+в консоли не должно быть пустых строк 

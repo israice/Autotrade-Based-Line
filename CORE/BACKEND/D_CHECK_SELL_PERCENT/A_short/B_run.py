@@ -5,7 +5,7 @@ from pathlib import Path
 
 SCRIPTS = [
     'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/BA_add_to_NEXT_SHORT_PERCENT.py',
-    'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_short/BB_sell_short_order.py',
+    'CORE/BACKEND/Y_MESSAGES/sell_short.py',
 ]
 
 def run_scripts():

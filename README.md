@@ -56,6 +56,7 @@ autotrade-based-line — это система мониторинга данны
 - переименование .env2 в .env
 - перепроверен модуль D_CHECK_SELL_PERCENT
 - создание Y_MESSAGES
+- добавленно время выполнения скрипта
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
@@ -83,7 +84,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "создание Y_MESSAGES"  
+git commit -m "добавленно время выполнения скрипта"  
 git push
 
 ```

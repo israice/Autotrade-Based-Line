@@ -1,1 +1,0 @@
-print('☑️   - end_cross_green')

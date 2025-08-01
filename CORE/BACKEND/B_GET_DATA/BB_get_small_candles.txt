@@ -50,3 +50,7 @@ candle_1 это предыдущая свеча
     symbol = settings.get('symbol')
     interval = settings.get('buy_interval')
     limit = settings.get('candles_limit')
+
+в консоле отоброжай результат в одной строке 
+а так же добавь время когда скрипт был испольнен в формате времени 
+10:49:00:002

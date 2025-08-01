@@ -1,0 +1,1 @@
+print('☑️   - cross_open_up')

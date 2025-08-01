@@ -4,8 +4,7 @@ import time
 from pathlib import Path
 
 SCRIPTS = [
-    'CORE/BACKEND/D_CHECK_SELL_PERCENT/A_long/AA_add_to_NEXT_LONG_PERCENT.py',
-    'CORE/BACKEND/Y_MESSAGES/sell_long.py',
+    'CORE/BACKEND/Y_MESSAGES/cross_open_start_up.py',
 ]
 
 def run_scripts():

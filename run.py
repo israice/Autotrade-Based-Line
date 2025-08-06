@@ -17,16 +17,14 @@ if delay is None:
     raise ValueError(f"{DELAY_KEY} not found in {SETTINGS_FILE}")
 
 ON_START_SCRIPTS = [
-    "CORE/BACKEND/A_CLEAR_ON_RUN/A_run.py"
+    "CORE/A_CLEAR_ON_RUN/A_run.py"
 ]
 
 MAIN_SCRIPTS = [
-    "CORE/BACKEND/B_GET_DATA/B_run.py",
-    "CORE/BACKEND/C_CHECK_CANDLE_END/C_run.py",
-    # "CORE/BACKEND/D_CHECK_SELL_PERCENT/D_run.py",
-    # "CORE/BACKEND/E_CHECK_OPEN_PRICE_LINE/E_run.py",
-    # "CORE/BACKEND/F_CHECK_HIGH_LOW_LINE/F_run.py",
-    "CORE/BACKEND/Z_CLONE_CANDLE/Z_run.py",
+    "CORE/B_GET_DATA/B_run.py",
+    "CORE/C_CHECK_CANDLE_END/C_run.py",
+    "CORE/D_CHECK_HIGH_LOW_LINE/D_run.py",
+    "CORE/Y_COPY_DATA/Y_run.py",
 ]
 
 def run_script_list(scripts, measure_time=True):

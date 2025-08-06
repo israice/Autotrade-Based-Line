@@ -1,8 +1,0 @@
-aiohttp>=3.12.0
-aiosignal
-attrs
-multidict
-propcache
-yarl
-PyYAML
-ruamel.yaml

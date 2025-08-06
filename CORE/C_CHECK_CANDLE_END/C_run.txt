@@ -1,0 +1,71 @@
+
+создай python скрипт
+
+в файле 
+CORE/B_GET_DATA/BA_get_large_candle.yaml
+  candle_0_open: '2.9486'
+
+в файле 
+CORE/Y_COPY_DATA/YA_clone_candles.yaml
+  candle_0_open: '2.9486'
+
+если значение равны или null то ничего не надо делать дальше
+
+если значение из 
+CORE/B_GET_DATA/BA_get_large_candle.yaml 
+выше значения из 
+CORE/Y_COPY_DATA/YA_clone_candles.yaml
+то запускает скрипты по очереди
+
+SCRIPTS_HIGH = [
+    'CORE/C_CHECK_CANDLE_END/CA_message_up.py',
+    'CORE/C_CHECK_CANDLE_END/CA_mess2age_up.py',
+]
+
+
+если значение из 
+CORE/B_GET_DATA/BA_get_large_candle.yaml 
+ниже значения из 
+CORE/Y_COPY_DATA/YA_clone_candles.yaml
+то запускает скрипты по очереди
+
+SCRIPTS_LOW = [
+    'CORE/C_CHECK_CANDLE_END/CB_message_down.py',
+    'CORE/C_CHECK_CANDLE_END/CB_messa2ge_down.py',
+]
+
+
+
+
+
+все пути указаны от корня проекта там где находится файл .env
+
+выводи в консоль сообщения из запущенных скриптов
+убедись что не выводятся пустые строки в консоль
+
+отоброжай замер времени выполнения скрипта СПИСКА в консоли
+
+
+пути используй с прямые слэши
+
+все настройки вверху
+функции в низу
+в настройках должны быть так же все названия переменных 
+к которым мы обращаемся 
+
+
+вот пример файла yaml
+- candle_0_close_time: '2025-08-06 12:35:59'
+  candle_0_update_time: '2025-08-06 09:35:59'
+  candle_0_open_time: '2025-08-06 12:33:00'
+  candle_0_close: '2.9438'
+  candle_0_high: '2.9486'
+  candle_0_open: '2.9486'
+  candle_0_low: '2.9420'
+- candle_1_close_time: '2025-08-06 12:32:59'
+  candle_1_update_time: '2025-08-06 09:35:59'
+  candle_1_open_time: '2025-08-06 12:30:00'
+  candle_1_close: '2.9485'
+  candle_1_high: '2.9513'
+  candle_1_open: '2.9444'
+  candle_1_low: '2.9432'

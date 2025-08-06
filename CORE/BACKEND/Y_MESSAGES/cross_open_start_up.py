@@ -1,1 +1,0 @@
-print('☑️   - start_cross_green')

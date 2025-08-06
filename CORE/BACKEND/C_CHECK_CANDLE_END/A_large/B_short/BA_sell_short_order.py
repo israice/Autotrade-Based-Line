@@ -1,1 +1,0 @@
-print("🪙  - LARGE SHORT SELL")

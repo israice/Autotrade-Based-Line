@@ -1,20 +1,13 @@
-# run settings
-delay: 0.5                          # Delay between execution cycles (in seconds)
+# RUN settings
+delay: 2
 
-# exchange settings
+# B settings
+symbol: XRPUSDT
+timeframe_interval: 30m
+candles_limit: 2
+
+# C settings
 ACCOUNT_ID: REAL1
-symbol: XRPUSDT                   # Trading pair symbol
-buy_interval: 1m                  # Candle interval (e.g., 1m, 5m, 15m, 1h)
-sell_interval: 5m                 # Candle interval for sell (e.g., 1m, 5m, 15m, 1h)
-candles_limit: 2                  # Number of candles to fetch
-START_AMOUNT: 0.2                 # USDT
+COIN_LEVERAGE: 75
+START_AMOUNT: 0.1
 
-# SELL ON PERCENT CHANGE
-SELL_ON_PERCENT_CHANGE: 3.000       # % каждые сколько процентов продавать
-SELL_PERCENT_ON_CANDLE_ENDS: 100    # % сколько процентов всего продать?
-
-# SELL ON LARGE END
-
-# BUY ON OPEN
-
-# BUY ON HIGH LOW

@@ -1,0 +1,125 @@
+
+создай python скрипт
+
+в файле 
+config.yaml
+находяться переменные
+HIGH_LINE: UP
+LOW_LINE: UP
+
+в файле 
+CORE/B_GET_DATA/BA_get_large_candle.yaml
+находяться переменные 
+- candle_0_close_time: '2025-08-02 18:47:59'
+  candle_0_update_time: '2025-08-02 15:46:40'
+  candle_0_open_time: '2025-08-02 18:45:00'
+  candle_0_close: '2.8497'
+  candle_0_high: '2.8585'
+  candle_0_open: '2.8553'
+  candle_0_low: '2.8496'
+- candle_1_close_time: '2025-08-02 18:44:59'
+  candle_1_update_time: '2025-08-02 15:46:40'
+  candle_1_open_time: '2025-08-02 18:42:00'
+  candle_1_close: '2.8553'
+  candle_1_high: '2.8605'
+  candle_1_open: '2.8553'
+  candle_1_low: '2.8547'
+
+
+
+скрипт проверяет 
+если 
+ candle_0_close: '2.8497'
+выше чем 
+  candle_0_open: '2.8553'
+
+тогда проверяет является ли значение 
+ candle_0_close: '2.8497'
+выше чем 
+  candle_1_high: '2.8605'
+если оно да выше 
+и значение 
+HIGH_LINE: UP
+не UP 
+то запускает по очереди 
+SCRIPTS = [
+    'jjfgbjfbg.py',
+    'lkhmj.py',
+    'ksdfmbvkf.py'
+    'dfdg.py',
+]
+
+скрипт проверяет 
+если 
+ candle_0_close: '2.8497'
+выше чем 
+  candle_0_open: '2.8553'
+
+проверяет является ли значение 
+ candle_0_close: '2.8497'
+ниже чем 
+  candle_1_high: '2.8605'
+если оно да ниже 
+и значение 
+HIGH_LINE: DOWN
+не DOWN
+то запускает по очереди 
+SCRIPTS = [
+    'jjfggbjfbg.py',
+    'lkhhmj.py',
+    'kskdfmbvkf.py'
+    'dlfdg.py',
+]
+
+
+скрипт проверяет 
+если 
+ candle_0_close: '2.8497'
+ниже чем 
+  candle_0_open: '2.8553'
+
+проверяет является ли значение 
+ candle_0_close: '2.8497'
+выше чем 
+  candle_1_low: '2.8605'
+если оно да выше 
+и значение 
+LOW_LINE: UP
+не UP 
+то запускает по очереди 
+SCRIPTS = [
+    'jjfgnbjfbg.py',
+    'lkhmmj.py',
+    'ksdfmmbvkf.py'
+    'dfdmg.py',
+]
+
+скрипт проверяет 
+если 
+ candle_0_close: '2.8497'
+ниже чем 
+  candle_0_open: '2.8553'
+  
+проверяет является ли значение 
+ candle_0_close: '2.8497'
+ниже чем 
+  candle_1_low: '2.8605'
+если оно да ниже 
+и значение 
+LOW_LINE: DOWN
+не DOWN
+то запускает по очереди 
+SCRIPTS = [
+    'jjfsggbjfbg.py',
+    'lkhhsmj.py',
+    'ksksdfmbvkf.py'
+    'dlfsdg.py',
+]
+
+
+
+
+
+
+
+

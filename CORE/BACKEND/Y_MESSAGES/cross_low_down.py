@@ -1,1 +1,0 @@
-print('☑️   - cross_low_down')

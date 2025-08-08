@@ -2,7 +2,7 @@ import yaml
 import subprocess
 
 # Configuration
-CONFIG_FILE = "CORE/DATA/config.yaml"
+CONFIG_FILE = "CORE/DATA/system_config.yaml"
 KEY_LOW_LINE = "LOW_LINE"
 KEY_LOW_COUNTER = "LOW_COUNTER"
 VALUE_DOWN = "DOWN"

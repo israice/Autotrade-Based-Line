@@ -3,7 +3,7 @@ import subprocess
 import os
 
 # Configuration
-CONFIG_FILE = "CORE/DATA/config.yaml"
+CONFIG_FILE = "CORE/DATA/system_config.yaml"
 HIGH_LINE_KEY = "HIGH_LINE"
 HIGH_LINE_UP_VALUE = "UP"
 HIGH_LINE_DOWN_VALUE = "DOWN"

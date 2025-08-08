@@ -5,18 +5,17 @@ import os
 
 # Configuration settings
 # ###############################
-CONFIG_PATH = 'CORE/DATA/config.yaml'
+CONFIG_PATH = 'CORE/DATA/system_config.yaml'
 CONFIG_HEADER = 'TRIGGERS_CANDLE_LONG_END'
 SCRIPTS_UP_WORD = 'yes'
 SCRIPTS_DOWN_WORD = 'no'
 # ###############################
 # Script lists
 SCRIPTS_UP = [
-    'CORE/BACKEND/Z_TOOLS/message_ping.py',
+    'CORE/BACKEND/C_TRIGGERS/A_CANDLE_LONG_END/AA_check_ORDER_TYPE.py',
 ]
 
 SCRIPTS_DOWN = [
-    'CORE/BACKEND/Z_TOOLS/message_pong.py',
 ]
 # ###############################
 # Read config file

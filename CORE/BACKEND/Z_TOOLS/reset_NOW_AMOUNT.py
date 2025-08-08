@@ -2,8 +2,8 @@ import yaml
 import os
 
 # Configuration paths and values
-SETTINGS_FILE = "CORE/DATA/settings.yaml"
-CONFIG_FILE = "CORE/DATA/config.yaml"
+SETTINGS_FILE = "CORE/DATA/user_settings.yaml"
+CONFIG_FILE = "CORE/DATA/system_config.yaml"
 START_AMOUNT_KEY = "START_AMOUNT"
 NOW_AMOUNT_KEY = "NOW_AMOUNT"
 

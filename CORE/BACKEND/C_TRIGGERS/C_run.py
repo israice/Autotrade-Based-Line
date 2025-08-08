@@ -4,7 +4,7 @@ import time
 import sys
 
 TRIGGER_KEY = "TRIGGERS"
-CONFIG_FILE = "CORE/DATA/config.yaml"
+CONFIG_FILE = "CORE/DATA/system_config.yaml"
 SCRIPTS = [
     "CORE/BACKEND/C_TRIGGERS/A_CANDLE_LONG_END/A_run.py",
     "CORE/BACKEND/C_TRIGGERS/B_CANDLE_SHORT_END/B_run.py",

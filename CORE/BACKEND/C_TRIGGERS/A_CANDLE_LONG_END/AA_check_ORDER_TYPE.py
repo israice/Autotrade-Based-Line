@@ -3,22 +3,22 @@ import subprocess
 import time
 import os
 
-# Configuration settings
 # ###############################
-CONFIG_PATH = 'CORE/DATA/config.yaml'
 CONFIG_HEADER = 'ORDER_TYPE_OF_LONG_END'
+CONFIG_PATH = 'CORE/DATA/system_config.yaml'
 SCRIPTS_UP_WORD = 'line'
 SCRIPTS_DOWN_WORD = 'market'
 # ###############################
-# Script lists
 SCRIPTS_UP = [
     'CORE/BACKEND/Z_TOOLS/message_ping.py',
 ]
 
 SCRIPTS_DOWN = [
+    # 'CORE/BACKEND/Z_TOOLS/order_buy_long.py',
     'CORE/BACKEND/Z_TOOLS/message_pong.py',
 ]
 # ###############################
+
 # Read config file
 try:
     with open(CONFIG_PATH, 'r') as file:

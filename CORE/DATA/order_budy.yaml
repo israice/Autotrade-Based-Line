@@ -1,0 +1,4 @@
+# order params
+MIN_NOTIONAL: '5'
+MIN_QTY: '0.1'
+STEP_SIZE: '0.1'

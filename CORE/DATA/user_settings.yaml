@@ -1,5 +1,5 @@
 # RUN settings
-delay: 2
+delay_by_settings: 2
 
 # B settings
 symbol: XRPUSDT

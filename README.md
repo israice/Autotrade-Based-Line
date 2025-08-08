@@ -4,7 +4,7 @@
 autotrade-based-line — это система мониторинга данных по криптовалютам, которая получает данные свечей с Binance и обрабатывает их с помощью серии Python-скриптов. Система работает в непрерывном цикле, выполняя каждый скрипт по очереди согласно настройкам в конфигурационном файле.
 
 ## Конфигурация
-Отредактируйте файл `settings.yaml` для настройки системы:
+Отредактируйте файл `user_settings.yaml` для настройки системы:
 
 
 ## Разработка
@@ -14,7 +14,7 @@ autotrade-based-line — это система мониторинга данны
 ## v0.0.1
 - ДАТА СОЗДАНИЯ ПРОЕКТА: 2025.06.29
 - создан run.py, который выполняет чек-лист
-- создан settings.yaml со всеми необходимыми настройками
+- создан user_settings.yaml со всеми необходимыми настройками
 - создан fetch candles.py для получения свечей с binance
 - создан clone candles.py для клонирования файла свечей
 
@@ -63,9 +63,9 @@ autotrade-based-line — это система мониторинга данны
 - добавлен .env_EXAMPLE
 - added folders BACKEND DATA FRONTEND
 - протестиравана вся логика проекта, полностью работает
-- добавлен список TRIGGERS в config.yaml
+- добавлен список TRIGGERS в system_config.yaml
 - созданы файлы CHECK TRIGGERS_CANDLE_LONG_END и ORDER_TYPE_OF_LONG_END
-
+- начинаем создовать первичное состояние файла order_budy.yaml 
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать data проценты и trend long short
@@ -94,7 +94,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "созданы файлы CHECK TRIGGERS_CANDLE_LONG_END и ORDER_TYPE_OF_LONG_END"  
+git commit -m "начинаем создовать первичное состояние файла order_budy.yaml"  
 git push
 
 ```

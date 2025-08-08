@@ -5,7 +5,7 @@ import signal
 import sys
 
 # Easy configurable settings
-SETTINGS_FILE = 'CORE/DATA/settings.yaml'
+SETTINGS_FILE = 'CORE/DATA/user_settings.yaml'
 
 ON_START_SCRIPTS = [
     "CORE/BACKEND/A_CLEAR_ON_RUN/A_run.py"

@@ -2,8 +2,8 @@ import yaml
 import os
 
 # Configuration settings
-SETTINGS_FILE = "CORE/DATA/settings.yaml"
-CONFIG_FILE = "CORE/DATA/config.yaml"
+SETTINGS_FILE = "CORE/DATA/user_settings.yaml"
+CONFIG_FILE = "CORE/DATA/system_config.yaml"
 START_AMOUNT_KEY = "START_AMOUNT"
 NOW_AMOUNT_KEY = "NOW_AMOUNT"
 DECIMAL_PLACES = 3
@@ -11,7 +11,7 @@ DECIMAL_PLACES = 3
 # Logic to read, update, and write the configuration
 def main():
     try:
-        # Read settings.yaml
+        # Read user_settings.yaml
         if not os.path.exists(SETTINGS_FILE):
             print(f"Error: {SETTINGS_FILE} not found")
             return
@@ -25,7 +25,7 @@ def main():
         
         start_amount = settings[START_AMOUNT_KEY]
         
-        # Read config.yaml
+        # Read system_config.yaml
         if not os.path.exists(CONFIG_FILE):
             print(f"Error: {CONFIG_FILE} not found")
             return
@@ -47,7 +47,7 @@ def main():
             print(f"Error: {NOW_AMOUNT_KEY} not found in {CONFIG_FILE}")
             return
         
-        # Write back to config.yaml
+        # Write back to system_config.yaml
         with open(CONFIG_FILE, 'w') as file:
             file.writelines(config_lines)
         

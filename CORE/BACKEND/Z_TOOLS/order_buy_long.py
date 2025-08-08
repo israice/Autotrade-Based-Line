@@ -6,24 +6,30 @@ from binance.enums import *
 import decimal
 
 # Configuration settings
-SETTINGS_FILE = 'CORE/DATA/settings.yaml'
-CONFIG_FILE = 'CORE/DATA/config.yaml'
+SETTINGS_FILE = 'CORE/DATA/user_settings.yaml'
+CONFIG_FILE = 'CORE/DATA/system_config.yaml'
 CANDLE_DATA_FILE = 'CORE/DATA/A_candle.yaml'
-ACCOUNT_ID_KEY = 'ACCOUNT_ID'
+# ###############################
 SYMBOL_KEY = 'symbol'
+ACCOUNT_ID_KEY = 'ACCOUNT_ID'
 LEVERAGE_KEY = 'COIN_LEVERAGE'
+# ###############################
 MARGIN_KEY = 'NOW_AMOUNT'
-CANDLE_CLOSE_KEY = 'candle_0_close'
+# ###############################
+CORRECT_PRICE_KEY = 'candle_0_close'
+# ###############################
 STEP_SIZE = '0.1'  # Lot size step size for XRPUSDT
 MIN_QTY = '0.1'   # Minimum quantity for XRPUSDT
 MIN_NOTIONAL = '5' # Minimum notional value in USDT
+# ###############################
 POSITION_SIDE = 'LONG'  # 'LONG' or 'SHORT'
 ORDER_TYPE = 'MARKET'  # Order type, e.g., 'MARKET'
+# ###############################
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Read settings from settings.yaml
+# Read settings from user_settings.yaml
 with open(SETTINGS_FILE, 'r') as file:
     settings = yaml.safe_load(file)
 ACCOUNT_ID = settings[ACCOUNT_ID_KEY]
@@ -37,7 +43,7 @@ API_SECRET = os.getenv(f'{ACCOUNT_ID}_API_SECRET')
 if not API_KEY or not API_SECRET:
     raise ValueError(f"API_KEY or API_SECRET not found for ACCOUNT_ID: {ACCOUNT_ID}")
 
-# Read config.yaml to get NOW_AMOUNT
+# Read system_config.yaml to get NOW_AMOUNT
 with open(CONFIG_FILE, 'r') as file:
     config = yaml.safe_load(file)
 MARGIN_USDT = config[MARGIN_KEY]
@@ -45,7 +51,7 @@ MARGIN_USDT = config[MARGIN_KEY]
 # Read candle data to get candle_0_close
 with open(CANDLE_DATA_FILE, 'r') as file:
     candle_data = yaml.safe_load(file)
-PRICE = candle_data[0][CANDLE_CLOSE_KEY]
+PRICE = candle_data[0][CORRECT_PRICE_KEY]
 
 # Derived side based on POSITION_SIDE
 if POSITION_SIDE == 'LONG':

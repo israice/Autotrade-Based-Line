@@ -5,9 +5,14 @@ from pathlib import Path
 
 # List of scripts to run
 SCRIPTS = [
+    # reset A_candle.yaml
+    "CORE/BACKEND/Z_TOOLS/get_two_candles.py",   
+    # reset system_config.yaml
     "CORE/BACKEND/Z_TOOLS/reset_config_lines.py",
     "CORE/BACKEND/Z_TOOLS/reset_NOW_AMOUNT.py",
-    "CORE/BACKEND/Z_TOOLS/get_two_candles.py",   
+    # reset order_budy.yaml
+    'CORE/BACKEND/Z_TOOLS/get_info_for_order_budy.py',
+    # reset Z_candle.yaml
     'CORE/BACKEND/Z_TOOLS/clone_candles.py',
 ]
 

@@ -4,7 +4,7 @@ import datetime
 import time
 
 # Settings
-settings_path = 'CORE/DATA/settings.yaml'
+settings_path = 'CORE/DATA/user_settings.yaml'
 output_path = 'CORE/DATA/A_candle.yaml'
 api_base_url = 'https://fapi.binance.com'
 api_endpoint = '/fapi/v1/klines'

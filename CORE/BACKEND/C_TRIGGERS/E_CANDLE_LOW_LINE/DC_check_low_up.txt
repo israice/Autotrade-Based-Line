@@ -1,7 +1,7 @@
 создай скрипт 
 
 в файле 
-config.yaml
+system_config.yaml
 находится 
 LOW_LINE: LINE
 LOW_COUNTER: 0

@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 
 # Configuration
-CONFIG_FILE = "CORE/DATA/config.yaml"
+CONFIG_FILE = "CORE/DATA/system_config.yaml"
 HIGH_LINE_KEY = "HIGH_LINE"
 HIGH_COUNTER_KEY = "HIGH_COUNTER"
 LINE_STATUS = "UP"

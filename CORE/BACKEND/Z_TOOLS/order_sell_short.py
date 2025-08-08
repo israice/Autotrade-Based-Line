@@ -6,8 +6,8 @@ from binance.enums import *
 import decimal
 
 # Configuration settings
-SETTINGS_FILE = 'CORE/DATA/settings.yaml'
-CONFIG_FILE = 'CORE/DATA/config.yaml'
+SETTINGS_FILE = 'CORE/DATA/user_settings.yaml'
+CONFIG_FILE = 'CORE/DATA/system_config.yaml'
 CANDLE_DATA_FILE = 'CORE/DATA/A_candle.yaml'
 ACCOUNT_ID_KEY = 'ACCOUNT_ID'
 SYMBOL_KEY = 'symbol'
@@ -23,7 +23,7 @@ ORDER_TYPE = 'MARKET'  # Order type, e.g., 'MARKET'
 # Load environment variables from .env file
 load_dotenv()
 
-# Read settings from settings.yaml
+# Read settings from user_settings.yaml
 with open(SETTINGS_FILE, 'r') as file:
     settings = yaml.safe_load(file)
 ACCOUNT_ID = settings[ACCOUNT_ID_KEY]

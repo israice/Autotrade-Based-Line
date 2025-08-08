@@ -1,7 +1,7 @@
 создай скрипт 
 
 в файле 
-config.yaml
+system_config.yaml
 находится 
 HIGH_LINE: LINE
 HIGH_COUNTER: 0

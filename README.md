@@ -61,7 +61,7 @@ autotrade-based-line — это система мониторинга данны
 ## v0.0.7
 - исправлено выполнение реальных ордеров 
 - добавлен .env_EXAMPLE
-
+- added folders BACKEND DATA FRONTEND
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать конфиг для реакции на достижение ценой линии
@@ -89,7 +89,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "добавлен .env_EXAMPLE"  
+git commit -m "added folders BACKEND DATA FRONTEND"  
 git push
 
 ```

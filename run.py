@@ -5,29 +5,26 @@ import signal
 import sys
 
 # Easy configurable settings
-SETTINGS_FILE = 'settings.yaml'
-DELAY_KEY = 'delay'
+SETTINGS_FILE = 'CORE/DATA/settings.yaml'
+
+ON_START_SCRIPTS = [
+    "CORE/BACKEND/A_CLEAR_ON_RUN/A_run.py"
+]
+
+MAIN_SCRIPTS = [
+    "CORE/BACKEND/B_GET_DATA/B_run.py",
+    # "CORE/BACKEND/C_CHECK_CANDLE_END/C_run.py",
+    # "CORE/BACKEND/D_CHECK_HIGH_LOW_LINE/D_run.py",
+    "CORE/BACKEND/Y_COPY_DATA/Y_run.py",
+]
 
 # Load settings
 with open(SETTINGS_FILE, 'r') as f:
     settings = yaml.safe_load(f)
 
-delay = settings.get(DELAY_KEY)
-if delay is None:
-    raise ValueError(f"{DELAY_KEY} not found in {SETTINGS_FILE}")
-
-ON_START_SCRIPTS = [
-    "CORE/A_CLEAR_ON_RUN/A_run.py"
-]
-
-MAIN_SCRIPTS = [
-    "CORE/B_GET_DATA/B_run.py",
-    "CORE/C_CHECK_CANDLE_END/C_run.py",
-    "CORE/D_CHECK_HIGH_LOW_LINE/D_run.py",
-    "CORE/Y_COPY_DATA/Y_run.py",
-]
-
+# logic
 def run_script_list(scripts, measure_time=True):
+    """Run list of scripts sequentially"""
     if measure_time:
         start_time = time.time()
     
@@ -38,11 +35,12 @@ def run_script_list(scripts, measure_time=True):
     if measure_time:
         end_time = time.time()
         execution_time = end_time - start_time
-        # print(f"Execution time for script list: {execution_time:.2f} seconds")
+        print(f"Execution time for script list: {execution_time:.2f} seconds")
 
 interrupted = False
 
 def signal_handler(sig, frame):
+    """Handle Ctrl+C interrupt"""
     global interrupted
     interrupted = True
     print("- - STOP - - Interrupt received, will finish current scripts and exit.")
@@ -52,13 +50,11 @@ signal.signal(signal.SIGINT, signal_handler)
 # Run initial scripts once, without timing
 run_script_list(ON_START_SCRIPTS, measure_time=False)
 
+# Continuous run without any delay
 while not interrupted:
-    time.sleep(delay)
     run_script_list(MAIN_SCRIPTS)
     if interrupted:
         break
-    time.sleep(delay)
 
 if interrupted:
-    time.sleep(0.1)
     sys.exit(0)

@@ -11,8 +11,6 @@ SCRIPTS = [
     'CORE/BACKEND/Z_TOOLS/clone_candles.py',
 ]
 
-print("- - A_CLEAR_ON_RUN")
-
 def run_scripts():
     # Record start time
     start_time = time.time()

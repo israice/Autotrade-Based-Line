@@ -5,9 +5,9 @@ import os
 
 # ###############################
 CONFIG_HEADER = 'ORDER_TYPE_OF_LONG_END'
-CONFIG_PATH = 'CORE/DATA/system_config.yaml'
-SCRIPTS_UP_WORD = 'line'
-SCRIPTS_DOWN_WORD = 'market'
+CONFIG_PATH = 'CORE/DATA/triggers_config.yaml'
+SCRIPTS_UP_WORD = 'LIMIT'
+SCRIPTS_DOWN_WORD = 'MARKET'
 # ###############################
 SCRIPTS_UP = [
     'CORE/BACKEND/Z_TOOLS/message_ping.py',

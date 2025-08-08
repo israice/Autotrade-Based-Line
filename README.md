@@ -63,9 +63,10 @@ autotrade-based-line — это система мониторинга данны
 - добавлен .env_EXAMPLE
 - added folders BACKEND DATA FRONTEND
 - протестиравана вся логика проекта, полностью работает
-- добавлен список TRIGGERS в system_config.yaml
+- добавлен список TRIGGERS в triggers_config.yaml
 - созданы файлы CHECK TRIGGERS_CANDLE_LONG_END и ORDER_TYPE_OF_LONG_END
 - начинаем создовать первичное состояние файла order_budy.yaml 
+- все работает, следующий этап get ORDER_LEVERAGE 75
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать data проценты и trend long short
@@ -94,7 +95,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "начинаем создовать первичное состояние файла order_budy.yaml"  
+git commit -m "все работает, следующий этап get ORDER_LEVERAGE 75"  
 git push
 
 ```

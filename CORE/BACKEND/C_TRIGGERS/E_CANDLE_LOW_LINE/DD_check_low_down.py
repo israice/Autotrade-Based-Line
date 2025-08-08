@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 
 # Configuration
-CONFIG_FILE = "CORE/DATA/system_config.yaml"
+CONFIG_FILE = "CORE/DATA/triggers_config.yaml"
 LOW_LINE_KEY = "LOW_LINE"
 LOW_COUNTER_KEY = "LOW_COUNTER"
 LINE_STATUS = "DOWN"

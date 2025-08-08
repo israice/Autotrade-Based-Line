@@ -7,7 +7,7 @@ import decimal
 
 # Configuration settings
 SETTINGS_FILE = 'CORE/DATA/user_settings.yaml'
-CONFIG_FILE = 'CORE/DATA/system_config.yaml'
+CONFIG_FILE = 'CORE/DATA/triggers_config.yaml'
 CANDLE_DATA_FILE = 'CORE/DATA/A_candle.yaml'
 ACCOUNT_ID_KEY = 'ACCOUNT_ID'
 SYMBOL_KEY = 'symbol'

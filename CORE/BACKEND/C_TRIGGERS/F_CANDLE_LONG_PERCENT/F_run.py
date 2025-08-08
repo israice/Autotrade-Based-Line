@@ -4,7 +4,7 @@ import time
 import sys
 
 TRIGGER_KEY = "TRIGGERS_CANDLE_LONG_PERCENT"
-CONFIG_FILE = "CORE/DATA/system_config.yaml"
+CONFIG_FILE = "CORE/DATA/triggers_config.yaml"
 SCRIPTS = [
     "CORE/BACKEND/C_TRIGGERS/A_CANDLE_LONG_END/CAA_message_up.py",
 ]

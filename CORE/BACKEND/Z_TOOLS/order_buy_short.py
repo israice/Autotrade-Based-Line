@@ -7,7 +7,7 @@ import decimal
 
 # Configuration settings
 SETTINGS_FILE = 'CORE/DATA/user_settings.yaml'
-CONFIG_FILE = 'CORE/DATA/system_config.yaml'
+CONFIG_FILE = 'CORE/DATA/triggers_config.yaml'
 CANDLE_DATA_FILE = 'CORE/DATA/A_candle.yaml'
 ACCOUNT_ID_KEY = 'ACCOUNT_ID'
 SYMBOL_KEY = 'symbol'
@@ -37,7 +37,7 @@ API_SECRET = os.getenv(f'{ACCOUNT_ID}_API_SECRET')
 if not API_KEY or not API_SECRET:
     raise ValueError(f"API_KEY or API_SECRET not found for ACCOUNT_ID: {ACCOUNT_ID}")
 
-# Read system_config.yaml to get NOW_AMOUNT
+# Read triggers_config.yaml to get NOW_AMOUNT
 with open(CONFIG_FILE, 'r') as file:
     config = yaml.safe_load(file)
 MARGIN_USDT = config[MARGIN_KEY]

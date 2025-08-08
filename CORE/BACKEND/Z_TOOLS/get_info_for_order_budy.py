@@ -9,15 +9,17 @@ SYMBOL_KEY = 'symbol'
 ACCOUNT_ID_KEY = 'ACCOUNT_ID'
 # Parameter keys for output
 OUTPUT_FILE = 'CORE/DATA/order_budy.yaml'
-MIN_QTY_KEY = 'MIN_QTY'
-STEP_SIZE_KEY = 'STEP_SIZE'
-MIN_NOTIONAL_KEY = 'MIN_NOTIONAL'
+MIN_QTY_KEY = 'ORDER_MIN_QTY'
+STEP_SIZE_KEY = 'ORDER_STEP_SIZE'
+MIN_NOTIONAL_KEY = 'ORDER_MIN_NOTIONAL'
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Read settings from user_settings.yaml
 yaml = YAML()
+yaml.preserve_quotes = False  # Disable preserving quotes in output
+yaml.default_flow_style = False  # Use block style for readability
 try:
     with open(SETTINGS_FILE, 'r') as file:
         settings = yaml.load(file)
@@ -47,21 +49,21 @@ try:
 except Exception as e:
     raise ValueError(f"Failed to fetch futures symbol info for {SYMBOL}: {e}")
 
-# Extract parameters
+# Extract parameters and convert to float to avoid quotes in YAML
 new_params = {}
 filters = symbol_info.get('filters', [])
 
 for f in filters:
     if f['filterType'] == 'LOT_SIZE':
-        new_params[MIN_QTY_KEY] = f['minQty']
-        new_params[STEP_SIZE_KEY] = f['stepSize']
+        new_params[MIN_QTY_KEY] = float(f['minQty'])
+        new_params[STEP_SIZE_KEY] = float(f['stepSize'])
     if f['filterType'] == 'MIN_NOTIONAL':
-        new_params[MIN_NOTIONAL_KEY] = f.get('notional', '0')
+        new_params[MIN_NOTIONAL_KEY] = float(f.get('notional', '0'))
 
 # Set default for MIN_NOTIONAL if not found
 if MIN_NOTIONAL_KEY not in new_params:
-    new_params[MIN_NOTIONAL_KEY] = '0'
-    print(f"Warning: MIN_NOTIONAL filter not found for {SYMBOL}. Using default value '0'.")
+    new_params[MIN_NOTIONAL_KEY] = 0.0
+    print(f"Warning: MIN_NOTIONAL filter not found for {SYMBOL}. Using default value 0.0.")
 
 # Ensure required LOT_SIZE parameters are found
 if not all(key in new_params for key in [MIN_QTY_KEY, STEP_SIZE_KEY]):
@@ -77,7 +79,7 @@ try:
 except Exception as e:
     print(f"Warning: Could not read existing {OUTPUT_FILE}: {e}. Starting with empty params.")
 
-# Update only the specified keys
+# Update only the specified keys with plain float values
 existing_params.update({
     MIN_QTY_KEY: new_params[MIN_QTY_KEY],
     STEP_SIZE_KEY: new_params[STEP_SIZE_KEY],

@@ -1,13 +1,11 @@
-# RUN settings
-delay_by_settings: 2
-
-# B settings
-symbol: XRPUSDT
-timeframe_interval: 3m
+# candle settings
 candles_limit: 2
-
-# C settings
+timeframe_interval: 3m
+delay_by_settings: 2
+# order settings
 ACCOUNT_ID: REAL1
+symbol: XRPUSDT
 COIN_LEVERAGE: 75
 START_AMOUNT: 0.1
+
 

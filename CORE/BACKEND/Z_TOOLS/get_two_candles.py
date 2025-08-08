@@ -11,7 +11,7 @@ api_endpoint = '/fapi/v1/klines'
 time_format = '%Y-%m-%d %H:%M:%S'
 symbol_key = 'symbol'
 interval_key = 'timeframe_interval'
-limit_key = 'candles_limit'
+limit = 2
 
 # Load settings
 with open(settings_path, 'r') as f:
@@ -19,7 +19,6 @@ with open(settings_path, 'r') as f:
 
 symbol = settings[symbol_key]
 interval = settings[interval_key]
-limit = settings[limit_key]
 
 # Logic starts here
 start_time = time.time()
@@ -56,4 +55,4 @@ with open(output_path, 'w') as f:
 
 exec_time = time.time() - start_time
 current_time = datetime.datetime.now(datetime.UTC).strftime(time_format)
-print(f"- - B - - << {limit} >> candles << {interval} >> timeframe for << {symbol} >> at {current_time}")
+print(f"- - - - << {limit} >> candles << {interval} >> timeframe for << {symbol} >> at {current_time}")

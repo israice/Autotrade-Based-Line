@@ -16,10 +16,8 @@ SCRIPTS_UP = [
 ]
 
 SCRIPTS_DOWN = [
-    # "CORE/BACKEND/Z_TOOLS/message_pong.py",
 ]
 # ###############################
-
 # Read config file
 try:
     with open(CONFIG_PATH, 'r') as file:

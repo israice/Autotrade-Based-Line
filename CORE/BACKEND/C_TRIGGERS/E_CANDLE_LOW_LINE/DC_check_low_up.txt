@@ -1,7 +1,7 @@
 создай скрипт 
 
 в файле 
-system_config.yaml
+triggers_config.yaml
 находится 
 LOW_LINE: LINE
 LOW_COUNTER: 0

@@ -2,7 +2,7 @@ import yaml
 import os
 
 # Configuration
-CONFIG_FILE_PATH = "CORE/DATA/system_config.yaml"
+CONFIG_FILE_PATH = "CORE/DATA/triggers_config.yaml"
 HIGH_LINE_KEY = "HIGH_LINE"
 LOW_LINE_KEY = "LOW_LINE"
 HIGH_COUNTER_KEY = "HIGH_COUNTER"

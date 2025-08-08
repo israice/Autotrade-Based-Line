@@ -2,6 +2,7 @@ import yaml
 import requests
 import datetime
 import time
+import os
 
 # Settings
 settings_path = 'CORE/DATA/user_settings.yaml'
@@ -11,7 +12,7 @@ api_endpoint = '/fapi/v1/klines'
 time_format = '%Y-%m-%d %H:%M:%S'
 symbol_key = 'symbol'
 interval_key = 'timeframe_interval'
-limit_key = 'candles_limit'
+limit = 1
 
 # Load settings
 with open(settings_path, 'r') as f:
@@ -19,27 +20,29 @@ with open(settings_path, 'r') as f:
 
 symbol = settings[symbol_key]
 interval = settings[interval_key]
-limit = settings[limit_key]
 
-# Logic starts here
+# Start timer
 start_time = time.time()
 
+# Prepare API params
 params = {
     'symbol': symbol,
     'interval': interval,
     'limit': limit
 }
 
+# Fetch data
 response = requests.get(f"{api_base_url}{api_endpoint}", params=params)
 response.raise_for_status()
 candles = response.json()
 
 fetch_time_str = datetime.datetime.now(datetime.UTC).strftime(time_format)
 
-data = []
+# Prepare new candle data
+new_candles = []
 for idx in range(len(candles) - 1, -1, -1):  # Reverse to have latest first
     candle = candles[idx]
-    candle_idx = len(candles) - 1 - idx  # 0 for latest, increasing for older
+    candle_idx = len(candles) - 1 - idx  # 0 for latest
     candle_dict = {
         f'candle_{candle_idx}_close_time': datetime.datetime.fromtimestamp(candle[6] / 1000).strftime(time_format),
         f'candle_{candle_idx}_update_time': fetch_time_str,
@@ -49,11 +52,31 @@ for idx in range(len(candles) - 1, -1, -1):  # Reverse to have latest first
         f'candle_{candle_idx}_open': str(candle[1]),
         f'candle_{candle_idx}_low': str(candle[3]),
     }
-    data.append(candle_dict)
+    new_candles.append(candle_dict)
 
+# Load existing file if exists
+if os.path.exists(output_path):
+    with open(output_path, 'r') as f:
+        existing_data = yaml.safe_load(f) or []
+else:
+    existing_data = []
+
+# Ensure existing_data is a list
+if not isinstance(existing_data, list):
+    existing_data = []
+
+# Merge: replace only the first N candles, keep the rest
+for i in range(len(new_candles)):
+    if i < len(existing_data):
+        existing_data[i] = new_candles[i]  # Replace existing
+    else:
+        existing_data.append(new_candles[i])  # Append if missing
+
+# Save back to file
 with open(output_path, 'w') as f:
-    yaml.dump(data, f, default_flow_style=False, sort_keys=False)
+    yaml.dump(existing_data, f, default_flow_style=False, sort_keys=False)
 
+# Execution time logging
 exec_time = time.time() - start_time
 current_time = datetime.datetime.now(datetime.UTC).strftime(time_format)
-print(f"- - B - - << {limit} >> candles << {interval} >> timeframe for << {symbol} >> at {current_time}")
+print(f"- - - - << {limit} >> candles << {interval} >> timeframe for << {symbol} >> at {current_time}")

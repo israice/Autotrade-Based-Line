@@ -64,6 +64,8 @@ autotrade-based-line — это система мониторинга данны
 - added folders BACKEND DATA FRONTEND
 - протестиравана вся логика проекта, полностью работает
 - добавлен список TRIGGERS в config.yaml
+- созданы файлы CHECK TRIGGERS_CANDLE_LONG_END и ORDER_TYPE_OF_LONG_END
+
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать data проценты и trend long short
@@ -92,7 +94,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "добавлен список TRIGGERS в config.yaml"  
+git commit -m "созданы файлы CHECK TRIGGERS_CANDLE_LONG_END и ORDER_TYPE_OF_LONG_END"  
 git push
 
 ```

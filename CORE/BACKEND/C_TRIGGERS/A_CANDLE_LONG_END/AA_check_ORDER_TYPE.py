@@ -6,9 +6,9 @@ import os
 # Configuration settings
 # ###############################
 CONFIG_PATH = 'CORE/DATA/config.yaml'
-CONFIG_HEADER = 'TRIGGERS_CANDLE_LONG_END'
-SCRIPTS_UP_WORD = 'yes'
-SCRIPTS_DOWN_WORD = 'no'
+CONFIG_HEADER = 'ORDER_TYPE_OF_LONG_END'
+SCRIPTS_UP_WORD = 'line'
+SCRIPTS_DOWN_WORD = 'market'
 # ###############################
 # Script lists
 SCRIPTS_UP = [

@@ -3,7 +3,7 @@ delay: 2
 
 # B settings
 symbol: XRPUSDT
-timeframe_interval: 30m
+timeframe_interval: 3m
 candles_limit: 2
 
 # C settings

@@ -5,7 +5,7 @@ import subprocess
 
 # Settings
 LARGE_CANDLE_FILE = "CORE/DATA/A_candle.yaml"
-CLONE_CANDLE_FILE = "CORE/BACKEND/Y_COPY_DATA/YA_clone_candles.yaml"
+CLONE_CANDLE_FILE = "CORE/DATA/Z_candle.yaml"
 SCRIPTS_HIGH = [
     "CORE/BACKEND/C_CHECK_CANDLE_END/CAA_message_up.py",
     "CORE/BACKEND/Z_TOOLS/reset_config_lines.py", 

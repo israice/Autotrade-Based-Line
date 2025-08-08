@@ -5,6 +5,7 @@ from pathlib import Path
 
 # List of scripts to run
 SCRIPTS = [
+    'CORE/BACKEND/Z_TOOLS/delay.py',
     'CORE/BACKEND/Z_TOOLS/get_one_candle.py',
 ]
 

@@ -6,7 +6,6 @@ from pathlib import Path
 # List of scripts to run
 SCRIPTS = [
     'CORE/BACKEND/Z_TOOLS/clone_candles.py',
-    'CORE/BACKEND/Z_TOOLS/delay.py',
 ]
 
 def run_scripts():

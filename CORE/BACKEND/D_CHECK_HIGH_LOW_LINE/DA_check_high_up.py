@@ -12,8 +12,8 @@ COUNTER_INCREMENT = 1
 SCRIPTS = [
     "CORE/BACKEND/D_CHECK_HIGH_LOW_LINE/DAA_message_high_up.py",
     "CORE/BACKEND/Z_TOOLS/order_buy_long.py",
-    "CORE/BACKEND/Z_TOOLS/order_sell_short.py",
-    "CORE/BACKEND/Z_TOOLS/add_NOW_AMOUNT.py",
+    # "CORE/BACKEND/Z_TOOLS/order_sell_short.py",
+    # "CORE/BACKEND/Z_TOOLS/add_NOW_AMOUNT.py",
 ]
 
 # Logic

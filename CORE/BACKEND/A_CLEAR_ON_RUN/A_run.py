@@ -9,7 +9,6 @@ SCRIPTS = [
     "CORE/BACKEND/Z_TOOLS/reset_NOW_AMOUNT.py",
     "CORE/BACKEND/Z_TOOLS/get_two_candles.py",   
     'CORE/BACKEND/Z_TOOLS/clone_candles.py',
-    'CORE/BACKEND/Z_TOOLS/delay.py',
 ]
 
 print("- - A_CLEAR_ON_RUN")

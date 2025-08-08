@@ -24,7 +24,7 @@ if close0 > open0:
     if close0 > high1:
         if high_line != 'UP':
             scripts = [
-                'CORE/D_CHECK_HIGH_LOW_LINE/DA_check_high_up.py',
+                'CORE/BACKEND/D_CHECK_HIGH_LOW_LINE/DA_check_high_up.py',
             ]
             for script in scripts:
                 subprocess.call(['python', script])
@@ -34,7 +34,7 @@ if close0 > open0:
     if close0 < high1:
         if high_line != 'DOWN':
             scripts = [
-                'CORE/D_CHECK_HIGH_LOW_LINE/DB_check_high_down.py',
+                'CORE/BACKEND/D_CHECK_HIGH_LOW_LINE/DB_check_high_down.py',
             ]
             for script in scripts:
                 subprocess.call(['python', script])
@@ -44,7 +44,7 @@ if close0 < open0:
     if close0 > low1:
         if low_line != 'UP':
             scripts = [
-                'CORE/D_CHECK_HIGH_LOW_LINE/DC_check_low_up.py',
+                'CORE/BACKEND/D_CHECK_HIGH_LOW_LINE/DC_check_low_up.py',
             ]
             for script in scripts:
                 subprocess.call(['python', script])
@@ -54,7 +54,7 @@ if close0 < open0:
     if close0 < low1:
         if low_line != 'DOWN':
             scripts = [
-                'CORE/D_CHECK_HIGH_LOW_LINE/DD_check_low_down.py',
+                'CORE/BACKEND/D_CHECK_HIGH_LOW_LINE/DD_check_low_down.py',
             ]
             for script in scripts:
                 subprocess.call(['python', script])

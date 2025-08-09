@@ -70,6 +70,7 @@ autotrade-based-line — это система мониторинга данны
 - начинаем создовать первичное состояние файла order_budy.yaml 
 - все работает, следующий этап get ORDER_LEVERAGE 75
 - добавлен screenshot.png
+- теперь меняет на ISOLATED и активирует MAX_LEVERAGE
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать data проценты и trend long short
@@ -98,7 +99,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "добавлен screenshot.png"  
+git commit -m "теперь меняет на ISOLATED и активирует MAX_LEVERAGE"  
 git push
 
 ```

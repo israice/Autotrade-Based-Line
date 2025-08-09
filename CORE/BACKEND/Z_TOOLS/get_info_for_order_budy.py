@@ -96,7 +96,7 @@ if current_margin_type != 'isolated':
         print(f"Changed margin type to <<< ISOLATED >>> for {SYMBOL}")
     except BinanceAPIException as e:
         if e.code == -4046:
-            print(f"Margin type already <<< ISOLATED >>> for {SYMBOL}")
+            print(f"- - - Margin type already <<< ISOLATED >>> for {SYMBOL}")
         else:
             print(f"Error changing margin type for {SYMBOL}: {e}. This may occur if there are open positions/orders.")
 
@@ -115,7 +115,7 @@ else:
     # If no position info or unknown, attempt to set
     try:
         client.futures_change_leverage(symbol=SYMBOL, leverage=max_leverage)
-        print(f"Set leverage to <<< {max_leverage} >>> for {SYMBOL}")
+        print(f"- - - Set leverage to <<< {max_leverage} >>> for {SYMBOL}")
     except BinanceAPIException as e:
         if e.code == -4047:
             print(f"Leverage already {max_leverage} for {SYMBOL} (no prior info).")

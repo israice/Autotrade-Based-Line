@@ -9,8 +9,7 @@ SCRIPTS = [
     "CORE/BACKEND/Z_TOOLS/create_ORDER_SYMBOL.py", 
     "CORE/BACKEND/Z_TOOLS/get_two_candles.py",   
     # reset triggers_config.yaml
-    "CORE/BACKEND/Z_TOOLS/reset_config_lines.py",
-    "CORE/BACKEND/Z_TOOLS/reset_NOW_AMOUNT.py",
+    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_OPEN_LINE.py",
     # reset order_budy.yaml
     "CORE/BACKEND/Z_TOOLS/create_ORDER_ACCOUNT_ID.py",
     'CORE/BACKEND/Z_TOOLS/get_info_for_order_budy.py',

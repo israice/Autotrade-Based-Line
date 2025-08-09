@@ -66,12 +66,15 @@ autotrade-based-line — это система мониторинга данны
 - added folders BACKEND DATA FRONTEND
 - протестиравана вся логика проекта, полностью работает
 - добавлен список TRIGGERS в triggers_config.yaml
-- созданы файлы CHECK TRIGGERS_CANDLE_LONG_END и ORDER_TYPE_OF_LONG_END
+- созданы файлы CHECK TRIGGERS_CANDLE_GREEN_END и ORDER_TYPE_OF_LONG_END
 - начинаем создовать первичное состояние файла order_budy.yaml 
 - все работает, следующий этап get ORDER_LEVERAGE 75
 - добавлен screenshot.png
 - теперь меняет на ISOLATED и активирует MAX_LEVERAGE
-- создана папка C_WORKFLOWS и workflows_config.yaml
+- создана папка C_THE_FLOWS и workflows_config.yaml
+
+## v0.0.7
+- C_CHECK_CANDLE_END D_CHECK_PERCENT_SELL E_CHECK_OPEN_LINE_CROSS
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать data проценты и trend long short
@@ -100,7 +103,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "создана папка C_WORKFLOWS и workflows_config.yaml"  
+git commit -m "C_CHECK_CANDLE_END D_CHECK_PERCENT_SELL E_CHECK_OPEN_LINE_CROSS"  
 git push
 
 ```

@@ -13,8 +13,10 @@ ON_START_SCRIPTS = [
 
 MAIN_SCRIPTS = [
     "CORE/BACKEND/B_GET_DATA/B_run.py",
-    "CORE/BACKEND/C_TRIGGERS/C_run.py",
-    "CORE/BACKEND/Y_COPY_DATA/Y_run.py",
+    "CORE/BACKEND/C_CHECK_CANDLE_END/C_if_candle_ends_then_check.py",
+    "CORE/BACKEND/D_CHECK_PERCENT_SELL/D_if_percent_positive_or_negative.py",
+    "CORE/BACKEND/E_CHECK_OPEN_LINE_CROSS/E_if_trend_changes_then_order.py",
+    "CORE/BACKEND/Y_COPY_DATA/Y_run.py",    
 ]
 
 # Load settings

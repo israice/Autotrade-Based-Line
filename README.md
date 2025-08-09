@@ -71,6 +71,7 @@ autotrade-based-line — это система мониторинга данны
 - все работает, следующий этап get ORDER_LEVERAGE 75
 - добавлен screenshot.png
 - теперь меняет на ISOLATED и активирует MAX_LEVERAGE
+- создана папка C_WORKFLOWS и workflows_config.yaml
 
 ## ПЛАНЫ НА БУДУЩЕЕ
 - создать data проценты и trend long short
@@ -99,7 +100,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "теперь меняет на ISOLATED и активирует MAX_LEVERAGE"  
+git commit -m "создана папка C_WORKFLOWS и workflows_config.yaml"  
 git push
 
 ```

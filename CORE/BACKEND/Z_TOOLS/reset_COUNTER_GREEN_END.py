@@ -3,9 +3,9 @@ import os
 
 # ================== CONFIGURATION ==================
 CONFIG_FILE = "CORE/DATA/triggers_config.yaml"
-NOW_AMOUNT_KEY = "COUNTER_OPEN_LINE"
+NOW_AMOUNT_KEY = "COUNTER_GREEN_END"
 # You can put any value here: number, string, null
-RESET_VALUE = 0
+RESET_VALUE = '0'
 # ====================================================
 
 # Function to update specific value in YAML content while preserving lines
@@ -15,12 +15,10 @@ def update_yaml_line(file_path, key, new_value):
             lines = file.readlines()
 
         # Convert Python value to YAML-compatible string
-        if isinstance(new_value, str):
-            yaml_value = f"'{new_value}'"  # wrap in quotes if it's string
-        elif new_value is None:
+        if new_value is None:
             yaml_value = "null"
         else:
-            yaml_value = str(new_value)
+            yaml_value = str(new_value)  # No quotes for strings
 
         found = False
         for i, line in enumerate(lines):
@@ -46,4 +44,3 @@ def update_yaml_line(file_path, key, new_value):
 # Main logic: reset NOW_AMOUNT to RESET_VALUE
 if not update_yaml_line(CONFIG_FILE, NOW_AMOUNT_KEY, RESET_VALUE):
     exit(1)
-

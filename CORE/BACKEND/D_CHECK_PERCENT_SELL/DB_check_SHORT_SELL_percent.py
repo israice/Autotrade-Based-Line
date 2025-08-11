@@ -30,6 +30,12 @@ def save_config(config):
     yaml = ruamel.yaml.YAML()
     yaml.preserve_quotes = True
     yaml.indent(mapping=2, sequence=4, offset=2)
+    
+    def represent_float(self, data):
+        return self.represent_scalar('tag:yaml.org,2002:float', f"{data:.3f}")
+    
+    yaml.representer.add_representer(float, represent_float)
+    
     with open(CONFIG_FILE, 'w') as file:
         yaml.dump(config, file)
 
@@ -62,11 +68,11 @@ def main():
         while percent_short_sell > percent_status:
             percent_short_sell -= decrement
         
-        # Format PERCENT_SHORT_SELL to X.XXX, preserving sign
-        formatted_percent_short_sell = round(percent_short_sell, 3)
+        # Round to 3 decimal places
+        percent_short_sell = round(percent_short_sell, 3)
         
         # Update configuration
-        config[PERCENT_SHORT_SELL_KEY] = formatted_percent_short_sell
+        config[PERCENT_SHORT_SELL_KEY] = percent_short_sell
         save_config(config)
         
         # Run scripts

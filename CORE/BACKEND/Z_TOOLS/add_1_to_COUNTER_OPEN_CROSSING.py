@@ -3,7 +3,7 @@ import os
 
 # ================== CONFIGURATION ==================
 CONFIG_FILE = "CORE/DATA/triggers_config.yaml"
-NOW_AMOUNT_KEY = "COUNTER_OPEN_LINE"
+NOW_AMOUNT_KEY = "COUNTER_OPEN_CROSSING"
 INCREMENT_VALUE = 1  # Value to increment by
 # ====================================================
 

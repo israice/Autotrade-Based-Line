@@ -1,0 +1,1 @@
+print(" - - START CANDLE WITH SAME PRICE - ✅")

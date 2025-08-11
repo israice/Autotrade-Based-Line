@@ -1,1 +1,0 @@
-print(" - - OPEN LINE CROSSING UP - ✅")

@@ -8,14 +8,15 @@ import sys
 SETTINGS_FILE = 'CORE/DATA/user_settings.yaml'
 
 ON_START_SCRIPTS = [
-    "CORE/BACKEND/A_CLEAR_ON_RUN/A_run.py"
+    "CORE/BACKEND/A_PRECONFIG_ON_START/A_run.py"
 ]
 
 MAIN_SCRIPTS = [
     "CORE/BACKEND/B_GET_DATA/B_run.py",
-    "CORE/BACKEND/C_CHECK_CANDLE_END/C_if_candle_ends_then_check.py",
+    "CORE/BACKEND/C_CHECK_CANDLE_END/C_if_candle_ends.py",
     "CORE/BACKEND/D_CHECK_PERCENT_SELL/D_if_percent_positive_or_negative.py",
-    "CORE/BACKEND/E_CHECK_OPEN_LINE_CROSS/E_if_trend_changes_then_order.py",
+    "CORE/BACKEND/E_CHECK_OPEN_LINE_CROSS/E_if_trend_changes.py",
+    "CORE/BACKEND/F_CHECK_HIGH_LOW_CROSS/F_if_candle_one_outside.py",
     "CORE/BACKEND/Y_COPY_DATA/Y_run.py",    
 ]
 

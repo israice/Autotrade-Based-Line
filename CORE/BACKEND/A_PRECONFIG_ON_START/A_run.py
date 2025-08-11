@@ -9,7 +9,15 @@ SCRIPTS = [
     "CORE/BACKEND/Z_TOOLS/create_ORDER_SYMBOL.py", 
     "CORE/BACKEND/Z_TOOLS/get_two_candles.py",   
     # reset triggers_config.yaml
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_OPEN_LINE.py",
+    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_HIGH_CROSSING.py",
+    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_OPEN_CROSSING.py",
+    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_LOW_CROSSING.py",
+    "CORE/BACKEND/Z_TOOLS/reset_PERCENT_SELL.py",
+    "CORE/BACKEND/Z_TOOLS/reset_TREND_STATUS.py",
+    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_UP_GREEN.py",
+    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_UP_RED.py",
+    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_DOWN_RED.py",
     # reset order_budy.yaml
     "CORE/BACKEND/Z_TOOLS/create_ORDER_ACCOUNT_ID.py",
     'CORE/BACKEND/Z_TOOLS/get_info_for_order_budy.py',

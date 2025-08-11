@@ -21,12 +21,6 @@ def save_config(config):
     yaml = ruamel.yaml.YAML()
     yaml.preserve_quotes = True
     yaml.indent(mapping=2, sequence=4, offset=2)
-    
-    def represent_float(self, data):
-        return self.represent_scalar('tag:yaml.org,2002:float', f"{data:.3f}")
-    
-    yaml.representer.add_representer(float, represent_float)
-    
     with open(CONFIG_FILE, 'w') as file:
         yaml.dump(config, file)
 
@@ -53,11 +47,11 @@ def main():
         while percent_long_sell <= percent_status:
             percent_long_sell += additional_percent
         
-        # Round to 3 decimal places
-        percent_long_sell = round(percent_long_sell, 3)
+        # Format PERCENT_LONG_SELL to X.XXX
+        formatted_percent_long_sell = float(f"{percent_long_sell:.3f}")
         
         # Update configuration
-        config[PERCENT_LONG_SELL_KEY] = percent_long_sell
+        config[PERCENT_LONG_SELL_KEY] = formatted_percent_long_sell
         save_config(config)
         
         # Run scripts

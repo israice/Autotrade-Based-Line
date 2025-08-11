@@ -73,12 +73,12 @@ autotrade-based-line — это система мониторинга данны
 - теперь меняет на ISOLATED и активирует MAX_LEVERAGE
 - создана папка C_THE_FLOWS и workflows_config.yaml
 
-## v0.0.7
+## v0.0.8
 - C_CHECK_CANDLE_END D_CHECK_PERCENT_SELL E_CHECK_OPEN_LINE_CROSS
+- перепроверен модуль CHECK_HIGH_LOW_CROSS
 
 ## ПЛАНЫ НА БУДУЩЕЕ
-- создать data проценты и trend long short
-- создать продажу по процентам
+- создать безопастную зону для перезарядки катлеты
 
 </details>
 
@@ -103,7 +103,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ## Обновить репозиторий
 ```
 git add .  
-git commit -m "C_CHECK_CANDLE_END D_CHECK_PERCENT_SELL E_CHECK_OPEN_LINE_CROSS"  
+git commit -m "перепроверен модуль CHECK_HIGH_LOW_CROSS"  
 git push
 
 ```

@@ -1,0 +1,1 @@
+print(" - - SETTINGS ON CANDLE END - ✅")

@@ -6,12 +6,12 @@ YAML_FILE_PATH = "CORE/DATA/triggers_config.yaml"
 the_key = "CROSSING_DOWN_RED"
 CROSSING_UP_GREEN = "WATING"
 SCRIPTS = [
-    "CORE/BACKEND/Z_TOOLS/message_CROSSING_DOWN_RED.py",
-    "CORE/BACKEND/Z_TOOLS/add_1_to_COUNTER_LOW_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_UP_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_UP_RED.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_DOWN_RED.py",
+    "TOOLS/message_CROSSING_DOWN_RED.py",
+    "TOOLS/add_1_to_COUNTER_LOW_CROSSING.py",
+    "TOOLS/disable_CROSSING_UP_GREEN.py",
+    "TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    "TOOLS/enable_CROSSING_UP_RED.py",
+    "TOOLS/disable_CROSSING_DOWN_RED.py",
 ]
 
 def load_yaml_file(file_path):

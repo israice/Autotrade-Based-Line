@@ -5,10 +5,10 @@
 
 запускает список скриптов по очереди 
 SCRIPTS = [
-    "CORE/BACKEND/Z_TOOLS/message_candle_green_end.py",
-    "CORE/BACKEND/Z_TOOLS/message_candle_red_end.py",
-    "CORE/BACKEND/Z_TOOLS/message_checked.py",
-    "CORE/BACKEND/Z_TOOLS/message_long_sell_percent_market_order.py",
+    "TOOLS/message_candle_green_end.py",
+    "TOOLS/message_candle_red_end.py",
+    "TOOLS/message_checked.py",
+    "TOOLS/message_long_sell_percent_market_order.py",
 ]
 
 отоброжай замер в консоли замер времени выполнения СПИСКА

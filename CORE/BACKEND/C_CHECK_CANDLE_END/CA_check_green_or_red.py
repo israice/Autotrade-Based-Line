@@ -8,44 +8,44 @@ Z_CANDLE_PATH = 'CORE/DATA/Z_candle.yaml'
 
 # Script lists
 GREEN_LIST = [
-    "CORE/BACKEND/Z_TOOLS/message_candle_green_end.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_PERCENT_SELL.py",
-    "CORE/BACKEND/Z_TOOLS/reset_TREND_STATUS.py",
-    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_UP_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_UP_RED.py",
-    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_DOWN_RED.py",
+    "TOOLS/message_candle_green_end.py",
+    "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
+    "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
+    "TOOLS/reset_COUNTER_LOW_CROSSING.py",
+    "TOOLS/reset_PERCENT_SELL.py",
+    "TOOLS/reset_TREND_STATUS.py",
+    "TOOLS/enable_CROSSING_UP_GREEN.py",
+    "TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    "TOOLS/disable_CROSSING_UP_RED.py",
+    "TOOLS/enable_CROSSING_DOWN_RED.py",
     
 ]
 
 RED_LIST = [
-    "CORE/BACKEND/Z_TOOLS/message_candle_red_end.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_PERCENT_SELL.py",
-    "CORE/BACKEND/Z_TOOLS/reset_TREND_STATUS.py",
-    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_UP_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_UP_RED.py",
-    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_DOWN_RED.py",
+    "TOOLS/message_candle_red_end.py",
+    "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
+    "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
+    "TOOLS/reset_COUNTER_LOW_CROSSING.py",
+    "TOOLS/reset_PERCENT_SELL.py",
+    "TOOLS/reset_TREND_STATUS.py",
+    "TOOLS/enable_CROSSING_UP_GREEN.py",
+    "TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    "TOOLS/disable_CROSSING_UP_RED.py",
+    "TOOLS/enable_CROSSING_DOWN_RED.py",
     
 ]
 
 GLOBAL_LIST = [
-    "CORE/BACKEND/Z_TOOLS/message_candle_started_with_same_open.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    "CORE/BACKEND/Z_TOOLS/reset_PERCENT_SELL.py",
-    "CORE/BACKEND/Z_TOOLS/reset_TREND_STATUS.py",
-    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_UP_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/BACKEND/Z_TOOLS/disable_CROSSING_UP_RED.py",
-    "CORE/BACKEND/Z_TOOLS/enable_CROSSING_DOWN_RED.py",
+    "TOOLS/message_candle_started_with_same_open.py",
+    "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
+    "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
+    "TOOLS/reset_COUNTER_LOW_CROSSING.py",
+    "TOOLS/reset_PERCENT_SELL.py",
+    "TOOLS/reset_TREND_STATUS.py",
+    "TOOLS/enable_CROSSING_UP_GREEN.py",
+    "TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    "TOOLS/disable_CROSSING_UP_RED.py",
+    "TOOLS/enable_CROSSING_DOWN_RED.py",
 ]
 
 def load_yaml_file(file_path):

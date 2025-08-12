@@ -5,9 +5,7 @@ from pathlib import Path
 
 # List of scripts to run
 SCRIPTS = [
-    'CORE/BACKEND/Z_TOOLS/delay_by_settings.py',
-    'CORE/BACKEND/Z_TOOLS/get_two_candles.py',
-    'CORE/BACKEND/B_GET_DATA/BA_create_percent.py',
+    'CORE/BACKEND/B_CREATE_DATA/BA_create_percent.py',
 ]
 
 def run_scripts():

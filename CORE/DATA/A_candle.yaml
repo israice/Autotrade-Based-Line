@@ -1,14 +1,8 @@
-- candle_0_close_time: '2025-08-11 04:14:59'
-  candle_0_update_time: '2025-08-11 01:14:07'
-  candle_0_open_time: '2025-08-11 04:12:00'
-  candle_0_close: '3.2066'
-  candle_0_high: '3.2079'
-  candle_0_open: '3.2003'
-  candle_0_low: '3.2003'
-- candle_1_close_time: '2025-08-11 04:11:59'
-  candle_1_update_time: '2025-08-11 01:14:07'
-  candle_1_open_time: '2025-08-11 04:09:00'
-  candle_1_close: '3.2003'
-  candle_1_high: '3.2018'
-  candle_1_open: '3.1945'
-  candle_1_low: '3.1922'
+XRPUSDT_1m:
+  CLOSE_TIME: 2025-08-12 03:32:59:999
+  TIMESTAMP: 2025-08-12 03:32:31:697
+  OPEN_TIME: 2025-08-12 03:32:00:000
+  HIGH_PRICE: 3.155
+  CLOSE_PRICE: 3.1532
+  OPEN_PRICE: 3.1545
+  LOW_PRICE: 3.1523

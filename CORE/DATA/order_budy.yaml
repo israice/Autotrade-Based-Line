@@ -9,7 +9,7 @@ ORDER_POSITION_SIDE: LONG
 ORDER_TYPE: MARKET
 # A_candle.yaml
 ORDER_LIMIT_PRICE: 3.1856
-# get_info_for_order_budy.py
+# binance_info_for_order_budy.py
 ORDER_STEP_SIZE: 0.1
 ORDER_MIN_QTY: 0.1
 ORDER_MIN_NOTIONAL: 5.0

@@ -1,11 +1,18 @@
+# #################################
+DELAY_BY_SETTINGS: 2              # in seconds
+WEBSOCKET_RESTART_INTERVAL: 240   # in minutes
+WEBSOCKET_TIMEFRAME: 1m
+WEBSOCKET_SYMBOL: 
+- XRPUSDT
+# - BTCUSDT
+# #################################
 # candle settings
 candles_limit: 2
-timeframe_interval: 3m
-delay_by_settings: 2
+timeframe_interval: 1m
+# #################################
 # order settings
 ACCOUNT_ID: REAL1
 symbol: XRPUSDT
 COIN_LEVERAGE: 75
 START_AMOUNT: 0.1
-
-
+# #################################

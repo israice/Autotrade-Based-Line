@@ -1,19 +1,24 @@
 # Autotrade-Based-Line
 
 ## Обзор проекта
+
 autotrade-based-line — это система мониторинга данных по криптовалютам, которая получает данные свечей с Binance и обрабатывает их с помощью серии Python-скриптов. Система работает в непрерывном цикле, выполняя каждый скрипт по очереди согласно настройкам в конфигурационном файле.
 
 ## Текущая стадия разработки
+
 ![alt text](screenshot.png)
 
 ## Конфигурация
+
 Отредактируйте файл `CORE/DATA/user_settings.yaml` для настройки системы:
 
 ## Разработка
+
 <details>
   <summary>Журнал DEV</summary>
 
 ## v0.0.1
+
 - ДАТА СОЗДАНИЯ ПРОЕКТА: 2025.06.29
 - создан run.py, который выполняет чек-лист
 - создан user_settings.yaml со всеми необходимыми настройками
@@ -21,15 +26,18 @@ autotrade-based-line — это система мониторинга данны
 - создан clone candles.py для клонирования файла свечей
 
 ## v0.0.2
+
 - создан скрипт сравнения цен
 
 ## v0.0.3
+
 - Добавлена логика анализа тренда на основе YAML-файла AB_check_trend.py
 - Автоматическое выполнение логики по тренду: AC_use_trend.py, ACA_check_green.py, ACB_check_red.py и подскрипты
 - Логика сравнения и записи процентного изменения
 - Улучшена обработка ошибок и корректное завершение работы
 
 ## v0.0.4
+
 - Введён единый цикл запуска всех скриптов через основной run.py
 - Добавлено автоматическое измерение времени выполнения цикла
 - Реализована очистка памяти после каждого цикла (gc.collect)
@@ -41,15 +49,17 @@ autotrade-based-line — это система мониторинга данны
 - Добавлены тестовые скрипты для отладки (test1.py, test2.py и др.)
 
 ## v0.0.5
-- добавлнно A_CLEAR_ON_RUN для обнуления данных 
+
+- добавлнно A_CLEAR_ON_RUN для обнуления данных
 - осущестовлен CHECK_CANDLE_END
 - добавленна переменная NEXT_LONG_PERCENT в config
 - добавлен скрипт reset_NEXT_STEP_AMOUNT
 - начал добовлять 1д свечи
 
 ## v0.0.6
+
 - перепроверен модуль A_CLEAR_ON_RUN
-- перепроверен модуль B_GET_DATA
+- перепроверен модуль B_CREATE_DATA
 - перепроверен модуль C_CHECK_CANDLE_END
 - исправленно получение первых свечей
 - перепроверен модуль D_CHECK_SELL_PERCENT
@@ -61,25 +71,36 @@ autotrade-based-line — это система мониторинга данны
 - добавленно время выполнения скрипта
 
 ## v0.0.7
-- исправлено выполнение реальных ордеров 
+
+- исправлено выполнение реальных ордеров
 - добавлен .env_EXAMPLE
 - added folders BACKEND DATA FRONTEND
 - протестиравана вся логика проекта, полностью работает
 - добавлен список TRIGGERS в triggers_config.yaml
 - созданы файлы CHECK TRIGGERS_CANDLE_GREEN_END и ORDER_TYPE_OF_LONG_END
-- начинаем создовать первичное состояние файла order_budy.yaml 
+- начинаем создовать первичное состояние файла order_budy.yaml
 - все работает, следующий этап get ORDER_LEVERAGE 75
 - добавлен screenshot.png
 - теперь меняет на ISOLATED и активирует MAX_LEVERAGE
 - создана папка C_THE_FLOWS и workflows_config.yaml
 
 ## v0.0.8
+
 - C_CHECK_CANDLE_END D_CHECK_PERCENT_SELL E_CHECK_OPEN_LINE_CROSS
 - перепроверен модуль CHECK_HIGH_LOW_CROSS
-- создан рабочий Z_binance_websocket_client.py
 
-## ПЛАНЫ НА БУДУЩЕЕ
-- создать безопастную зону для перезарядки катлеты
+## v0.0.9
+
+- создан рабочий Z_binance_websocket_stream.py
+
+## v0.1.0
+- v0.1.0 создана стабильного версия websocket ✔️ и Y_database.csv
+
+![alt text](CORE/DATA/screenshots/v0.1.0.png)
+
+## FUTURE PLANS
+
+- creating settings for pre config on off
 
 </details>
 
@@ -87,28 +108,34 @@ autotrade-based-line — это система мониторинга данны
   <summary>Github ШПАРГАЛКА</summary>
 
 ## Загрузить последние обновления и заменить локальные файлы
+
 ```
-git fetch origin; git reset --hard origin/master; git clean -fd  
+git fetch origin; git reset --hard origin/master; git clean -fd
 ```
 
 ## Посмотреть последние 10 коммитов и выбрать hash
+
 ```
-git log --oneline -n 10  
+git log --oneline -n 10
 ```
 
 ## Использовать hash для получения нужной версии локально
+
 ```
-git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx  
+git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 ```
 
 ## Обновить репозиторий
+
 ```
-git add .  
-git commit -m "создан рабочий Z_binance_websocket_client.py"  
+git add .
+git commit -m "v0.1.0 создана стабильного версия websocket ✔️ и Y_database.csv"
 git push
 
 ```
+
 ## Полезные эмодзи для документации и кода
+
 ✅ ☑️ ✔️ ✳️ ❌ ❎ ✖️ 🔁 🔂 🔄
 🚀 ⚙️ 💻 🔥 🧪 🐞 📝 🛠️ 🔄 🕒
 📈 📉 🗂️ 📦 🎯 📚 🧰 🏁 🔔 💡
@@ -128,7 +155,4 @@ git push
 ⏪ ⏭️ ⏮️ 🆗 🆕 🆙
 🪙 🪙 💰 💴 💵 💶 💷 💸 💳 🏦
 
-
 </details>
-
-

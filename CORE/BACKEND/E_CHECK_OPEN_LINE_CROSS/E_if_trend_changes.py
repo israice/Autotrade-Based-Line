@@ -4,12 +4,12 @@ import subprocess
 # Configuration settings and variables
 CONFIG_FILE = 'CORE/DATA/triggers_config.yaml'
 GREEN_LIST = [
-    "CORE/BACKEND/Z_TOOLS/message_up.py",
-    "CORE/BACKEND/Z_TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
+    "TOOLS/message_up.py",
+    "TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
 ]
 RED_LIST = [
-    "CORE/BACKEND/Z_TOOLS/message_down.py",
-    "CORE/BACKEND/Z_TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
+    "TOOLS/message_down.py",
+    "TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
 ]
 GREEN_STATUS = 'GREEN'
 RED_STATUS = 'RED'

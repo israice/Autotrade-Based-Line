@@ -17,7 +17,7 @@ CANDLE_NOT_ENDED_LIST = [
 ]
 
 CANDLE_ENDED_LIST = [
-    "TOOLS/get_second_candles_add_to_db.py",
+    "TOOLS/GET_SECOND_CANDLES_ADD_TO_DB.py",
     "TOOLS/copy_candles.py",
 ]
 

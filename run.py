@@ -6,38 +6,12 @@ import signal
 import threading
 
 PRE_CONFIG = [
-    "TOOLS/reset_db.py",
-    "TOOLS/reset_candle_data_files.py",
-    "TOOLS/get_second_candles_add_to_db.py",
-    # ##############################################
-    # "TOOLS/create_ORDER_SYMBOL.py", 
-    # "TOOLS/binance_two_candles.py",
-    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    # "TOOLS/reset_PERCENT_SELL.py",
-    # "TOOLS/reset_TREND_STATUS.py",
-    # "TOOLS/enable_CROSSING_UP_GREEN.py",
-    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    # "TOOLS/disable_CROSSING_UP_RED.py",
-    # "TOOLS/enable_CROSSING_DOWN_RED.py",
-    # "TOOLS/create_ORDER_ACCOUNT_ID.py",
-    # 'TOOLS/binance_info_for_order_budy.py',
-    # 'TOOLS/clone_candles.py',
-    # ##############################################
-    "TOOLS/binance_websocket_stream.py",
+    "CORE/BACKEND/0_RUN_BEFORE_START/0_RUN_LIST.py",
+    "TOOLS/BINANCE_WEBSOCKET_STREAM.py",
 ]
 
 MAIN_SCRIPTS_LIST = [
-    "TOOLS/DELAY_BY_SETTINGS.py",
-    # ##############################################
-    # "CORE/BACKEND/B_CREATE_DATA/B_run.py",
-    # "CORE/BACKEND/C_CHECK_CANDLE_END/C_if_candle_ends.py",
-    # "CORE/BACKEND/D_CHECK_PERCENT_SELL/D_if_percent_positive_or_negative.py",
-    # "CORE/BACKEND/E_CHECK_OPEN_LINE_CROSS/E_if_trend_changes.py",
-    # "CORE/BACKEND/F_CHECK_HIGH_LOW_CROSS/F_if_candle_one_outside.py",
-    # ##############################################
-    "TOOLS/check_for_copy_candles.py",    
+    "CORE/BACKEND/FLOW_1.py",
 
 ]
 
@@ -98,7 +72,7 @@ while True:
     for script in MAIN_SCRIPTS_LIST:
         run_script(script, is_pre=False)
     end_time = time.time()
-    print(f" - Execution time: {end_time - start_time:.3f} seconds ✔️")
+    # print(f" - Execution time: {end_time - start_time:.3f} seconds ✔️")
 
 print("Interrupted by user. Exiting...")
 pre_thread.join()

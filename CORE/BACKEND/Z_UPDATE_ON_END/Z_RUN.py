@@ -1,15 +1,12 @@
 import contextlib
 import io
 
+# ################### #
+# run list of scripts #
+# ################### #
+
 SCRIPTS = [
-    "TOOLS/DELAY_BY_SETTINGS.py",
-    # ##############################################
-    # "CORE/BACKEND/B_CREATE_DATA/B_run.py",
-    # "CORE/BACKEND/C_CHECK_CANDLE_END/C_if_candle_ends.py",
-    # "CORE/BACKEND/D_CHECK_PERCENT_SELL/D_if_percent_positive_or_negative.py",
-    # "CORE/BACKEND/E_CHECK_OPEN_LINE_CROSS/E_if_trend_changes.py",
-    # "CORE/BACKEND/F_CHECK_HIGH_LOW_CROSS/F_if_candle_one_outside.py",
-    # ##############################################
+    "CORE/BACKEND/Z_UPDATE_ON_END/ZZ_CHECK_IF_FIRST_CANDLE_ENDED.py",
 ]
 
 for script_path in SCRIPTS:

@@ -51,7 +51,7 @@ def on_error(ws, error):
         pass
 
 def on_close(ws, close_status_code, close_msg):
-    print("WebSocket closed")
+    pass
 
 def signal_handler(sig, frame):
     global interrupted

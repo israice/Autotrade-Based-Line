@@ -91,7 +91,7 @@ autotrade-based-line — это система мониторинга данны
 
 ## v0.0.9
 
-- создан рабочий Z_BINANCE_WEBSOCKET_STREAM.py
+- создан рабочий Z_WEBSOCKET.py
 
 ## v0.1.0
 
@@ -101,6 +101,7 @@ autotrade-based-line — это система мониторинга данны
 ## v0.1.1
 
 - ускорены скрипты выполнения 
+- проделана стабилизация старта и PRE_CONFIG
 
 ## FUTURE PLANS
 
@@ -133,7 +134,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "ускорены скрипты выполнения"
+git commit -m "проделана стабилизация старта и PRE_CONFIG"
 git push
 
 ```

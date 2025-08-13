@@ -13,12 +13,12 @@ COMPARISON_OPERATOR = "=="  # !=, ==, >, <, >=, <=
 FILE_2 = "CORE/DATA/Z_candle.yaml"
 
 CANDLE_NOT_ENDED_LIST = [
-    "TOOLS/copy_candles.py",
+    "TOOLS/COPY_CANDLES.py",
 ]
 
 CANDLE_ENDED_LIST = [
     "TOOLS/GET_SECOND_CANDLES_ADD_TO_DB.py",
-    "TOOLS/copy_candles.py",
+    "TOOLS/COPY_CANDLES.py",
 ]
 
 STOP_ON_ERROR = True

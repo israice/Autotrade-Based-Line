@@ -9,7 +9,7 @@ import traceback
 
 # Список скриптов для запуска
 SCRIPTS = [
-    "CORE/BACKEND/Z_UPDATE_ON_END/ZZ_CHECK_IF_FIRST_CANDLE_ENDED.py",
+    "CORE/BACKEND/A_RUN_BEFORE_START/AA_CHECK_IF_NEED_RESET.py",
 ]
 
 def run_script(script_path):

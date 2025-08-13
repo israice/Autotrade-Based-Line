@@ -7,13 +7,22 @@ from datetime import datetime, timezone
 import threading
 import time
 
-# Settings
+# Load user settings
+with open('CORE/DATA/user_settings.yaml', 'r') as f:
+    settings = yaml.safe_load(f)
+
+# All settings defined here
 WS_URL = "wss://fstream.binance.com/stream"
 FILE_PATH = "CORE/DATA/A_candle.yaml"
+WEBSOCKET_TIMEFRAME = settings['WEBSOCKET_TIMEFRAME']
+WEBSOCKET_SYMBOL = settings['WEBSOCKET_SYMBOL']
+SUBSCRIBE_PARAMS = [f"{symbol.lower()}@kline_{WEBSOCKET_TIMEFRAME}" for symbol in WEBSOCKET_SYMBOL]
 
+# Global variables
 candles = {}
 interrupted = False
 
+# Logic functions
 def on_open(ws):
     subscribe_message = {
         "method": "SUBSCRIBE",
@@ -59,15 +68,10 @@ def signal_handler(sig, frame):
     ws.close()
     interrupted = True
 
-if __name__ == "__main__":
-    signal.signal(signal.SIGINT, signal_handler)
-    with open('CORE/DATA/user_settings.yaml', 'r') as f:
-        settings = yaml.safe_load(f)
-    WEBSOCKET_TIMEFRAME = settings['WEBSOCKET_TIMEFRAME']
-    WEBSOCKET_SYMBOL = settings['WEBSOCKET_SYMBOL']
-    SUBSCRIBE_PARAMS = [f"{symbol.lower()}@kline_{WEBSOCKET_TIMEFRAME}" for symbol in WEBSOCKET_SYMBOL]
-    websocket.enableTrace(False)
-    ws = websocket.WebSocketApp(WS_URL, on_open=on_open, on_message=on_message, on_error=on_error, on_close=on_close)
-    ws.run_forever()
-    if interrupted:
-        sys.exit(0)
+# Run the script
+signal.signal(signal.SIGINT, signal_handler)
+websocket.enableTrace(False)
+ws = websocket.WebSocketApp(WS_URL, on_open=on_open, on_message=on_message, on_error=on_error, on_close=on_close)
+ws.run_forever()
+if interrupted:
+    sys.exit(0)

@@ -16,12 +16,13 @@ OPEN_TIME_KEY = 'OPEN_TIME'
 Z_CANDLE_PATH = 'CORE/DATA/Z_candle.yaml'
 
 SCRIPTS_EQUAL = [
-    "TOOLS/message_checked.py",
-    "TOOLS/COPY_CANDLES.py",
+    "CORE/TOOLS_FLOW/ping.py",
+    "CORE/TOOLS_FLOW/COPY_CANDLES.py",
 ]
 SCRIPTS_NOT_EQUAL = [
-    "TOOLS/GET_SECOND_CANDLES_ADD_TO_DB.py",
-    "TOOLS/COPY_CANDLES.py",
+    "CORE/TOOLS_FLOW/pong.py",
+    "CORE/TOOLS_FLOW/GET_SECOND_CANDLES_ADD_TO_DB.py",
+    "CORE/TOOLS_FLOW/COPY_CANDLES.py",
 ]
 
 # Initialize variables
@@ -55,9 +56,6 @@ try:
 except (FileNotFoundError, IndexError, TypeError, ValueError, KeyError):
     error = True
 
-# If error occurred, print message and do nothing
-if error:
-    print("One of the values not found.")
 else:
     # Determine which scripts to run based on comparison operator
     if COMPARISON_OPERATOR == '==':

@@ -96,12 +96,12 @@ autotrade-based-line — это система мониторинга данны
 ## v0.1.0
 
 - v0.1.0 создана стабильного версия websocket ✔️ и Y_database.csv
-![alt text](CORE/DATA/screenshots/v0.1.0.png)
 
 ## v0.1.1
 
 - ускорены скрипты выполнения 
 - проделана стабилизация старта и PRE_CONFIG
+- перепроверена базавая FLOW_1 для получение текущей свечи
 
 ## FUTURE PLANS
 
@@ -134,7 +134,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "проделана стабилизация старта и PRE_CONFIG"
+git commit -m "перепроверена базавая FLOW_1 для получение текущей свечи"
 git push
 
 ```

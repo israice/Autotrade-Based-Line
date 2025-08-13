@@ -9,15 +9,15 @@ Z_CANDLE_PATH = 'CORE/DATA/Z_candle.yaml'
 # Script lists
 GREEN_LIST = [
     "TOOLS/message_candle_green_end.py",
-    "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    "TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    "TOOLS/reset_PERCENT_SELL.py",
-    "TOOLS/reset_TREND_STATUS.py",
-    "TOOLS/enable_CROSSING_UP_GREEN.py",
-    "TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    "TOOLS/disable_CROSSING_UP_RED.py",
-    "TOOLS/enable_CROSSING_DOWN_RED.py",
+    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
+    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
+    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
+    # "TOOLS/reset_PERCENT_SELL.py",
+    # "TOOLS/reset_TREND_STATUS.py",
+    # "TOOLS/enable_CROSSING_UP_GREEN.py",
+    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    # "TOOLS/disable_CROSSING_UP_RED.py",
+    # "TOOLS/enable_CROSSING_DOWN_RED.py",
     
 ]
 

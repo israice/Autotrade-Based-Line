@@ -15,11 +15,11 @@ COMPARISON_OPERATOR = '=='  # Supports '==', '!=', '>', '<', '>=', '<='
 OPEN_TIME_KEY = 'OPEN_TIME'
 Z_CANDLE_PATH = 'CORE/DATA/Z_candle.yaml'
 
-SCRIPTS_NOT_EQUAL = [
-    "CORE/BACKEND/C_CHECK_CANDLE_END/CA_check_green_or_red.py",
-]
-
 SCRIPTS_EQUAL = [
+    "TOOLS/ping.py",
+]
+SCRIPTS_NOT_EQUAL = [
+    "TOOLS/pong.py",
 ]
 
 # Initialize variables

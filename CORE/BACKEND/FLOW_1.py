@@ -1,17 +1,20 @@
-import yaml
 import os
-import io
-import contextlib
 import sys
+import subprocess
 import time
+import signal
+import threading
 
-CONFIG_PATH = 'CORE/DATA/triggers_config.yaml'
-CONFIG_HEADER = 'FLOW_1'
-SCRIPTS_UP_WORD = 'ENABLE'
-SCRIPTS_DOWN_WORD = 'DISABLE'
+SCRIPTS_WITH_DATA_STREAM = [
+    "CORE/TOOLS_FLOW/GET_WEBSOCKET_STREAM.py",
+]
 
-SCRIPTS_YES = [
-    "TOOLS/DELAY_BY_SETTINGS.py",
+PRE_CONFIG = [
+    "CORE/BACKEND/A_RUN_BEFORE_START/A_RUN.py",
+]
+
+MAIN_SCRIPTS_LIST = [
+    "CORE/TOOLS_FLOW/DELAY_BY_SETTINGS.py",
     # ##############################################
     # "CORE/BACKEND/B_CREATE_DATA/B_run.py",
     # "CORE/BACKEND/C_CHECK_CANDLE_END/C_if_candle_ends.py",
@@ -21,60 +24,72 @@ SCRIPTS_YES = [
     # ##############################################
     "CORE/BACKEND/Z_UPDATE_ON_END/Z_RUN.py",
 ]
-SCRIPTS_NO = [
-]
 
-config_value = None
-try:
-    with open(CONFIG_PATH, 'r') as file:
-        config = yaml.safe_load(file)
-        if config is not None:
-            config_value = config.get(CONFIG_HEADER)
-except FileNotFoundError:
-    pass
-except yaml.YAMLError as e:
-    pass
+interrupt_flag = False
+running_pre = []
+running_scripts = []
+lock = threading.Lock()
 
-if config_value is None:
-    scripts = []
+def signal_handler(sig, frame):
+    global interrupt_flag
+    interrupt_flag = True
+    with lock:
+        for p in running_pre[:]:
+            try:
+                p.terminate()
+            except:
+                pass
+
+signal.signal(signal.SIGINT, signal_handler)
+
+if sys.platform == "win32":
+    creation_flags = subprocess.CREATE_NEW_PROCESS_GROUP
 else:
-    if isinstance(config_value, bool):
-        config_value = SCRIPTS_UP_WORD if config_value else SCRIPTS_DOWN_WORD
+    creation_flags = 0
 
-    if config_value == SCRIPTS_UP_WORD:
-        scripts = SCRIPTS_YES
-    elif config_value == SCRIPTS_DOWN_WORD:
-        scripts = SCRIPTS_NO
-    else:
-        print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
-        sys.exit(1)
-
-start_time = time.time()
-
-for script in scripts:
-    if not os.path.exists(script):
-        print(f"Error: Script {script} not found")
-        continue
+def run_script(script, is_pre=False):
+    p = subprocess.Popen([sys.executable, script], creationflags=creation_flags)
+    with lock:
+        if is_pre:
+            running_pre.append(p)
+        else:
+            running_scripts.append(p)
     try:
-        # Читаем код скрипта
-        with open(script, 'r') as f:
-            code = compile(f.read(), script, 'exec')
-        
-        # Подготавливаем окружение для exec (мимикрируем __main__)
-        exec_globals = {'__name__': '__main__', '__file__': script}
-        
-        # Захватываем вывод
-        output = io.StringIO()
-        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(output):
-            exec(code, exec_globals)
-        
-        # Выводим captured output
-        print(output.getvalue(), end='')
-    except Exception as e:
-        print(f"Error executing {script}: {e}")
+        p.wait()
+    finally:
+        with lock:
+            if is_pre:
+                if p in running_pre:
+                    running_pre.remove(p)
+            else:
+                if p in running_scripts:
+                    running_scripts.remove(p)
+    return p.returncode
 
-end_time = time.time()
-execution_time = end_time - start_time
-formatted_time = f"{execution_time:.3f}"
-if formatted_time != "0.000":
-    print(f"- Execution time: {formatted_time} seconds ✔️")
+def run_pre_pre_config():
+    for script in PRE_CONFIG:
+        run_script(script, is_pre=True)
+
+def run_pre_config():
+    for script in SCRIPTS_WITH_DATA_STREAM:
+        run_script(script, is_pre=True)
+
+# Run PRE_CONFIG first in the main thread
+run_pre_pre_config()
+
+# Start SCRIPTS_WITH_DATA_STREAM in a separate thread
+pre_thread = threading.Thread(target=run_pre_config)
+pre_thread.start()
+
+# Run MAIN_SCRIPTS_LIST in a loop in the main thread
+while True:
+    if interrupt_flag:
+        break
+    start_time = time.time()
+    for script in MAIN_SCRIPTS_LIST:
+        run_script(script, is_pre=False)
+    end_time = time.time()
+    print(f" - Execution time: {end_time - start_time:.3f} seconds ✔️")
+
+print("Interrupted by user. Exiting...")
+pre_thread.join()

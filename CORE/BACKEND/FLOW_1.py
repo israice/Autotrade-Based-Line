@@ -16,6 +16,7 @@ PRE_CONFIG = [
 MAIN_SCRIPTS_LIST = [
     "CORE/TOOLS_FLOW/DELAY_BY_SETTINGS.py",
     # ##############################################
+    "CORE/BACKEND/B_CHECK_CANDLE_END/B_RUN.py",
     # "CORE/BACKEND/B_CREATE_DATA/B_run.py",
     # "CORE/BACKEND/C_CHECK_CANDLE_END/C_if_candle_ends.py",
     # "CORE/BACKEND/D_CHECK_PERCENT_SELL/D_if_percent_positive_or_negative.py",
@@ -85,11 +86,8 @@ pre_thread.start()
 while True:
     if interrupt_flag:
         break
-    start_time = time.time()
     for script in MAIN_SCRIPTS_LIST:
         run_script(script, is_pre=False)
-    end_time = time.time()
-    print(f" - Execution time: {end_time - start_time:.3f} seconds ✔️")
 
 print("Interrupted by user. Exiting...")
 pre_thread.join()

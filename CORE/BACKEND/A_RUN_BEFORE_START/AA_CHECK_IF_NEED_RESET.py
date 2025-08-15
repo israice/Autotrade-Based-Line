@@ -15,18 +15,11 @@ SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/TOOLS_FLOW/DISABLE_FLOW_1.py",
-    # ########### RESET CANDLE ##############
-    "CORE/TOOLS_FLOW/RESET_CANDLE_DATA_FILES.py",
-    "CORE/TOOLS_FLOW/GET_FIRST_CANDLE.py",
-    "CORE/TOOLS_FLOW/COPY_CANDLES.py",
-    # #######################################
-    "CORE/TOOLS_FLOW/DELAY_BY_SETTINGS.py",
     # ########### RESET DB ##################
     "CORE/TOOLS_FLOW/RESET_DB.py",
-    "CORE/TOOLS_FLOW/GET_SECOND_CANDLES_ADD_TO_DB.py",
+    "CORE/TOOLS_FLOW/GET_CANDLE_1_ADD_TO_DB.py",
+    "CORE/TOOLS_FLOW/GET_CANDLE_2_ADD_TO_DB.py",
     # #######################################
-    "CORE/TOOLS_FLOW/ENABLE_FLOW_1.py",
     # "TOOLS/create_ORDER_SYMBOL.py", 
     # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
     # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
@@ -96,5 +89,5 @@ for script in scripts:
 end_time = time.time()
 execution_time = end_time - start_time
 formatted_time = f"{execution_time:.3f}"
-if formatted_time != "0.000":
-    print(f"- Execution time: {formatted_time} seconds ✔️")
+# if formatted_time != "0.000":
+#     print(f"- Execution time: {formatted_time} seconds ✔️")

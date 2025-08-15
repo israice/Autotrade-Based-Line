@@ -1,1 +1,1 @@
-print(" - - UP - ✅")
+print(" - - UP - CROSSING - OPEN LINE - ✅")

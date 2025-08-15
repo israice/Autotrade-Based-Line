@@ -20,7 +20,7 @@ Z_CANDLE_PATH = 'CORE/DATA/Z_candle.yaml'
 SCRIPTS_EQUAL = [
 ]
 SCRIPTS_NOT_EQUAL = [
-    "CORE/BACKEND/B_CHECK_CANDLE_END/BAA_check_green_or_red.py",
+    "CORE/BACKEND/C_CHECK_CANDLE_END/CAA_check_green_or_red.py",
 ]
 SCRIPTS_NOT_FOUND = [
 ]

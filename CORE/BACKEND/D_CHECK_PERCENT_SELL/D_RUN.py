@@ -9,7 +9,7 @@ SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/BACKEND/FLOW_1.py",    
+    "CORE/BACKEND/D_CHECK_PERCENT_SELL/DA_if_percent_positive_or_negative.py", 
 ]
 
 SCRIPTS_NO = [

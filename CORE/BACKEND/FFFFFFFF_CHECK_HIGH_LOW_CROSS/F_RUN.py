@@ -9,7 +9,8 @@ SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/BACKEND/FLOW_1.py",    
+    "CORE/TOOLS_FLOW/message_PING.py", 
+    # "CORE/BACKEND/F_CHECK_HIGH_LOW_CROSS/FA_if_candle_not_ended.py", 
 ]
 
 SCRIPTS_NO = [

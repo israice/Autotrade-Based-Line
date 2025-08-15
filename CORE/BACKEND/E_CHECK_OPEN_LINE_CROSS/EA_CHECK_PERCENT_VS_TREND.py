@@ -48,16 +48,31 @@ def run_scripts(script_list):
 def main():
     config = load_config(CONFIG_FILE)
     percent_status = config.get(PERCENT_STATUS_KEY, 0)
-    trend_status = config.get(TREND_STATUS_KEY, '')
-
-    if percent_status > 0 and trend_status != GREEN_STATUS:
-        save_config(CONFIG_FILE, GREEN_STATUS)
-        if trend_status != GREEN_STATUS:
-            run_scripts(GREEN_LIST)
-    elif percent_status < 0 and trend_status != RED_STATUS:
-        save_config(CONFIG_FILE, RED_STATUS)
-        if trend_status != RED_STATUS:
-            run_scripts(RED_LIST)
+    current_trend_status = config.get(TREND_STATUS_KEY, '')
+    
+    # Определяем валидные статусы
+    valid_statuses = [GREEN_STATUS, RED_STATUS]
+    
+    # Определяем новый статус на основе percent_status
+    if percent_status > 0:
+        new_trend_status = GREEN_STATUS
+        script_list = GREEN_LIST
+    elif percent_status < 0:
+        new_trend_status = RED_STATUS
+        script_list = RED_LIST
+    else:
+        # Если percent_status == 0, не меняем статус
+        return
+    
+    # Проверяем, нужно ли изменить статус
+    if current_trend_status != new_trend_status:
+        # Сохраняем новый статус
+        save_config(CONFIG_FILE, new_trend_status)
+        
+        # Запускаем скрипты только если предыдущий статус был валидным
+        # (т.е. не запускаем при первичной установке статуса)
+        if current_trend_status in valid_statuses:
+            run_scripts(script_list)
 
 if __name__ == "__main__":
     main()

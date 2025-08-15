@@ -9,7 +9,7 @@ import traceback
 
 # Список скриптов для запуска
 SCRIPTS = [
-    "CORE/BACKEND/A_RUN_BEFORE_START/AA_CHECK_IF_NEED_RESET.py",
+    "CORE/BACKEND/A_BEFORE_START/AA_CHECK_IF_NEED_RESET.py",
 ]
 
 def run_script(script_path):

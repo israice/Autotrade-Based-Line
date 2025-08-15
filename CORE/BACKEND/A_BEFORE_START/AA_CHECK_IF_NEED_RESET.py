@@ -1,17 +1,40 @@
 import yaml
 import os
+import io
+import contextlib
 import sys
 import time
 
+# ################################### #
+# check if allowed to run config list #
+# ################################### #
+
 CONFIG_PATH = 'CORE/DATA/triggers_config.yaml'
-CONFIG_HEADER = 'FLOW_1'
+CONFIG_HEADER = 'RUN_BEFORE_START'
 SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/BACKEND/FLOW_1.py",    
+    # ########### RESET DB ##################
+    "CORE/TOOLS_FLOW/RESET_DB.py",
+    "CORE/TOOLS_FLOW/GET_CANDLE_1_ADD_TO_DB.py",
+    "CORE/TOOLS_FLOW/GET_CANDLE_2_ADD_TO_DB.py",
+    "CORE/TOOLS_FLOW/RESET_CANDLE_DATA_FILES.py",
+    # #######################################
+    # "TOOLS/create_ORDER_SYMBOL.py", 
+    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
+    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
+    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
+    # "TOOLS/reset_PERCENT_SELL.py",
+    # "TOOLS/reset_TREND_STATUS.py",
+    # "TOOLS/enable_CROSSING_UP_GREEN.py",
+    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    # "TOOLS/disable_CROSSING_UP_RED.py",
+    # "TOOLS/enable_CROSSING_DOWN_RED.py",
+    # "TOOLS/create_ORDER_ACCOUNT_ID.py",
+    # 'TOOLS/binance_info_for_order_budy.py',
+    # 'TOOLS/clone_candles.py',
 ]
-
 SCRIPTS_NO = [
 ]
 
@@ -54,7 +77,13 @@ for script in scripts:
         # Подготавливаем окружение для exec (мимикрируем __main__)
         exec_globals = {'__name__': '__main__', '__file__': script}
         
-        exec(code, exec_globals)
+        # Захватываем вывод
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(output):
+            exec(code, exec_globals)
+        
+        # Выводим captured output
+        print(output.getvalue(), end='')
     except Exception as e:
         print(f"Error executing {script}: {e}")
 

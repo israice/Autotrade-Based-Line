@@ -5,7 +5,8 @@ from operator import gt, lt, ge, le, eq, ne
 # Configuration and paths
 DATA_FILE = "CORE/DATA/A_candle.yaml"
 SCRIPTS = [
-    "CORE/BACKEND/F_CHECK_HIGH_LOW_CROSS/FA_if_candle_not_ended.py",
+    "TOOLS/message_checked.py",
+    # "CORE/BACKEND/F_CHECK_HIGH_LOW_CROSS/FA_if_candle_not_ended.py",
 ]
 
 # Candle key names

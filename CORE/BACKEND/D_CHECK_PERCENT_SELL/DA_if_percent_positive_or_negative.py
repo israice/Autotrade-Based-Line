@@ -8,11 +8,11 @@ CONFIG_FILE = "CORE/DATA/triggers_config.yaml"
 PERCENT_STATUS_KEY = "PERCENT_STATUS"
 
 GREEN_LIST = [
-    "CORE/BACKEND/D_CHECK_PERCENT_SELL/DA_check_LONG_SELL_percent.py",
+    "CORE/BACKEND/D_CHECK_PERCENT_SELL/DAA_check_LONG_SELL_percent.py",
 ]
 
 RED_LIST = [
-    "CORE/BACKEND/D_CHECK_PERCENT_SELL/DB_check_SHORT_SELL_percent.py   ",
+    "CORE/BACKEND/D_CHECK_PERCENT_SELL/DAB_check_SHORT_SELL_percent.py",
 ]
 
 # Основная логика

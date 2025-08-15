@@ -3,8 +3,8 @@ from ruamel.yaml import YAML
 
 # Settings
 INPUT_FILE = 'CORE/DATA/A_candle.yaml'
-CLOSE_KEY = 'candle_0_close'
-OPEN_KEY = 'candle_0_open'
+CLOSE_KEY = 'CLOSE_PRICE'
+OPEN_KEY = 'OPEN_PRICE'
 
 OUTPUT_FILE = 'CORE/DATA/triggers_config.yaml'
 PERCENT_KEY = 'PERCENT_STATUS'
@@ -23,21 +23,27 @@ with open(INPUT_FILE, 'r', encoding='utf-8') as f:
 close = None
 open_val = None
 
-# Extract open and close
-for item in data:
-    if CLOSE_KEY in item:
-        close = float(item[CLOSE_KEY])
-    if OPEN_KEY in item:
-        open_val = float(item[OPEN_KEY])
+# Extract open and close from nested structure
+for symbol_key, symbol_data in data.items():
+    if isinstance(symbol_data, dict):
+        if CLOSE_KEY in symbol_data:
+            close = float(symbol_data[CLOSE_KEY])
+        if OPEN_KEY in symbol_data:
+            open_val = float(symbol_data[OPEN_KEY])
+        
+        # If we found both values, we can break
+        if close is not None and open_val is not None:
+            break
 
 if close is None or open_val is None:
-    raise ValueError("Keys not found in input file.")
+    raise ValueError(f"Keys '{CLOSE_KEY}' or '{OPEN_KEY}' not found in input file.")
 
 # Calculate percent
 if close != open_val:
     percent = ((close - open_val) / open_val) * 100
     new_percent = round(percent, ROUND_DIGITS)
 else:
+    print("Close price equals open price, no percentage change.")
     exit()
 
 # Ensure output directory exists
@@ -56,3 +62,5 @@ output_data[PERCENT_KEY] = new_percent
 # Save changes preserving formatting
 with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
     yaml.dump(output_data, f)
+
+# print(f"Calculated percentage change: {new_percent}%")

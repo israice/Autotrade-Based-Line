@@ -1,1 +1,1 @@
-print(" - - SHORT SELL PERCENT - MARKET ORDER - ✅")
+print(" - - RED - PERCENT - SELL - ✅")

@@ -22,7 +22,7 @@ autotrade-based-line — это система мониторинга данны
 - тест1 
 - ПОДГОТОВЛЕНО К НАЧАЛУ РАЗРАБОТКИ
 - первая причестка папок и файлов yaml до их подключения 
-
+- добрался до настройки FLOW_A.py
 ## FUTURE PLANS
 
 - настроить 2 разных flow с использованием REST WEBSOCKET на выбор
@@ -54,7 +54,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "первая причестка папок и файлов yaml до их подключения"
+git commit -m "добрался до настройки FLOW_A.py"
 git push
 
 ```

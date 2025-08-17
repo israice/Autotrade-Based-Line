@@ -104,6 +104,7 @@ autotrade-based-line — это система мониторинга данны
 - перепроверена базавая FLOW_1 для получение текущей свечи
 - исправлен файл GET_WEBSOCKET_STREAM
 - перепроверен базовый FLOW_1
+- ✅ test
 
 ## FUTURE PLANS
 
@@ -136,7 +137,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "перепроверен базовый FLOW_1"
+git commit -m "✅ test"
 git push
 
 ```

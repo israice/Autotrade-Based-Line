@@ -21,6 +21,7 @@ autotrade-based-line — это система мониторинга данны
 
 - тест1 
 - ПОДГОТОВЛЕНО К НАЧАЛУ РАЗРАБОТКИ
+- первая причестка папок и файлов yaml до их подключения 
 
 ## FUTURE PLANS
 
@@ -53,7 +54,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "ПОДГОТОВЛЕНО К НАЧАЛУ РАЗРАБОТКИ"
+git commit -m "первая причестка папок и файлов yaml до их подключения"
 git push
 
 ```

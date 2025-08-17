@@ -1,1 +1,0 @@
-print(" - - END - - GREEN - - ✅")

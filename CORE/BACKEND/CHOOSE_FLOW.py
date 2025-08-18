@@ -8,16 +8,16 @@ import builtins
 # Settings (configurable)
 # =========================
 CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
-CONFIG_HEADER = 'SYSTEM_RUN'
-SCRIPTS_UP_WORD = 'ENABLE'
-SCRIPTS_DOWN_WORD = 'DISABLE'
+CONFIG_HEADER = 'CHOOSE_FLOW'
+SCRIPTS_UP_WORD = 'A'
+SCRIPTS_DOWN_WORD = 'B'
 
 SCRIPTS_YES = [
-    'CORE/BACKEND/A_FLOW_BASED_LINE/B_CREATE/CHECK_CONNECTION_TYPE.py',
+    "CORE/BACKEND/A_FLOW_BASED_LINE/FLOW_A.py",
 ]
 
 SCRIPTS_NO = [
-    "CORE/TOOLS/msg/pong.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/FLOW_B.py",
 ]
 
 # Output behavior: real-time, no buffering/memory

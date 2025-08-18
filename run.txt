@@ -12,10 +12,8 @@ io.StringIO
 
 запускает список скриптов по очереди 
 SCRIPTS = [
-    "TOOLS/message_candle_green_end.py",
-    "TOOLS/message_candle_red_end.py",
-    "TOOLS/message_checked.py",
-    "TOOLS/message_long_sell_percent_market_order.py",
+    "CORE/TOOLS/msg/ping.py",
+    "CORE/TOOLS/msg/pong.py",
 ]
 
 отоброжай замер в консоли замер времени выполнения СПИСКА

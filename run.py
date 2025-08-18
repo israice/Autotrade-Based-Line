@@ -2,6 +2,7 @@ import yaml
 import os
 import sys
 import time
+import builtins
 
 # =========================
 # Settings (configurable)
@@ -12,70 +13,38 @@ SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    'CORE/BACKEND/A_CHOOSE_FLOW.py',
-]
+    'CORE/BACKEND/CHOOSE_FLOW.py',
+    ]
 
 SCRIPTS_NO = [
-]
+    ]
 
-# Output control for child scripts (kept from previous fix)
-LIMIT_EXTRA_BLANK_LINES = True               # Enable/disable blank-line filtering for child scripts
-MAX_CONSECUTIVE_BLANK_LINES = 1              # Allow at most N consecutive blank/whitespace-only lines (0 = remove all)
-TREAT_WHITESPACE_ONLY_AS_BLANK = True        # Treat lines with only spaces/tabs as blank
-FILTER_STDERR_TOO = True                     # Also filter stderr produced by child scripts
-
-# Final line control: avoid extra blank line after execution time print
-# Set to '' to avoid trailing newline, or '\n' to keep a newline.
-EXECUTION_TIME_PRINT_END = ''                # '' => no extra newline after the message
+# Output behavior: real-time, no buffering/memory
+FORCE_FLUSH_PRINTS = True                   # Force flush=True for all print() inside child scripts
+LINE_BUFFER_STDIO = True                    # Reconfigure sys.stdout/sys.stderr for line buffering when possible
 
 # =========================
 # Helpers (implementation)
 # =========================
-class BlankLineLimiter:
-    """Proxy stream that limits consecutive blank (or whitespace-only) lines.
-    Works line-by-line, buffering until a newline is seen.
-    """
-    def __init__(self, stream, max_blank=1, treat_ws_blank=True):
-        self._stream = stream
-        self._max_blank = max_blank
-        self._treat_ws_blank = treat_ws_blank
-        self._blank_count = 0
+# Ensure our own stdio is as unbuffered as Python allows without proxies.
+if LINE_BUFFER_STDIO:
+    try:
+        # Reconfigure only if available (TextIOWrapper). This keeps writes immediate on newline.
+        sys.stdout.reconfigure(line_buffering=True)
+    except Exception:
+        pass
+    try:
+        sys.stderr.reconfigure(line_buffering=True)
+    except Exception:
+        pass
 
-    def _emit_line(self, text, ends_with_nl=True):
-        # Determine if the visual line is blank
-        is_blank = (text.strip() == '') if self._treat_ws_blank else (text == '')
-        if ends_with_nl:
-            if is_blank:
-                if self._blank_count < self._max_blank:
-                    self._stream.write('\n')
-                self._blank_count += 1
-            else:
-                self._stream.write(text + '\n')
-                self._blank_count = 0
-        else:
-            # No newline: just passthrough
-            self._stream.write(text)
+# Prepare a print() that always flushes (no buffering). We'll inject this for child scripts only.
+_original_print = builtins.print
 
-    def write(self, s):
-        if not isinstance(s, str):
-            s = str(s)
-        # Normalize CRLF/CR to LF
-        s = s.replace('\r\n', '\n').replace('\r', '\n')
-        while s:
-            nl = s.find('\n')
-            if nl == -1:
-                # No full line: pass through as partial
-                self._stream.write(s)
-                break
-            # Emit complete line (without the '\n', but we add one)
-            self._emit_line(s[:nl], ends_with_nl=True)
-            s = s[nl + 1:]
-
-    def flush(self):
-        self._stream.flush()
-
-    def __getattr__(self, name):
-        return getattr(self._stream, name)
+def _print_flush(*args, **kwargs):
+    """print() wrapper that forces flush=True to avoid buffering."""
+    kwargs.setdefault('flush', True)
+    return _original_print(*args, **kwargs)
 
 # =========================
 # Logic (universal names)
@@ -105,46 +74,27 @@ else:
         print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
         sys.exit(1)
 
-start_time = time.time()
-
 for script in scripts:
     if not os.path.exists(script):
-        print(f"Error: Script {script} not found")
+        print(f"Error: Script {script} not found", flush=True)  # Ensure immediate visibility
         continue
     try:
-        # Read the script code
+        # Read and compile the script code (no accumulation of output; just code loading).
         with open(script, 'r', encoding='utf-8') as f:
             code = compile(f.read(), script, 'exec')
 
         # Prepare execution globals to mimic __main__
         exec_globals = {'__name__': '__main__', '__file__': script}
 
-        # Wrap stdout/stderr for child script output, if enabled
-        if LIMIT_EXTRA_BLANK_LINES:
-            original_stdout = sys.stdout
-            original_stderr = sys.stderr
-            sys.stdout = BlankLineLimiter(original_stdout,
-                                          max_blank=MAX_CONSECUTIVE_BLANK_LINES,
-                                          treat_ws_blank=TREAT_WHITESPACE_ONLY_AS_BLANK)
-            if FILTER_STDERR_TOO:
-                sys.stderr = BlankLineLimiter(original_stderr,
-                                              max_blank=MAX_CONSECUTIVE_BLANK_LINES,
-                                              treat_ws_blank=TREAT_WHITESPACE_ONLY_AS_BLANK)
-            try:
-                exec(code, exec_globals)
-            finally:
-                sys.stdout = original_stdout
-                sys.stderr = original_stderr
-        else:
+        # Execute child script with forced flush on all print() calls to ensure real-time output.
+        if FORCE_FLUSH_PRINTS:
+            builtins.print = _print_flush  # Inject flush-on-print for the duration of the child script
+        try:
             exec(code, exec_globals)
+        finally:
+            # Always restore builtins.print even if child script fails
+            builtins.print = _original_print
 
     except Exception as e:
-        print(f"Error executing {script}: {e}")
-
-end_time = time.time()
-execution_time = end_time - start_time
-formatted_time = f"{execution_time:.3f}"
-if formatted_time != "0.000":
-    # Print without trailing newline to avoid a visible blank line after this message
-    print(f"- Execution time: {formatted_time} seconds ✔️", end=EXECUTION_TIME_PRINT_END)
-    sys.stdout.flush()
+        # Print errors immediately; do not buffer
+        print(f"Error executing {script}: {e}", flush=True)

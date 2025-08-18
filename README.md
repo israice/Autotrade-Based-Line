@@ -23,6 +23,8 @@ autotrade-based-line — это система мониторинга данны
 - ПОДГОТОВЛЕНО К НАЧАЛУ РАЗРАБОТКИ
 - первая причестка папок и файлов yaml до их подключения 
 - добрался до настройки FLOW_A.py
+- подключен websocket к run.py, далее подключение PRE RESET CONFIGS
+
 ## FUTURE PLANS
 
 - настроить 2 разных flow с использованием REST WEBSOCKET на выбор
@@ -54,7 +56,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "добрался до настройки FLOW_A.py"
+git commit -m "подключен websocket к run.py, далее подключение PRE RESET CONFIGS"
 git push
 
 ```

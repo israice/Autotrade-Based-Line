@@ -16,10 +16,10 @@ OPEN_TIME_KEY = 'OPEN_TIME'
 Z_CANDLE_PATH = 'CORE/DATA/ZZ_CANDLE.yaml'
 
 SCRIPTS_EQUAL = [
-    "TOOLS/ping.py",
+    "CORE/TOOLS/msg/ping.py",
 ]
 SCRIPTS_NOT_EQUAL = [
-    "TOOLS/pong.py",
+    "CORE/TOOLS/msg/pong.py",
 ]
 
 # Initialize variables

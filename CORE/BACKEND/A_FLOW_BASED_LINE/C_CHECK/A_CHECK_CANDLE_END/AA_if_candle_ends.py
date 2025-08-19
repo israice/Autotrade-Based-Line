@@ -8,9 +8,13 @@ import gc
 import subprocess
 from typing import Any, Dict, Optional, Tuple, List
 
+# =========================
+# ====== SETTINGS =========
+# =========================
+
 SETTINGS_PATH = "CORE/DATA/BB_USER_SETTINGS.yaml"  # contains SYSTEM_SYMBOL, SYSTEM_TIMEFRAME
 YAML_ROOT_KEY = "BINANCE_FUTURES"
-# Candle files
+
 A_PATH = "CORE/DATA/AA_CANDLE.yaml"
 A_VALUE_KEY = "OPEN_TIME"  # field to read from A file
 A_CANDLE = 0
@@ -19,20 +23,19 @@ Z_CANDLE = 0
 Z_VALUE_KEY = "OPEN_TIME"  # field to read from Z file
 Z_PATH = "CORE/DATA/ZZ_CANDLE.yaml"
 
+# Script lists
 SCRIPTS_EQUAL: List[str] = [
-    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 SCRIPTS_NOT_EQUAL: List[str] = [
-    "CORE/TOOLS/YY_history_candles/GET_CANDLE_1_ADD_TO_DB.py",
-    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/A_CHECK_CANDLE_END/AAA_check_green_or_red.py",
 ]
 SCRIPTS_NOT_FOUND: List[str] = [
-    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 
 # Child process execution
-CHILD_TIMEOUT_SEC = 60  # fail-safe timeout for each script (tune as needed)
-PYTHON_BIN = sys.executable  # interpreter used for child scripts
+CHILD_TIMEOUT_SEC = 60
+PYTHON_BIN = sys.executable
+
 
 # =========================
 # ====== LOGIC ============
@@ -52,12 +55,13 @@ def load_yaml(path: str) -> Optional[Dict[str, Any]]:
 
 def mixed_get(container: Any, key: str) -> Optional[Any]:
     """
-    Safely get 'key' from possibly mixed YAML structure where levels can be
-    dicts or lists of dicts.
+    Safely get 'key' from possibly mixed YAML structure (dict or list of dicts).
+    Note: there is no candle-list iteration here; only shallow access for symbol/timeframe.
     """
     if isinstance(container, dict):
         return container.get(key)
     if isinstance(container, list):
+        # Access first matching dict that contains the key (minimal scan at this level only)
         for item in container:
             if isinstance(item, dict) and key in item:
                 return item[key]
@@ -74,10 +78,7 @@ def as_list(value: Any) -> list:
 
 
 def load_system_settings(path: str) -> Tuple[Optional[str], Optional[str]]:
-    """
-    Read SYSTEM_SYMBOL and SYSTEM_TIMEFRAME from BB_USER_SETTINGS.yaml.
-    Returns (symbol, timeframe).
-    """
+    """Read SYSTEM_SYMBOL and SYSTEM_TIMEFRAME from BB_USER_SETTINGS.yaml."""
     data = load_yaml(path)
     if not data:
         return None, None
@@ -89,17 +90,55 @@ def load_system_settings(path: str) -> Tuple[Optional[str], Optional[str]]:
     return symbol, timeframe
 
 
+def _to_int_safe(x: Any) -> Optional[int]:
+    """Try to convert value to int; return None on failure."""
+    try:
+        return int(str(x).strip())
+    except Exception:
+        return None
+
+
+def _pick_candle_entry(candles_list: List[Any], candle_no: int) -> Optional[Dict[str, Any]]:
+    """
+    Select candle entry by rule:
+    - candle_no == 0  -> find entry where CANDLE == 0 (by field value). If not found, fallback to first element.
+    - candle_no >= 1  -> treat as 1-based positional index (1 -> first, 2 -> second, ...).
+    """
+    if not candles_list:
+        return None
+
+    # Ensure elements are dicts
+    norm_list = [c for c in candles_list if isinstance(c, dict)]
+    if not norm_list:
+        return None
+
+    if candle_no == 0:
+        # Search by label field CANDLE == 0
+        for c in norm_list:
+            lbl = _to_int_safe(c.get("CANDLE"))
+            if lbl == 0:
+                return c
+        # Fallback: assume most-recent first ordering
+        return norm_list[0]
+
+    # 1-based positional access
+    idx = candle_no - 1
+    if 0 <= idx < len(norm_list):
+        return norm_list[idx]
+    return None
+
+
 def extract_field_from_candle_file(
     file_path: str,
     symbol: str,
     timeframe: str,
     field_key: str,
-    candle_index: int,
+    candle_no: int,
 ) -> Optional[Any]:
     """
-    Traverse the YAML structure:
-    BINANCE_FUTURES -> <list or dict with symbol> -> <list or dict with timeframe> -> [candle_index] -> field_key
-    Returns the field value or None if anything is missing.
+    Access candle field by index:
+    - candle_no == 0  -> pick candle with CANDLE: 0 (or fallback to first element).
+    - candle_no >= 1  -> 1-based positional index into the list.
     """
     data = load_yaml(file_path)
     if not data:
@@ -119,16 +158,15 @@ def extract_field_from_candle_file(
             return None
 
         candles_list = as_list(timeframe_node)
-        if not candles_list or not (0 <= candle_index < len(candles_list)):
+        if not candles_list:
             return None
 
-        candle_entry = candles_list[candle_index]
+        candle_entry = _pick_candle_entry(candles_list, int(candle_no))
         if not isinstance(candle_entry, dict):
             return None
 
         return candle_entry.get(field_key)
     finally:
-        # Explicitly drop large refs and prompt GC to minimize RSS between loop calls
         del data
         gc.collect()
 
@@ -153,9 +191,6 @@ def compare_values(a: Any, b: Any, op: str) -> bool:
 def execute_scripts(scripts: List[str]) -> None:
     """
     Execute python files in the given order in isolated subprocesses.
-    - No in-memory buffering of output (inherits parent's stdout/stderr).
-    - Timeout per script to prevent hangs.
-    - No exec() inside current interpreter -> no module cache growth.
     """
     if not scripts:
         return
@@ -166,7 +201,6 @@ def execute_scripts(scripts: List[str]) -> None:
             continue
 
         try:
-            # Inherit stdout/stderr to avoid buffering in memory
             subprocess.run(
                 [PYTHON_BIN, "-u", script_path],
                 check=False,
@@ -182,12 +216,11 @@ def main() -> None:
     # 1) Load system symbol/timeframe
     symbol, timeframe = load_system_settings(SETTINGS_PATH)
 
-    # If settings missing, we cannot proceed reliably
     if not symbol or not timeframe:
         execute_scripts(SCRIPTS_NOT_FOUND)
         return
 
-    # 2) Extract values from A and Z files
+    # 2) Candle access by rule (0 -> CANDLE:0, >=1 -> 1-based index)
     a_value = extract_field_from_candle_file(
         A_PATH, symbol, timeframe, A_VALUE_KEY, A_CANDLE
     )
@@ -195,12 +228,11 @@ def main() -> None:
         Z_PATH, symbol, timeframe, Z_VALUE_KEY, Z_CANDLE
     )
 
-    # 3) Decide what to run
     if a_value is None or z_value is None:
         execute_scripts(SCRIPTS_NOT_FOUND)
         return
 
-    # 4) Compare according to operator
+    # 3) Compare and branch
     try:
         condition = compare_values(a_value, z_value, COMPARISON_OPERATOR)
     except Exception as exc:
@@ -208,13 +240,11 @@ def main() -> None:
         execute_scripts(SCRIPTS_NOT_FOUND)
         return
 
-    # 5) Run scripts accordingly (no duplication filtering by design)
     if condition:
         execute_scripts(SCRIPTS_EQUAL)
     else:
         execute_scripts(SCRIPTS_NOT_EQUAL)
 
-    # Encourage prompt GC between looped invocations by parent
     gc.collect()
 
 

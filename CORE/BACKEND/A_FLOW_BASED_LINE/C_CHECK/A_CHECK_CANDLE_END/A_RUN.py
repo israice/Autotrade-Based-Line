@@ -13,25 +13,7 @@ SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    # ############# RESET DB #####################
-    "CORE/TOOLS/YY_history_candles/RESET_HISTORY_FILE.py",
-    "CORE/TOOLS/YY_history_candles/GET_CANDLE_1_ADD_TO_DB.py",
-    "CORE/TOOLS/YY_history_candles/GET_CANDLE_2_ADD_TO_DB.py",
-    "CORE/TOOLS/AA_candle/RESET_AA_ZZ_CANDLES_FILES.py",
-    # #########################
-    # "TOOLS/create_ORDER_SYMBOL.py", 
-    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    # "TOOLS/reset_PERCENT_SELL.py",
-    # "TOOLS/reset_TREND_STATUS.py",
-    # "TOOLS/enable_CROSSING_UP_GREEN.py",
-    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    # "TOOLS/disable_CROSSING_UP_RED.py",
-    # "TOOLS/enable_CROSSING_DOWN_RED.py",
-    # "TOOLS/create_ORDER_ACCOUNT_ID.py",
-    # 'TOOLS/binance_info_for_order_budy.py',
-    # 'TOOLS/clone_candles.py',
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/A_CHECK_CANDLE_END/AA_if_candle_ends.py", 
 ]
 
 SCRIPTS_NO = [

@@ -15,6 +15,7 @@ SCRIPTS_DOWN_WORD = 'DISABLE'
 SCRIPTS_YES = [
     "CORE/TOOLS/system/delay_by_settings.py",
     # #############################################
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/A_CHECK_CANDLE_END/A_RUN.py",
     # "CORE/BACKEND/B_CREATE_PERCENT_DATA/B_RUN.py",
     # "CORE/BACKEND/C_CHECK_CANDLE_END/C_RUN.py",
     # "CORE/BACKEND/D_CHECK_PERCENT_SELL/D_RUN.py",

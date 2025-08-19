@@ -27,6 +27,9 @@ autotrade-based-line — это система мониторинга данны
 - сделан полностью рабочий websocket and rest for candle_0
 - исправленна часть основных TOOLS
 
+## v0.0.2
+
+- подключен A_CHECK_CANDLE_END
 ## FUTURE PLANS
 
 - настроить 2 разных flow с использованием REST WEBSOCKET на выбор
@@ -58,7 +61,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "исправленна часть основных TOOLS"
+git commit -m "подключен A_CHECK_CANDLE_END"
 git push
 
 ```

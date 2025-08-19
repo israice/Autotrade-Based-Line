@@ -13,12 +13,11 @@ SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/TOOLS/msg/pong.py",
-    # ########### RESET DB ##################
-    # "CORE/TOOLS_FLOW/RESET_DB.py",
-    # "CORE/TOOLS_FLOW/GET_CANDLE_1_ADD_TO_DB.py",
-    # "CORE/TOOLS_FLOW/GET_CANDLE_2_ADD_TO_DB.py",
-    # "CORE/TOOLS_FLOW/RESET_CANDLE_DATA_FILES.py",
+    # ############# RESET DB #####################
+    "CORE/TOOLS/YY_history_candles/RESET_HISTORY_FILE.py",
+    "CORE/TOOLS/YY_history_candles/GET_CANDLE_1_ADD_TO_DB.py",
+    "CORE/TOOLS/YY_history_candles/GET_CANDLE_2_ADD_TO_DB.py",
+    "CORE/TOOLS/AA_candle/RESET_AA_ZZ_CANDLES_FILES.py",
     # #######################################
     # "TOOLS/create_ORDER_SYMBOL.py", 
     # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",

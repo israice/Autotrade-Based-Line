@@ -17,7 +17,6 @@ SCRIPTS_YES = [
 ]
 
 SCRIPTS_NO = [
-    "CORE/TOOLS/msg/pong.py",
 ]
 
 # Output behavior: real-time, no buffering/memory

@@ -1,4 +1,4 @@
-file_path = 'CORE/DATA/Y_database.csv'
+file_path = 'CORE/DATA/YY_HISTORY_CANDLES.yaml'
 
 with open(file_path, 'r+') as f:
     header = f.readline()

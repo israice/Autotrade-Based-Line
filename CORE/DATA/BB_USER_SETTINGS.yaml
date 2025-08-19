@@ -7,13 +7,16 @@ SYSTEM_RUN: ENABLE
 CHOOSE_FLOW: A
 # - A - Flow Based Line
 # - B - Flow Based Candle Counting
-CONNECTION_TYPE: A
-# - A - Websocket connection
-# - B - REST API connection
+CONNECTION_TYPE: REST
+# - WEBSCOKET - Websocket connection
+# - REST - REST API connection
 RESET_TYPE: A
 # - A - hard reset all settings and database
 # - B - easy reset continue the flow if disconnected
 # - C - dont reset just continue
+RUN_CHECK_SCRIPTS: ENABLE
+# - ENABLE - run the check scripts
+# - DISABLE - dont run the check scripts
 # #################################
 # ##### GET DATA SETTINGS #########
 # #################################

@@ -1,57 +1,119 @@
-import contextlib
-import io
+import yaml
+import os
 import sys
-import traceback
+import time
+import builtins
 
-# ################### #
-# run list of scripts #
-# ################### #
+# =========================
+# Settings (configurable)
+# =========================
+CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
+CONFIG_HEADER = 'SYSTEM_RUN'
+SCRIPTS_UP_WORD = 'ENABLE'
+SCRIPTS_DOWN_WORD = 'DISABLE'
 
-# Список скриптов для запуска
-SCRIPTS = [
-    "CORE/BACKEND/A_BEFORE_START/AA_CHECK_IF_NEED_RESET.py",
+SCRIPTS_YES = [
+    "CORE/TOOLS/msg/pong.py",
+    # ########### RESET DB ##################
+    # "CORE/TOOLS_FLOW/RESET_DB.py",
+    # "CORE/TOOLS_FLOW/GET_CANDLE_1_ADD_TO_DB.py",
+    # "CORE/TOOLS_FLOW/GET_CANDLE_2_ADD_TO_DB.py",
+    # "CORE/TOOLS_FLOW/RESET_CANDLE_DATA_FILES.py",
+    # #######################################
+    # "TOOLS/create_ORDER_SYMBOL.py", 
+    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
+    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
+    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
+    # "TOOLS/reset_PERCENT_SELL.py",
+    # "TOOLS/reset_TREND_STATUS.py",
+    # "TOOLS/enable_CROSSING_UP_GREEN.py",
+    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
+    # "TOOLS/disable_CROSSING_UP_RED.py",
+    # "TOOLS/enable_CROSSING_DOWN_RED.py",
+    # "TOOLS/create_ORDER_ACCOUNT_ID.py",
+    # 'TOOLS/binance_info_for_order_budy.py',
+    # 'TOOLS/clone_candles.py',
 ]
 
-def run_script(script_path):
-    """Функция для безопасного запуска скрипта и захвата его вывода"""
-    try:
-        # Чтение кода скрипта
-        with open(script_path, 'r', encoding='utf-8') as f:
-            code = f.read()
-        
-        # Подготовка для захвата вывода
-        output_capture = io.StringIO()
-        
-        # Сохранение текущего stdout и stderr
-        old_stdout = sys.stdout
-        old_stderr = sys.stderr
-        
-        try:
-            # Перенаправление stdout и stderr
-            with contextlib.redirect_stdout(output_capture), contextlib.redirect_stderr(output_capture):
-                exec(code, {})  # Пустой словарь для изоляции пространства имен
-            
-            # Получение захваченного вывода
-            captured_output = output_capture.getvalue()
-            
-            # Удаление пустых строк
-            lines = [line for line in captured_output.splitlines() if line.strip()]
-            filtered_output = '\n'.join(lines)
-            
-            # Вывод результатов только если есть непустой вывод
-            if filtered_output:
-                print(f"{filtered_output}")
-                
-        finally:
-            # Восстановление stdout и stderr
-            sys.stdout = old_stdout
-            sys.stderr = old_stderr
-            
-    except FileNotFoundError:
-        print(f"Error: Script {script_path} not found")
-    except Exception as e:
-        print(f"Error in {script_path}: {traceback.format_exc().strip()}")
+SCRIPTS_NO = [
+]
 
-# Запуск всех скриптов
-for script_path in SCRIPTS:
-    run_script(script_path)
+# Output behavior: real-time, no buffering/memory
+FORCE_FLUSH_PRINTS = True                   # Force flush=True for all print() inside child scripts
+LINE_BUFFER_STDIO = True                    # Reconfigure sys.stdout/sys.stderr for line buffering when possible
+
+# =========================
+# Helpers (implementation)
+# =========================
+# Ensure our own stdio is as unbuffered as Python allows without proxies.
+if LINE_BUFFER_STDIO:
+    try:
+        # Reconfigure only if available (TextIOWrapper). This keeps writes immediate on newline.
+        sys.stdout.reconfigure(line_buffering=True)
+    except Exception:
+        pass
+    try:
+        sys.stderr.reconfigure(line_buffering=True)
+    except Exception:
+        pass
+
+# Prepare a print() that always flushes (no buffering). We'll inject this for child scripts only.
+_original_print = builtins.print
+
+def _print_flush(*args, **kwargs):
+    """print() wrapper that forces flush=True to avoid buffering."""
+    kwargs.setdefault('flush', True)
+    return _original_print(*args, **kwargs)
+
+# =========================
+# Logic (universal names)
+# =========================
+config_value = None
+try:
+    with open(CONFIG_PATH, 'r', encoding='utf-8') as file:
+        config = yaml.safe_load(file)
+        if config is not None:
+            config_value = config.get(CONFIG_HEADER)
+except FileNotFoundError:
+    pass
+except yaml.YAMLError:
+    pass
+
+if config_value is None:
+    scripts = []
+else:
+    if isinstance(config_value, bool):
+        config_value = SCRIPTS_UP_WORD if config_value else SCRIPTS_DOWN_WORD
+
+    if config_value == SCRIPTS_UP_WORD:
+        scripts = SCRIPTS_YES
+    elif config_value == SCRIPTS_DOWN_WORD:
+        scripts = SCRIPTS_NO
+    else:
+        print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
+        sys.exit(1)
+
+for script in scripts:
+    if not os.path.exists(script):
+        print(f"Error: Script {script} not found", flush=True)  # Ensure immediate visibility
+        continue
+    try:
+        # Read and compile the script code (no accumulation of output; just code loading).
+        with open(script, 'r', encoding='utf-8') as f:
+            code = compile(f.read(), script, 'exec')
+
+        # Prepare execution globals to mimic __main__
+        exec_globals = {'__name__': '__main__', '__file__': script}
+
+        # Execute child script with forced flush on all print() calls to ensure real-time output.
+        if FORCE_FLUSH_PRINTS:
+            builtins.print = _print_flush  # Inject flush-on-print for the duration of the child script
+        try:
+            exec(code, exec_globals)
+        finally:
+            # Always restore builtins.print even if child script fails
+            builtins.print = _original_print
+
+    except Exception as e:
+        # Print errors immediately; do not buffer
+        print(f"Error executing {script}: {e}", flush=True)

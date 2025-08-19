@@ -25,14 +25,7 @@ BEFORE_SCRIPTS = [
 ]
 
 THE_MAIN_SCRIPTS = [
-    "CORE/TOOLS/system/delay_by_settings.py",
-    # #############################################
-    # "CORE/BACKEND/B_CREATE_PERCENT_DATA/B_RUN.py",
-    # "CORE/BACKEND/C_CHECK_CANDLE_END/C_RUN.py",
-    # "CORE/BACKEND/D_CHECK_PERCENT_SELL/D_RUN.py",
-    # "CORE/BACKEND/E_CHECK_OPEN_LINE_CROSS/E_RUN.py",
-    # # #############################################
-    # "CORE/BACKEND/Z_END/Z_RUN.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/RUN_LIST.py",
 ]
 
 # Heartbeat and reconnect/backoff settings

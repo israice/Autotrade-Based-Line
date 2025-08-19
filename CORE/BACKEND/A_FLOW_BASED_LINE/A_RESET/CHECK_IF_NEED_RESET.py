@@ -1,52 +1,64 @@
 import yaml
 import os
-import io
-import contextlib
 import sys
 import time
+import builtins
 
-# ################################### #
-# check if allowed to run config list #
-# ################################### #
-
-CONFIG_PATH = 'CORE/DATA/CC_TRIGGERS_CONFIG.yaml'
-CONFIG_HEADER = 'RUN_BEFORE_START'
-SCRIPTS_UP_WORD = 'ENABLE'
-SCRIPTS_DOWN_WORD = 'DISABLE'
+# =========================
+# Settings (configurable)
+# =========================
+CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
+CONFIG_HEADER = 'RESET_TYPE'
+SCRIPTS_UP_WORD = 'A'
+SCRIPTS_DOWN_WORD = 'B'
 
 SCRIPTS_YES = [
-    # ########### RESET DB ##################
-    "CORE/TOOLS_FLOW/RESET_DB.py",
-    "CORE/TOOLS_FLOW/GET_CANDLE_1_ADD_TO_DB.py",
-    "CORE/TOOLS_FLOW/GET_CANDLE_2_ADD_TO_DB.py",
-    "CORE/TOOLS_FLOW/RESET_CANDLE_DATA_FILES.py",
-    # #######################################
-    # "TOOLS/create_ORDER_SYMBOL.py", 
-    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    # "TOOLS/reset_PERCENT_SELL.py",
-    # "TOOLS/reset_TREND_STATUS.py",
-    # "TOOLS/enable_CROSSING_UP_GREEN.py",
-    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    # "TOOLS/disable_CROSSING_UP_RED.py",
-    # "TOOLS/enable_CROSSING_DOWN_RED.py",
-    # "TOOLS/create_ORDER_ACCOUNT_ID.py",
-    # 'TOOLS/binance_info_for_order_budy.py',
-    # 'TOOLS/clone_candles.py',
-]
-SCRIPTS_NO = [
+    'CORE/BACKEND/A_FLOW_BASED_LINE/A_RESET/A_HARD_RESET/RUN.py',
 ]
 
+SCRIPTS_NO = [
+    'CORE/BACKEND/A_FLOW_BASED_LINE/A_RESET/B_EASY_RESET/RUN.py',
+]
+
+# Output behavior: real-time, no buffering/memory
+FORCE_FLUSH_PRINTS = True                   # Force flush=True for all print() inside child scripts
+LINE_BUFFER_STDIO = True                    # Reconfigure sys.stdout/sys.stderr for line buffering when possible
+
+# =========================
+# Helpers (implementation)
+# =========================
+# Ensure our own stdio is as unbuffered as Python allows without proxies.
+if LINE_BUFFER_STDIO:
+    try:
+        # Reconfigure only if available (TextIOWrapper). This keeps writes immediate on newline.
+        sys.stdout.reconfigure(line_buffering=True)
+    except Exception:
+        pass
+    try:
+        sys.stderr.reconfigure(line_buffering=True)
+    except Exception:
+        pass
+
+# Prepare a print() that always flushes (no buffering). We'll inject this for child scripts only.
+_original_print = builtins.print
+
+def _print_flush(*args, **kwargs):
+    """print() wrapper that forces flush=True to avoid buffering."""
+    kwargs.setdefault('flush', True)
+    return _original_print(*args, **kwargs)
+
+# =========================
+# Logic (universal names)
+# =========================
 config_value = None
 try:
-    with open(CONFIG_PATH, 'r') as file:
+    with open(CONFIG_PATH, 'r', encoding='utf-8') as file:
         config = yaml.safe_load(file)
         if config is not None:
             config_value = config.get(CONFIG_HEADER)
 except FileNotFoundError:
     pass
-except yaml.YAMLError as e:
+except yaml.YAMLError:
     pass
 
 if config_value is None:
@@ -63,32 +75,27 @@ else:
         print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
         sys.exit(1)
 
-start_time = time.time()
-
 for script in scripts:
     if not os.path.exists(script):
-        print(f"Error: Script {script} not found")
+        print(f"Error: Script {script} not found", flush=True)  # Ensure immediate visibility
         continue
     try:
-        # Читаем код скрипта
-        with open(script, 'r') as f:
+        # Read and compile the script code (no accumulation of output; just code loading).
+        with open(script, 'r', encoding='utf-8') as f:
             code = compile(f.read(), script, 'exec')
-        
-        # Подготавливаем окружение для exec (мимикрируем __main__)
-        exec_globals = {'__name__': '__main__', '__file__': script}
-        
-        # Захватываем вывод
-        output = io.StringIO()
-        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(output):
-            exec(code, exec_globals)
-        
-        # Выводим captured output
-        print(output.getvalue(), end='')
-    except Exception as e:
-        print(f"Error executing {script}: {e}")
 
-end_time = time.time()
-execution_time = end_time - start_time
-formatted_time = f"{execution_time:.3f}"
-# if formatted_time != "0.000":
-#     print(f"- Execution time: {formatted_time} seconds ✔️")
+        # Prepare execution globals to mimic __main__
+        exec_globals = {'__name__': '__main__', '__file__': script}
+
+        # Execute child script with forced flush on all print() calls to ensure real-time output.
+        if FORCE_FLUSH_PRINTS:
+            builtins.print = _print_flush  # Inject flush-on-print for the duration of the child script
+        try:
+            exec(code, exec_globals)
+        finally:
+            # Always restore builtins.print even if child script fails
+            builtins.print = _original_print
+
+    except Exception as e:
+        # Print errors immediately; do not buffer
+        print(f"Error executing {script}: {e}", flush=True)

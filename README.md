@@ -24,6 +24,8 @@ autotrade-based-line — это система мониторинга данны
 - первая причестка папок и файлов yaml до их подключения 
 - добрался до настройки FLOW_A.py
 - подключен websocket к run.py, далее подключение PRE RESET CONFIGS
+- сделан полностью рабочий websocket and rest for candle_0
+- исправленна часть основных TOOLS
 
 ## FUTURE PLANS
 
@@ -56,7 +58,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "подключен websocket к run.py, далее подключение PRE RESET CONFIGS"
+git commit -m "исправленна часть основных TOOLS"
 git push
 
 ```

@@ -30,6 +30,8 @@ autotrade-based-line — это система мониторинга данны
 ## v0.0.2
 
 - подключен A_CHECK_CANDLE_END
+- подключен B_CHECK_PERCENT_SELL
+
 ## FUTURE PLANS
 
 - настроить 2 разных flow с использованием REST WEBSOCKET на выбор
@@ -61,7 +63,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "подключен A_CHECK_CANDLE_END"
+git commit -m "подключен B_CHECK_PERCENT_SELL"
 git push
 
 ```

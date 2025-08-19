@@ -4,7 +4,7 @@ import os
 # Configuration settings
 CONFIG_FILE = "CORE/DATA/CC_TRIGGERS_CONFIG.yaml"
 SCRIPTS = [
-    "TOOLS/message_short_sell_percent_market_order.py"
+    "CORE/TOOLS/msg/short_sell_percent_market_order.py"
 ]
 PERCENT_STATUS_KEY = "PERCENT_STATUS"
 PERCENT_SHORT_SELL_KEY = "PERCENT_SHORT_SELL"

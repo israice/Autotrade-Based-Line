@@ -3,18 +3,21 @@ import subprocess
 
 # Configuration settings and variables
 CONFIG_FILE = 'CORE/DATA/CC_TRIGGERS_CONFIG.yaml'
-GREEN_LIST = [
-    "TOOLS/message_up.py",
-    "TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
-]
-RED_LIST = [
-    "TOOLS/message_down.py",
-    "TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
-]
 GREEN_STATUS = 'GREEN'
 RED_STATUS = 'RED'
 PERCENT_STATUS_KEY = 'PERCENT_STATUS'
 TREND_STATUS_KEY = 'TREND_STATUS'
+
+GREEN_LIST = [
+    "CORE/TOOLS/msg/up.py",
+    # "TOOLS/message_up.py",    
+    # "TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
+]
+RED_LIST = [
+    "CORE/TOOLS/msg/down.py",
+    # "TOOLS/message_down.py",
+    # "TOOLS/add_1_to_COUNTER_OPEN_CROSSING.py",
+]
 
 def load_config(file_path):
     with open(file_path, 'r') as file:

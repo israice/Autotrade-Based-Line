@@ -43,7 +43,6 @@ if close != open_val:
     percent = ((close - open_val) / open_val) * 100
     new_percent = round(percent, ROUND_DIGITS)
 else:
-    print("Close price equals open price, no percentage change.")
     exit()
 
 # Ensure output directory exists

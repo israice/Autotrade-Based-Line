@@ -6,7 +6,7 @@ COUNTER_GREEN_END: 0
 #############################
 ##### D_CHECK_PERCENT #######
 #############################
-PERCENT_STATUS: 0.031
+PERCENT_STATUS: 0.014
 TREND_STATUS: GREEN
 COUNTER_OPEN_CROSSING: 0
 #############################

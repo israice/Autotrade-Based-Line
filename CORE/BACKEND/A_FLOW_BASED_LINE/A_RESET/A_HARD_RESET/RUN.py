@@ -16,7 +16,6 @@ SCRIPTS_YES = [
     # ############# RESET DB #####################
     "CORE/TOOLS/YY_history_candles/RESET_HISTORY_FILE.py",
     "CORE/TOOLS/YY_history_candles/GET_CANDLE_1.py",
-    "CORE/TOOLS/YY_history_candles/GET_CANDLE_2.py",
     "CORE/TOOLS/AA_candle/RESET_AA_ZZ_CANDLES_FILES.py",
     # #########################
     # "TOOLS/create_ORDER_SYMBOL.py", 

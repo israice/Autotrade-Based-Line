@@ -138,7 +138,6 @@ def main() -> None:
 
     # Calculate % change
     if close_val == open_val:
-        print("Close price equals open price, no percentage change.")
         sys.exit(0)
     percent = round(((close_val - open_val) / open_val) * 100.0, ROUND_DIGITS)
 

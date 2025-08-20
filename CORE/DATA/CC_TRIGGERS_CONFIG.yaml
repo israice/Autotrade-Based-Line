@@ -1,22 +1,20 @@
 #############################
-##### C_CHECK_CANDLE_END ####
+##### A_CHECK_CANDLE_END ####
 #############################
 COUNTER_RED_END: 0
 COUNTER_GREEN_END: 0
 #############################
-##### D_CHECK_PERCENT #######
+##### B_CHECK_PERCENT_SELL ##
 #############################
-PERCENT_STATUS: 0.014
+PERCENT_STATUS: 0.052
 TREND_STATUS: GREEN
-COUNTER_OPEN_CROSSING: 0
+COUNTER_OPEN_CROSSING: -1
 #############################
-##### D_CHECK_PERCENT_SELL ##
-#############################
-PERCENT_LONG_SELL: 0.105
+PERCENT_LONG_SELL: 0.100
 SETTINGS_PERCENT_SELL: 0.100
-PERCENT_SHORT_SELL: -0.105
+PERCENT_SHORT_SELL: -0.100
 #############################
-## F_CHECK_HIGH_LOW_CROSS ###
+## C_CHECK_HIGH_LOW_CROSS ###
 #############################
 COUNTER_HIGH_CROSSING: 1
 CROSSING_UP_GREEN: DISABLED
@@ -24,17 +22,6 @@ CROSSING_DOWN_GREEN: WATING
 CROSSING_UP_RED: DISABLED
 CROSSING_DOWN_RED: DISABLED
 COUNTER_LOW_CROSSING: 0
-#############################
-####### C_TRIGGERS ##########
-#############################
-TRIGGERS: NO
-TRIGGERS_CANDLE_GREEN_END: YES
-TRIGGERS_CANDLE_RED_END: NO
-TRIGGERS_CANDLE_HIGH_LINE: NO
-TRIGGERS_CANDLE_OPEN_LINE: NO
-TRIGGERS_CANDLE_LOW_LINE: NO
-TRIGGERS_CANDLE_LONG_PERCENT: NO
-TRIGGERS_CANDLE_SHORT_PERCENT: NO
 #############################
 ## C_TRIGGERS = ORDER TYPE ##
 #############################

@@ -15,13 +15,16 @@ from typing import Any, Dict, Optional, Tuple, List
 SETTINGS_PATH = "CORE/DATA/BB_USER_SETTINGS.yaml"  # contains SYSTEM_SYMBOL, SYSTEM_TIMEFRAME
 YAML_ROOT_KEY = "BINANCE_FUTURES"
 
+# Candle sources and fields
 A_PATH = "CORE/DATA/AA_CANDLE.yaml"
-A_VALUE_KEY = "OPEN_TIME"  # field to read from A file
+A_VALUE_KEY = "OPEN_PRICE"  # field to read from A file
 A_CANDLE = 0
 COMPARISON_OPERATOR = "=="  # Support: '==', '!=', '>', '<', '>=', '<='
 Z_CANDLE = 0
-Z_VALUE_KEY = "OPEN_TIME"  # field to read from Z file
+Z_VALUE_KEY = "OPEN_PRICE"  # field to read from Z file
 Z_PATH = "CORE/DATA/ZZ_CANDLE.yaml"
+
+# Comparison
 
 # Script lists
 SCRIPTS_EQUAL: List[str] = [
@@ -232,7 +235,14 @@ def main() -> None:
         execute_scripts(SCRIPTS_NOT_FOUND)
         return
 
-    # 3) Compare and branch
+    # 3) If values are equal and operator is relational, do nothing
+    #    (We intentionally skip only for '>', '<', '>=', '<='; for '=='/'!=' keep original behavior.)
+    if COMPARISON_OPERATOR in {">", "<", ">=", "<="} and a_value == z_value:
+        # No actions executed when values are equal for relational comparisons
+        gc.collect()
+        return
+
+    # 4) Compare and branch
     try:
         condition = compare_values(a_value, z_value, COMPARISON_OPERATOR)
     except Exception as exc:

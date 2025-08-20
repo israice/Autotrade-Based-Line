@@ -1,1 +1,1 @@
-print(" - - RED - PERCENT - SELL - ✅")
+print(" - - SELL % - 🔴 💲")

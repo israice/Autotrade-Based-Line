@@ -7,23 +7,17 @@ import builtins
 # =========================
 # Settings (configurable)
 # =========================
-CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
-CONFIG_HEADER = 'RUN_CHECK_SCRIPTS'
-SCRIPTS_UP_WORD = 'ENABLE'
-SCRIPTS_DOWN_WORD = 'DISABLE'
+CONFIG_PATH = 'CORE/DATA/CC_TRIGGERS_CONFIG.yaml'
+CONFIG_HEADER = 'TREND_STATUS'
+SCRIPTS_UP_WORD = 'GREEN'
+SCRIPTS_DOWN_WORD = 'RED'
 
 SCRIPTS_YES = [
-    "CORE/TOOLS/system/delay_by_settings.py",
-    # #############################################
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/A_CHECK_CANDLE_END/A_RUN.py",
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/B_CHECK_PERCENT_SELL/B_RUN.py",
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/C_CHECK_OPEN_LINE_CROSS/C_RUN.py",
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/D_RUN.py",
-    # # #############################################
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/Z_CHECK_CANDLE_END/Z_RUN.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DAAA_check_inside_outside_green_cross.py", 
 ]
 
 SCRIPTS_NO = [
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DAAB_check_inside_outside_red_cross.py", 
 ]
 
 # Output behavior: real-time, no buffering/memory

@@ -33,6 +33,7 @@ autotrade-based-line — это система мониторинга данны
 - подключен B_CHECK_PERCENT_SELL
 - создан GET_ANY_CANDLES_BASED_SETTINGS.py
 - подключен C_CHECK_OPEN_LINE_CROSS
+- надо понять почему A_CHECK_CANDLE_END срабатывает дважды 
 
 ## FUTURE PLANS
 
@@ -65,7 +66,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "подключен C_CHECK_OPEN_LINE_CROSS"
+git commit -m "надо понять почему A_CHECK_CANDLE_END срабатывает дважды"
 git push
 
 ```
@@ -90,5 +91,13 @@ git push
 🌪️ 🛸 🎲 🎮 🐛 🐜 🦠 ⏫ ⏬ ⏩
 ⏪ ⏭️ ⏮️ 🆗 🆕 🆙
 🪙 🪙 💰 💴 💵 💶 💷 💸 💳 🏦
-
+⚠️ ❗ ❕ ❓ ❔ ℹ️ ♻️ ⛔ 🚫
+⬆️ ⬇️ ⬅️ ➡️ ↗️ ↘️ ↙️ ↖️ ⤴️ ⤵️ ↩️ ↪️ 🔼 🔽 ▶️ ⏯️ ⏸️ ⏹️ ⏺️ ⏏️ ◀️ 🔀 🔃 🔙 🔚 🔛 🔜 🔝 ➕ ➖ ➗ ✴️ ❇️ ✨ ⭐
+🟢 🟡 🔴 🔵 ⚪ ⚫ 🟣 🟤 🟧 🟥 🟦 🟩 🟨 🟪 🟫 ⬛ ⬜ ◼️ ◻️ ◽ ◾
+💬 🗨️ 🗯️ 📞 ☎️ 📱 📲 📳 🔕 🔇 🔈 🔉 🔊 🎙️ 🎚️ 🎛️ 🎧 📺 📻
+📄 📃 📑 🧾 📰 🗞️ 📁 📇 🖇️ 📍 🧷 ✂️ 📏 📐 🧮 🖋️ 🖌️
+⌨️ 💽 🔌 🔦 🛜 📶 🛰️ ☁️ 🌩️ 🌫️ 🌤️
+🛢️ ⚗️ 🗺️ 🔑 🧠 🤖 🐧 🐳
+🧼 🧽 🪣 🪛 🪚 🪓 🪜 🪝 🪄 🪟 🪠 🪪 🪫
+🏧 💱 💲 🖧 🪬 🛍️
 </details>

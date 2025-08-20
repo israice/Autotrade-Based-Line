@@ -8,19 +8,12 @@ import builtins
 # Settings (configurable)
 # =========================
 CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
-CONFIG_HEADER = 'RUN_CHECK_SCRIPTS'
+CONFIG_HEADER = 'SYSTEM_RUN'
 SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/TOOLS/system/delay_by_settings.py",
-    # #############################################
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/A_CHECK_CANDLE_END/A_RUN.py",
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/B_CHECK_PERCENT_SELL/B_RUN.py",
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/C_CHECK_OPEN_LINE_CROSS/C_RUN.py",
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/D_RUN.py",
-    # # #############################################
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/Z_CHECK_CANDLE_END/Z_RUN.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DA_if_candle_not_ended.py", 
 ]
 
 SCRIPTS_NO = [

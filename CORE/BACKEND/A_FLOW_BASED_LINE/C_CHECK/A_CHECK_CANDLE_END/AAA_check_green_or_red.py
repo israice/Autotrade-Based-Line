@@ -19,38 +19,37 @@ YAML_ROOT_KEY = "BINANCE_FUTURES"
 A_PATH = "CORE/DATA/AA_CANDLE.yaml"
 A_VALUE_KEY = "OPEN_PRICE"   # field to read from A file
 A_CANDLE = 0                 # candle index: 0 -> candle with CANDLE: 0; 1+ -> 1-based position
-
-Z_PATH = "CORE/DATA/ZZ_CANDLE.yaml"
-Z_VALUE_KEY = "OPEN_PRICE"   # field to read from Z file
-Z_CANDLE = 0                 # candle index: 0 -> candle with CANDLE: 0; 1+ -> 1-based position
+COMPARISON_OPERATOR = ">"    # Supported: '==', '!=', '>', '<', '>=', '<='
+Z_CANDLE = 1                 # candle index: 0 -> candle with CANDLE: 0; 1+ -> 1-based position
+Z_VALUE_KEY = "CLOSE_PRICE"   # field to read from Z file
+Z_PATH = "CORE/DATA/YY_HISTORY_CANDLES.yaml"
 
 # Comparison
-COMPARISON_OPERATOR = ">"    # Supported: '==', '!=', '>', '<', '>=', '<='
 
 # Script lists
 SCRIPTS_EQUAL: List[str] = [
     "CORE/TOOLS/msg/end_green.py",
-    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    # "TOOLS/reset_PERCENT_SELL.py",
-    # "TOOLS/reset_TREND_STATUS.py",
-    # "TOOLS/enable_CROSSING_UP_GREEN.py",
-    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    # "TOOLS/disable_CROSSING_UP_RED.py",
-    # "TOOLS/enable_CROSSING_DOWN_RED.py",
+    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_HIGH_CROSSING.py",
+    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_OPEN_CROSSING.py",
+    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_LOW_CROSSING.py",
+    "CORE/TOOLS/CC_triggers_config/reset_PERCENT_SELL.py",
+    "CORE/TOOLS/CC_triggers_config/reset_TREND_STATUS.py",
+    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_GREEN.py",
+    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
+    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_RED.py",
+    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_DOWN_RED.py",
 ]
 SCRIPTS_NOT_EQUAL: List[str] = [
     "CORE/TOOLS/msg/end_red.py",
-    # "TOOLS/reset_COUNTER_HIGH_CROSSING.py",
-    # "TOOLS/reset_COUNTER_OPEN_CROSSING.py",
-    # "TOOLS/reset_COUNTER_LOW_CROSSING.py",
-    # "TOOLS/reset_PERCENT_SELL.py",
-    # "TOOLS/reset_TREND_STATUS.py",
-    # "TOOLS/enable_CROSSING_UP_GREEN.py",
-    # "TOOLS/disable_CROSSING_DOWN_GREEN.py",
-    # "TOOLS/disable_CROSSING_UP_RED.py",
-    # "TOOLS/enable_CROSSING_DOWN_RED.py",
+    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_HIGH_CROSSING.py",
+    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_OPEN_CROSSING.py",
+    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_LOW_CROSSING.py",
+    "CORE/TOOLS/CC_triggers_config/reset_PERCENT_SELL.py",
+    "CORE/TOOLS/CC_triggers_config/reset_TREND_STATUS.py",
+    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_GREEN.py",
+    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
+    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_RED.py",
+    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_DOWN_RED.py",
 ]
 SCRIPTS_NOT_FOUND: List[str] = [
 ]
@@ -255,7 +254,14 @@ def main() -> None:
         execute_scripts(SCRIPTS_NOT_FOUND)
         return
 
-    # 3) Compare and branch
+    # 3) If values are equal and operator is relational, do nothing
+    #    (We intentionally skip only for '>', '<', '>=', '<='; for '=='/'!=' keep original behavior.)
+    if COMPARISON_OPERATOR in {">", "<", ">=", "<="} and a_value == z_value:
+        # No actions executed when values are equal for relational comparisons
+        gc.collect()
+        return
+
+    # 4) Compare and branch
     try:
         condition = compare_values(a_value, z_value, COMPARISON_OPERATOR)
     except Exception as exc:

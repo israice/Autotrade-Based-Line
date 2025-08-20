@@ -1,1 +1,1 @@
-print(" - - END - - RED - - ✅")
+print(" - - 🔴 🔴 🔴  END ")

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import sys
 from typing import Any, Dict, Optional, Tuple, List
 from ruamel.yaml import YAML
@@ -16,7 +15,6 @@ YAML_ROOT_KEY = "BINANCE_FUTURES"
 
 INPUT_FILE = "CORE/DATA/AA_CANDLE.yaml"
 OUTPUT_FILE = "CORE/DATA/CC_TRIGGERS_CONFIG.yaml"
-OUTPUT_DIR = "CORE/BACKEND/B_CREATE_DATA"
 
 # Fields
 OPEN_KEY = "OPEN_PRICE"
@@ -141,16 +139,10 @@ def main() -> None:
         sys.exit(0)
     percent = round(((close_val - open_val) / open_val) * 100.0, ROUND_DIGITS)
 
-    # Ensure output dir and load existing config
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    # Load existing config and update
     out = load_yaml(OUTPUT_FILE) or {}
-
-    # Update and save
     out[PERCENT_KEY] = percent
     save_yaml(OUTPUT_FILE, out)
-
-    # Quiet by default; uncomment if needed
-    # print(f"{PERCENT_KEY}: {percent} %")
 
 
 if __name__ == "__main__":

@@ -1,1 +1,1 @@
-print(" - - END - - GREEN - - ✅")
+print(" - - 🟢 🟢 🟢  END ")

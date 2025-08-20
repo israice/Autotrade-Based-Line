@@ -1,1 +1,1 @@
-print(" - - CROSSING UP GREEN - ✅")
+print(" - - HIGH UP - 🟢 🟩")

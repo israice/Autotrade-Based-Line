@@ -23,7 +23,7 @@ SCRIPTS_EQUAL: List[str] = [
     "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 SCRIPTS_NOT_EQUAL: List[str] = [
-    "CORE/TOOLS/YY_history_candles/GET_CANDLE_1_ADD_TO_DB.py",
+    "CORE/TOOLS/YY_history_candles/GET_CANDLE_1.py",
     "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 SCRIPTS_NOT_FOUND: List[str] = [

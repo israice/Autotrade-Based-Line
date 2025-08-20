@@ -31,6 +31,7 @@ autotrade-based-line — это система мониторинга данны
 
 - подключен A_CHECK_CANDLE_END
 - подключен B_CHECK_PERCENT_SELL
+- создан GET_ANY_CANDLES_BASED_SETTINGS.py
 
 ## FUTURE PLANS
 
@@ -63,7 +64,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "подключен B_CHECK_PERCENT_SELL"
+git commit -m "создан GET_ANY_CANDLES_BASED_SETTINGS.py"
 git push
 
 ```

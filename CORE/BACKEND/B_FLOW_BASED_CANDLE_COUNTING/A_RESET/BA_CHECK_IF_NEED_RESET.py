@@ -17,8 +17,8 @@ SCRIPTS_DOWN_WORD = 'DISABLE'
 SCRIPTS_YES = [
     # ########### RESET DB ##################
     "CORE/TOOLS_FLOW/RESET_DB.py",
-    "CORE/TOOLS_FLOW/GET_CANDLE_1_ADD_TO_DB.py",
-    "CORE/TOOLS_FLOW/GET_CANDLE_2_ADD_TO_DB.py",
+    "CORE/TOOLS_FLOW/GET_CANDLE_1.py",
+    "CORE/TOOLS_FLOW/GET_CANDLE_2.py",
     "CORE/TOOLS_FLOW/RESET_CANDLE_DATA_FILES.py",
     # #######################################
     # "TOOLS/create_ORDER_SYMBOL.py", 

@@ -34,6 +34,8 @@ autotrade-based-line — это система мониторинга данны
 - создан GET_ANY_CANDLES_BASED_SETTINGS.py
 - подключен C_CHECK_OPEN_LINE_CROSS
 - надо понять почему A_CHECK_CANDLE_END срабатывает дважды 
+- все CHECK 🚀 подключены и работают исправно 
+  - надо исправить price line cross чтобы он срази определялся на OPEN
 
 ## FUTURE PLANS
 
@@ -66,7 +68,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "надо понять почему A_CHECK_CANDLE_END срабатывает дважды"
+git commit -m "все CHECK 🚀 подключены и работают исправно"
 git push
 
 ```

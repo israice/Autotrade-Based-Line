@@ -22,7 +22,7 @@ SCRIPTS_YES = [
     "CORE/TOOLS/CC_triggers_config/reset_COUNTER_OPEN_CROSSING.py",
     "CORE/TOOLS/CC_triggers_config/reset_COUNTER_LOW_CROSSING.py",
     "CORE/TOOLS/CC_triggers_config/reset_PERCENT_SELL.py",
-    "CORE/TOOLS/CC_triggers_config/reset_TREND_STATUS.py",
+    # "CORE/TOOLS/CC_triggers_config/reset_TREND_STATUS.py",
     "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_GREEN.py",
     "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
     "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_RED.py",
@@ -30,6 +30,7 @@ SCRIPTS_YES = [
     # "CORE/TOOLS/CC_triggers_config/create_ORDER_ACCOUNT_ID.py",
     # 'CORE/TOOLS/CC_triggers_config/binance_info_for_order_budy.py',
     # 'CORE/TOOLS/CC_triggers_config/clone_candles.py',
+    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 
 SCRIPTS_NO = [

@@ -7,7 +7,7 @@ SYSTEM_RUN: ENABLE
 CHOOSE_FLOW: A
 # - A - Flow Based Line
 # - B - Flow Based Candle Counting
-CONNECTION_TYPE: WEBSCOKET
+CONNECTION_TYPE: REST
 # - WEBSCOKET - Websocket connection
 # - REST - REST API connection
 RESET_TYPE: A

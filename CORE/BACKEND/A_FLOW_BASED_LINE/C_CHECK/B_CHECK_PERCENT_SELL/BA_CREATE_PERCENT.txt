@@ -1,0 +1,38 @@
+создай скрипт который сравнивает 2 переменные
+
+и пишет процент состовлящий между этими значениями 
+
+
+записевать результат надо в файл
+CORE\DATA\CC_TRIGGERS_CONFIG.yaml
+в переменную 
+PERCENT_STATUS: 0.0271
+заменяя значения не влияя на другие строки в файле 
+
+проверить надо в файле 
+CORE\DATA\AA_CANDLE.yaml
+переменные
+CLOSE_PRICE: 2.9355
+и
+OPEN_PRICE: 2.9405
+
+из структуры данных 
+BINANCE_FUTURES:
+- XRPUSDT:
+  - 1m:
+    - CANDLE: 0
+      CLOSE_TIME: 2025-08-21 01:45:59:999
+      TIMESTAMP: 2025-08-21 01:45:49:553
+      OPEN_TIME: 2025-08-21 01:45:00:000
+      HIGH_PRICE: 2.9405
+      CLOSE_PRICE: 2.9355
+      OPEN_PRICE: 2.9405
+      LOW_PRICE: 2.9346
+
+
+
+настройки пути к нужным переменных находяться в файле 
+CORE\DATA\BB_USER_SETTINGS.yaml
+в переменных 
+SYSTEM_TIMEFRAME: 1m
+SYSTEM_SYMBOL: XRPUSDT

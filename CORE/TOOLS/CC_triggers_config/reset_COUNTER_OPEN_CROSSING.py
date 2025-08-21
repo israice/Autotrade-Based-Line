@@ -5,7 +5,7 @@ import os
 CONFIG_FILE = "CORE/DATA/CC_TRIGGERS_CONFIG.yaml"
 NOW_AMOUNT_KEY = "COUNTER_OPEN_CROSSING"
 # You can put any value here: number, string, null
-RESET_VALUE = '-1'
+RESET_VALUE = '0'
 # ====================================================
 
 # Function to update specific value in YAML content while preserving lines

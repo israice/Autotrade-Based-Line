@@ -3,6 +3,9 @@ import os
 import sys
 import time
 import builtins
+import subprocess
+import signal
+import atexit
 
 # =========================
 # Settings (configurable)
@@ -14,22 +17,20 @@ SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
     'CORE/BACKEND/CHOOSE_FLOW.py',
-    ]
+]
 
 SCRIPTS_NO = [
-    ]
+]
 
-# Output behavior: real-time, no buffering/memory
+# Output behavior
 FORCE_FLUSH_PRINTS = True                   # Force flush=True for all print() inside child scripts
 LINE_BUFFER_STDIO = True                    # Reconfigure sys.stdout/sys.stderr for line buffering when possible
 
 # =========================
 # Helpers (implementation)
 # =========================
-# Ensure our own stdio is as unbuffered as Python allows without proxies.
 if LINE_BUFFER_STDIO:
     try:
-        # Reconfigure only if available (TextIOWrapper). This keeps writes immediate on newline.
         sys.stdout.reconfigure(line_buffering=True)
     except Exception:
         pass
@@ -38,7 +39,6 @@ if LINE_BUFFER_STDIO:
     except Exception:
         pass
 
-# Prepare a print() that always flushes (no buffering). We'll inject this for child scripts only.
 _original_print = builtins.print
 
 def _print_flush(*args, **kwargs):
@@ -74,27 +74,54 @@ else:
         print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
         sys.exit(1)
 
+# =========================
+# Process management
+# =========================
+processes = []
+
+def cleanup():
+    """Terminate all child processes on exit."""
+    for p in processes:
+        if p.poll() is None:  # still running
+            try:
+                p.terminate()
+                p.wait(timeout=5)
+            except Exception:
+                try:
+                    p.kill()
+                except Exception:
+                    pass
+
+# Register cleanup for normal exit and signals
+atexit.register(cleanup)
+signal.signal(signal.SIGTERM, lambda signum, frame: sys.exit(0))
+signal.signal(signal.SIGINT, lambda signum, frame: sys.exit(0))
+
+# =========================
+# Start scripts as processes
+# =========================
 for script in scripts:
     if not os.path.exists(script):
-        print(f"Error: Script {script} not found", flush=True)  # Ensure immediate visibility
+        print(f"Error: Script {script} not found", flush=True)
         continue
     try:
-        # Read and compile the script code (no accumulation of output; just code loading).
-        with open(script, 'r', encoding='utf-8') as f:
-            code = compile(f.read(), script, 'exec')
-
-        # Prepare execution globals to mimic __main__
-        exec_globals = {'__name__': '__main__', '__file__': script}
-
-        # Execute child script with forced flush on all print() calls to ensure real-time output.
+        # Launch as independent Python process
+        cmd = [sys.executable, script]
         if FORCE_FLUSH_PRINTS:
-            builtins.print = _print_flush  # Inject flush-on-print for the duration of the child script
-        try:
-            exec(code, exec_globals)
-        finally:
-            # Always restore builtins.print even if child script fails
-            builtins.print = _original_print
+            cmd.insert(1, "-u")  # force unbuffered mode
+
+        p = subprocess.Popen(
+            cmd,
+            stdout=sys.stdout,
+            stderr=sys.stderr,
+            bufsize=1,
+            universal_newlines=True
+        )
+        processes.append(p)
 
     except Exception as e:
-        # Print errors immediately; do not buffer
         print(f"Error executing {script}: {e}", flush=True)
+
+# Wait for all child processes to finish
+for p in processes:
+    p.wait()

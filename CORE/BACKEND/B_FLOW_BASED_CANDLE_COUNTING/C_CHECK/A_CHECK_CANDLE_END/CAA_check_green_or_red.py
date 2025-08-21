@@ -18,9 +18,9 @@ TIMEFRAME_COLUMN = "TIMEFRAME"
 CANDLE_NUMBER_COLUMN = "CANDLE_NUMBER"
 # ============================================================================
 COMPARISON_COLUMN_1 = "OPEN_PRICE"  # Колонка для первого значения (CANDLE_NUMBER_1)
-CANDLE_NUMBER_1 = "1"
+CANDLE_NUMBER_1 = "0"
 COMPARISON_OPERATOR = '>'  # Поддерживаемые операторы: '==', '!=', '>', '<', '>=', '<='
-CANDLE_NUMBER_2 = "2"
+CANDLE_NUMBER_2 = "1"
 COMPARISON_COLUMN_2 = "OPEN_PRICE"  # Колонка для второго значения (CANDLE_NUMBER_2)
 # ============================================================================
 

@@ -9,35 +9,18 @@ USER_SETTINGS_PATH = "CORE/DATA/BB_USER_SETTINGS.yaml"
 A_PATH = "CORE/DATA/AA_CANDLE.yaml"
 A_VALUE_KEY = "OPEN_PRICE"
 A_CANDLE = 0
-COMPARISON_OPERATOR = ">"
+COMPARISON_OPERATOR = "=="
 Z_CANDLE = 0
 Z_VALUE_KEY = "OPEN_PRICE"
 Z_PATH = "CORE/DATA/ZZ_CANDLE.yaml"
 
 SCRIPTS_TRUE = [
-    "CORE/TOOLS/msg/end_green.py",
-    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_HIGH_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_OPEN_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_LOW_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/reset_PERCENT_SELL.py",
-    # "CORE/TOOLS/CC_triggers_config/reset_TREND_STATUS.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_RED.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_DOWN_RED.py",
+    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 
 SCRIPTS_FALSE = [
-    "CORE/TOOLS/msg/end_red.py",
-    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_HIGH_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_OPEN_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/reset_COUNTER_LOW_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/reset_PERCENT_SELL.py",
-    # "CORE/TOOLS/CC_triggers_config/reset_TREND_STATUS.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_RED.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_DOWN_RED.py",
+    "CORE/TOOLS/YY_history_candles/GET_CANDLE_1.py",
+    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 
 # =========================

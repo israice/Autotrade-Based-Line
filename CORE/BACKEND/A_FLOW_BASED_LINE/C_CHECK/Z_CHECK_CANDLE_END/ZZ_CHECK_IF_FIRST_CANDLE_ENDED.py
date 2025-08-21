@@ -10,28 +10,28 @@ from typing import Any, Dict, Optional, Tuple, List
 
 SETTINGS_PATH = "CORE/DATA/BB_USER_SETTINGS.yaml"  # contains SYSTEM_SYMBOL, SYSTEM_TIMEFRAME
 YAML_ROOT_KEY = "BINANCE_FUTURES"
-# Candle files
-A_PATH = "CORE/DATA/AA_CANDLE.yaml"
-A_VALUE_KEY = "OPEN_PRICE"  # field to read from A file
-A_CANDLE = 0
-COMPARISON_OPERATOR = "=="  # Support: '==', '!=', '>', '<', '>=', '<='
-Z_CANDLE = 0
-Z_VALUE_KEY = "OPEN_PRICE"  # field to read from Z file
-Z_PATH = "CORE/DATA/ZZ_CANDLE.yaml"
 
+# ============== new ===========
+A_PATH = "CORE/DATA/AA_CANDLE.yaml"
+A_VALUE_KEY = "OPEN_TIME"   # field to read from A file
+A_CANDLE = 0                # index or CANDLE value (auto-detected)
+COMPARISON_OPERATOR = "=="  # Support: '==', '!=', '>', '<', '>=', '<='
+Z_CANDLE = 0                # index or CANDLE value (auto-detected)
+Z_VALUE_KEY = "OPEN_TIME"   # field to read from Z file
+Z_PATH = "CORE/DATA/ZZ_CANDLE.yaml"
+# =========================
+
+# Scripts to execute depending on comparison
 SCRIPTS_EQUAL: List[str] = [
-    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 SCRIPTS_NOT_EQUAL: List[str] = [
-    "CORE/TOOLS/YY_history_candles/GET_CANDLE_1.py",
-    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
+        "CORE/TOOLS/YY_history_candles/GET_CANDLE_1.py",
 ]
 SCRIPTS_NOT_FOUND: List[str] = [
-    "CORE/TOOLS/ZZ_candle/COPY_AA_TO_ZZ.py",
 ]
 
 # Child process execution
-CHILD_TIMEOUT_SEC = 60  # fail-safe timeout for each script (tune as needed)
+CHILD_TIMEOUT_SEC = 60       # fail-safe timeout for each script
 PYTHON_BIN = sys.executable  # interpreter used for child scripts
 
 # =========================
@@ -50,27 +50,73 @@ def load_yaml(path: str) -> Optional[Dict[str, Any]]:
         return None
 
 
-def mixed_get(container: Any, key: str) -> Optional[Any]:
-    """
-    Safely get 'key' from possibly mixed YAML structure where levels can be
-    dicts or lists of dicts.
-    """
-    if isinstance(container, dict):
-        return container.get(key)
-    if isinstance(container, list):
-        for item in container:
-            if isinstance(item, dict) and key in item:
-                return item[key]
+def _case_insensitive_get_from_dict(d: Dict[str, Any], key: str) -> Optional[Any]:
+    """Try dict[key], then case-insensitive match over keys."""
+    if key in d:
+        return d[key]
+    if isinstance(key, str):
+        kfold = key.casefold()
+        for k in d.keys():
+            if isinstance(k, str) and k.casefold() == kfold:
+                return d[k]
     return None
 
 
-def as_list(value: Any) -> list:
+def mixed_get(container: Any, key: str) -> Optional[Any]:
+    """
+    Safely get 'key' from possibly mixed YAML structure where levels can be
+    dicts or lists-of-dicts. Uses case-insensitive fallback for keys.
+    """
+    if isinstance(container, dict):
+        return _case_insensitive_get_from_dict(container, key)
+
+    if isinstance(container, list):
+        # Typical pattern: [{KEY: value}, {OTHER: value2}, ...]
+        for item in container:
+            if isinstance(item, dict):
+                # Direct match
+                if key in item:
+                    return item[key]
+                # Case-insensitive single-key match
+                got = _case_insensitive_get_from_dict(item, key)
+                if got is not None:
+                    return got
+        return None
+
+    return None
+
+
+def as_list(value: Any) -> List[Any]:
     """Normalize any value to a list: list -> same, None -> [], other -> [value]."""
     if value is None:
         return []
     if isinstance(value, list):
         return value
     return [value]
+
+
+def pick_candle_entry(candles: List[Any], candle_id: Any, id_field: str = "CANDLE") -> Optional[Dict[str, Any]]:
+    """
+    Pick candle dict either by list index (if within range) or by matching id_field == candle_id.
+    This makes selection robust to YAML where candles are not strictly positional.
+    """
+    # 1) Try by positional index
+    if isinstance(candle_id, int) and 0 <= candle_id < len(candles):
+        entry = candles[candle_id]
+        if isinstance(entry, dict):
+            return entry
+
+    # 2) Try by field match (id_field equals candle_id)
+    for item in candles:
+        if isinstance(item, dict) and id_field in item and item[id_field] == candle_id:
+            return item
+
+    # 3) As a last resort, if there is exactly one dict, return it
+    only_dicts = [x for x in candles if isinstance(x, dict)]
+    if len(only_dicts) == 1:
+        return only_dicts[0]
+
+    return None
 
 
 def load_system_settings(path: str) -> Tuple[Optional[str], Optional[str]]:
@@ -84,6 +130,8 @@ def load_system_settings(path: str) -> Tuple[Optional[str], Optional[str]]:
 
     symbol = data.get("SYSTEM_SYMBOL")
     timeframe = data.get("SYSTEM_TIMEFRAME")
+
+    # Accept strings only
     if not isinstance(symbol, str) or not isinstance(timeframe, str):
         return None, None
     return symbol, timeframe
@@ -94,19 +142,22 @@ def extract_field_from_candle_file(
     symbol: str,
     timeframe: str,
     field_key: str,
-    candle_index: int,
+    candle_id: Any,
 ) -> Optional[Any]:
     """
     Traverse the YAML structure:
-    BINANCE_FUTURES -> <list or dict with symbol> -> <list or dict with timeframe> -> [candle_index] -> field_key
-    Returns the field value or None if anything is missing.
+    BINANCE_FUTURES -> <symbol node> -> <timeframe node> -> candle dict -> field_key
+
+    - Supports either dict or list at each layer.
+    - Keys are matched case-insensitively.
+    - Candle selection is resilient: first tries index, then matches by CANDLE==candle_id.
     """
     data = load_yaml(file_path)
     if not data:
         return None
 
     try:
-        root = data.get(YAML_ROOT_KEY)
+        root = _case_insensitive_get_from_dict(data, YAML_ROOT_KEY) if isinstance(data, dict) else None
         if root is None:
             return None
 
@@ -119,16 +170,18 @@ def extract_field_from_candle_file(
             return None
 
         candles_list = as_list(timeframe_node)
-        if not candles_list or not (0 <= candle_index < len(candles_list)):
+        if not candles_list:
             return None
 
-        candle_entry = candles_list[candle_index]
+        candle_entry = pick_candle_entry(candles_list, candle_id, id_field="CANDLE")
         if not isinstance(candle_entry, dict):
             return None
 
-        return candle_entry.get(field_key)
+        # Field access with case-insensitive fallback
+        value = _case_insensitive_get_from_dict(candle_entry, field_key) if isinstance(candle_entry, dict) else None
+        return value
     finally:
-        # Explicitly drop large refs and prompt GC to minimize RSS between loop calls
+        # Explicitly drop large refs and prompt GC
         del data
         gc.collect()
 
@@ -153,7 +206,7 @@ def compare_values(a: Any, b: Any, op: str) -> bool:
 def execute_scripts(scripts: List[str]) -> None:
     """
     Execute python files in the given order in isolated subprocesses.
-    - No in-memory buffering of output (inherits parent's stdout/stderr).
+    - Inherit parent's stdout/stderr to avoid buffering in memory.
     - Timeout per script to prevent hangs.
     - No exec() inside current interpreter -> no module cache growth.
     """
@@ -166,7 +219,6 @@ def execute_scripts(scripts: List[str]) -> None:
             continue
 
         try:
-            # Inherit stdout/stderr to avoid buffering in memory
             subprocess.run(
                 [PYTHON_BIN, "-u", script_path],
                 check=False,

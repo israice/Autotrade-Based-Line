@@ -13,7 +13,7 @@ SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/A_CHECK_CANDLE_END/AA_if_candle_ends.py", 
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/Z_CHECK_CANDLE_END/ZZ_CHECK_IF_FIRST_CANDLE_ENDED.py",
 ]
 
 SCRIPTS_NO = [
@@ -71,6 +71,7 @@ else:
     elif config_value == SCRIPTS_DOWN_WORD:
         scripts = SCRIPTS_NO
     else:
+        print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
         sys.exit(1)
 
 for script in scripts:

@@ -6,12 +6,7 @@ YAML_FILE_PATH = "CORE/DATA/CC_TRIGGERS_CONFIG.yaml"
 the_key = "CROSSING_DOWN_GREEN"
 CROSSING_UP_GREEN = "WATING"
 SCRIPTS = [
-    "CORE/TOOLS/msg/crossing_down_green.py",
-    "CORE/TOOLS/CC_triggers_config/add_1_to_COUNTER_HIGH_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_RED.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_DOWN_RED.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/D_RUNNERS/DB_HIGH_DOWN.py",
 ]
 def load_yaml_file(file_path):
     try:

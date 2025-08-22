@@ -36,6 +36,7 @@ autotrade-based-line — это система мониторинга данны
 - надо понять почему A_CHECK_CANDLE_END срабатывает дважды 
 - все CHECK 🚀 подключены и работают исправно 
   - надо исправить price line cross чтобы он срази определялся на OPEN
+- WORKS🚀 - далее перводим в большие буквы и выводим TOOLS
 
 ## FUTURE PLANS
 
@@ -45,12 +46,6 @@ autotrade-based-line — это система мониторинга данны
 
 <details>
   <summary>Github ШПАРГАЛКА</summary>
-
-## Загрузить последние обновления и заменить локальные файлы
-
-```
-git fetch origin; git reset --hard origin/master; git clean -fd
-```
 
 ## Посмотреть последние 10 коммитов и выбрать hash
 
@@ -68,7 +63,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "все CHECK 🚀 подключены и работают исправно"
+git commit -m "WORKS🚀 - далее перводим в большие буквы и выводим TOOLS"
 git push
 
 ```

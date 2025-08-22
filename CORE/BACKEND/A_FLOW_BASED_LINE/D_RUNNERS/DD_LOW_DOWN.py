@@ -8,12 +8,17 @@ import builtins
 # Settings (configurable)
 # =========================
 CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
-CONFIG_HEADER = 'SYSTEM_RUN'
+CONFIG_HEADER = 'RUN_CHECK_SCRIPTS'
 SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/B_CHECK_PERCENT_SELL/BB_CHECK_POSITIVE_OR_NEGATIVE.py", 
+    # "CORE/TOOLS/msg/crossing_down_red.py",
+    "CORE/TOOLS/CC_triggers_config/add_1_to_COUNTER_LOW_CROSSING.py",
+    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_GREEN.py",
+    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
+    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_RED.py",
+    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_RED.py",
 ]
 
 SCRIPTS_NO = [

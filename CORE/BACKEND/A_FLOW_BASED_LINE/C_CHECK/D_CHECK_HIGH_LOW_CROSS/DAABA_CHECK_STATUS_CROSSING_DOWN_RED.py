@@ -3,15 +3,10 @@ import subprocess
 
 # Configuration
 YAML_FILE_PATH = "CORE/DATA/CC_TRIGGERS_CONFIG.yaml"
-the_key = "CROSSING_UP_RED"
+the_key = "CROSSING_DOWN_RED"
 CROSSING_UP_GREEN = "WATING"
 SCRIPTS = [
-    "CORE/TOOLS/msg/crossing_up_red.py",
-    "CORE/TOOLS/CC_triggers_config/add_1_to_COUNTER_LOW_CROSSING.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_UP_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_DOWN_GREEN.py",
-    "CORE/TOOLS/CC_triggers_config/disable_CROSSING_UP_RED.py",
-    "CORE/TOOLS/CC_triggers_config/enable_CROSSING_DOWN_RED.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/D_RUNNERS/DD_LOW_DOWN.py",
 ]
 
 def load_yaml_file(file_path):

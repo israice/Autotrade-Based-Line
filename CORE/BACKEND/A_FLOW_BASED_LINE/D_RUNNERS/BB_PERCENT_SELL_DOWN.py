@@ -8,12 +8,12 @@ import builtins
 # Settings (configurable)
 # =========================
 CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
-CONFIG_HEADER = 'SYSTEM_RUN'
+CONFIG_HEADER = 'RUN_CHECK_SCRIPTS'
 SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/B_CHECK_PERCENT_SELL/BB_CHECK_POSITIVE_OR_NEGATIVE.py", 
+    # "CORE/TOOLS/msg/short_sell_percent_market_order.py"
 ]
 
 SCRIPTS_NO = [

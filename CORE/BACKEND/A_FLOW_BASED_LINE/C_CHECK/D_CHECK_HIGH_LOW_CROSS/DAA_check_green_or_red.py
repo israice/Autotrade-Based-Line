@@ -1,101 +1,178 @@
-import yaml
-import os
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# =========================
+# ========= SETTINGS ======
+# =========================
+USER_SETTINGS_PATH = "CORE/DATA/BB_USER_SETTINGS.yaml"
+
+A_PATH = "CORE/DATA/AA_CANDLE.yaml"
+A_VALUE_KEY = "CLOSE_PRICE"
+A_CANDLE = 0
+COMPARISON_OPERATOR = ">"
+Z_CANDLE = 0
+Z_VALUE_KEY = "OPEN_PRICE"
+Z_PATH = "CORE/DATA/AA_CANDLE.yaml"
+
+SCRIPTS_TRUE = [
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DAAA_CHECK_INSIDE_OUTSIDE_GREEN_CROSS.py", 
+]
+
+SCRIPTS_FALSE = [
+    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DAAB_CHECK_INSIDE_OUTSIDE_RED_CROSS.py", 
+]
+
+# =========================
+# ========= LOGIC =========
+# =========================
+
+# Comments are in English; values are read as strings; paths use forward slashes.
+
 import sys
-import time
-import builtins
+import subprocess
+from pathlib import Path
+import yaml  # pip install pyyaml
 
-# =========================
-# Settings (configurable)
-# =========================
-CONFIG_PATH = 'CORE/DATA/CC_TRIGGERS_CONFIG.yaml'
-CONFIG_HEADER = 'TREND_STATUS'
-SCRIPTS_UP_WORD = 'GREEN'
-SCRIPTS_DOWN_WORD = 'RED'
 
-SCRIPTS_YES = [
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DAAA_check_inside_outside_green_cross.py", 
-]
+def posix(p):
+    """Return forward-slash path."""
+    return str(Path(p).as_posix())
 
-SCRIPTS_NO = [
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DAAB_check_inside_outside_red_cross.py", 
-]
 
-# Output behavior: real-time, no buffering/memory
-FORCE_FLUSH_PRINTS = True                   # Force flush=True for all print() inside child scripts
-LINE_BUFFER_STDIO = True                    # Reconfigure sys.stdout/sys.stderr for line buffering when possible
+def load_yaml(path):
+    """Load YAML."""
+    with open(posix(path), "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
-# =========================
-# Helpers (implementation)
-# =========================
-# Ensure our own stdio is as unbuffered as Python allows without proxies.
-if LINE_BUFFER_STDIO:
-    try:
-        # Reconfigure only if available (TextIOWrapper). This keeps writes immediate on newline.
-        sys.stdout.reconfigure(line_buffering=True)
-    except Exception:
-        pass
-    try:
-        sys.stderr.reconfigure(line_buffering=True)
-    except Exception:
-        pass
 
-# Prepare a print() that always flushes (no buffering). We'll inject this for child scripts only.
-_original_print = builtins.print
+def read_user_settings(path):
+    """Return (symbol, timeframe) from BB_USER_SETTINGS.yaml."""
+    data = load_yaml(path)
+    return str(data["SYSTEM_SYMBOL"]), str(data["SYSTEM_TIMEFRAME"])
 
-def _print_flush(*args, **kwargs):
-    """print() wrapper that forces flush=True to avoid buffering."""
-    kwargs.setdefault('flush', True)
-    return _original_print(*args, **kwargs)
 
-# =========================
-# Logic (universal names)
-# =========================
-config_value = None
-try:
-    with open(CONFIG_PATH, 'r', encoding='utf-8') as file:
-        config = yaml.safe_load(file)
-        if config is not None:
-            config_value = config.get(CONFIG_HEADER)
-except FileNotFoundError:
-    pass
-except yaml.YAMLError:
-    pass
+def pluck(container, key):
+    """One-level descent supporting dict or list-of-dicts."""
+    if isinstance(container, dict) and key in container:
+        return container[key]
+    if isinstance(container, list):
+        for item in container:
+            if isinstance(item, dict) and key in item:
+                return item[key]
+    raise KeyError(key)
 
-if config_value is None:
-    scripts = []
-else:
-    if isinstance(config_value, bool):
-        config_value = SCRIPTS_UP_WORD if config_value else SCRIPTS_DOWN_WORD
 
-    if config_value == SCRIPTS_UP_WORD:
-        scripts = SCRIPTS_YES
-    elif config_value == SCRIPTS_DOWN_WORD:
-        scripts = SCRIPTS_NO
+def traverse(root, keys):
+    """Walk through nested structure using keys with list/dict tolerance."""
+    node = root
+    for k in keys:
+        node = pluck(node, k)
+    return node
+
+
+def select_candle(candles, candle_index):
+    """Select record by CANDLE==index; fallback to positional index."""
+    flat = []
+    if isinstance(candles, dict):
+        flat = [candles]
+    elif isinstance(candles, list):
+        for it in candles:
+            if isinstance(it, dict):
+                flat.append(it)
+            elif isinstance(it, list):
+                for sub in it:
+                    if isinstance(sub, dict):
+                        flat.append(sub)
     else:
-        print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
-        sys.exit(1)
+        raise TypeError("Unexpected candles structure")
 
-for script in scripts:
-    if not os.path.exists(script):
-        print(f"Error: Script {script} not found", flush=True)  # Ensure immediate visibility
-        continue
+    for rec in flat:
+        if rec.get("CANDLE") == candle_index:
+            return rec
+    if 0 <= candle_index < len(flat):
+        return flat[candle_index]
+    raise IndexError("candle not found")
+
+
+def read_value_as_str(path, symbol, timeframe, candle_index, value_key):
+    """Read value as string following required nesting."""
+    data = load_yaml(path)
+    candles = traverse(data, ["BINANCE_FUTURES", symbol, timeframe])
+    rec = select_candle(candles, candle_index)
+    return str(rec[value_key])
+
+
+def parse_float_maybe(s):
+    """Try parsing float; return (value, ok)."""
     try:
-        # Read and compile the script code (no accumulation of output; just code loading).
-        with open(script, 'r', encoding='utf-8') as f:
-            code = compile(f.read(), script, 'exec')
+        return float(str(s).strip()), True
+    except Exception:
+        return 0.0, False
 
-        # Prepare execution globals to mimic __main__
-        exec_globals = {'__name__': '__main__', '__file__': script}
 
-        # Execute child script with forced flush on all print() calls to ensure real-time output.
-        if FORCE_FLUSH_PRINTS:
-            builtins.print = _print_flush  # Inject flush-on-print for the duration of the child script
-        try:
-            exec(code, exec_globals)
-        finally:
-            # Always restore builtins.print even if child script fails
-            builtins.print = _original_print
+def tri_compare(a_str, b_str, op):
+    """
+    Return decision: True/False/None
+    - For '>' or '<' if values are equal (numeric if both parseable else string), return None (NO_ACTION).
+    """
+    if op in (">", "<", ">=", "<="):
+        af, ok_a = parse_float_maybe(a_str)
+        bf, ok_b = parse_float_maybe(b_str)
+        if ok_a and ok_b:
+            if op in (">", "<") and af == bf:
+                return None
+            if op == ">":
+                return af > bf
+            if op == "<":
+                return af < bf
+            if op == ">=":
+                return af >= bf
+            if op == "<=":
+                return af <= bf
+        else:
+            if op in (">", "<") and a_str == b_str:
+                return None
+            if op == ">":
+                return a_str > b_str
+            if op == "<":
+                return a_str < b_str
+            if op == ">=":
+                return a_str >= b_str
+            if op == "<=":
+                return a_str <= b_str
+    if op == "==":
+        return a_str == b_str
+    if op == "!=":
+        return a_str != b_str
+    raise ValueError("Unsupported operator")
 
-    except Exception as e:
-        # Print errors immediately; do not buffer
-        print(f"Error executing {script}: {e}", flush=True)
+
+def run_scripts(scripts):
+    """Run scripts sequentially with current Python interpreter. No printing here."""
+    for script in scripts:
+        cmd = [sys.executable, posix(script)]
+        rc = subprocess.run(cmd, check=False).returncode
+        if rc != 0:
+            sys.exit(rc)
+
+
+def main():
+    symbol, timeframe = read_user_settings(USER_SETTINGS_PATH)
+
+    a_val = read_value_as_str(A_PATH, symbol, timeframe, A_CANDLE, A_VALUE_KEY)
+    z_val = read_value_as_str(Z_PATH, symbol, timeframe, Z_CANDLE, Z_VALUE_KEY)
+
+    decision = tri_compare(a_val, z_val, COMPARISON_OPERATOR)
+
+    # Execute scripts based on decision
+    if decision is True:
+        run_scripts(SCRIPTS_TRUE)
+    elif decision is False:
+        run_scripts(SCRIPTS_FALSE)
+    else:
+        # None -> NO_ACTION for '>' or '<' when equal
+        pass
+
+
+if __name__ == "__main__":
+    main()

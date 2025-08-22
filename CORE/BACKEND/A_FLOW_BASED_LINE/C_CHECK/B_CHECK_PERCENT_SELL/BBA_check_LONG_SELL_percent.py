@@ -3,8 +3,8 @@ import os
 
 # Configuration settings
 CONFIG_FILE = "CORE/DATA/CC_TRIGGERS_CONFIG.yaml"
-SCRIPTS = [
-    "CORE/TOOLS/msg/long_sell_percent_market_order.py"
+SCRIPTS = [    
+    "CORE/BACKEND/A_FLOW_BASED_LINE/D_RUNNERS/BA_PERCENT_SELL_UP.py",
 ]
 PERCENT_STATUS_KEY = "PERCENT_STATUS"
 PERCENT_LONG_SELL_KEY = "PERCENT_LONG_SELL"

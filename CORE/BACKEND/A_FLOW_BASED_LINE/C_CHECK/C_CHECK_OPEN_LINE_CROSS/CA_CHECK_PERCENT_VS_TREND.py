@@ -9,12 +9,10 @@ PERCENT_STATUS_KEY = 'PERCENT_STATUS'
 TREND_STATUS_KEY = 'TREND_STATUS'
 
 GREEN_LIST = [
-    "CORE/TOOLS/msg/up.py",
-    "CORE/TOOLS/CC_triggers_config/add_1_to_COUNTER_OPEN_CROSSING.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/D_RUNNERS/CA_OPEN_LINE_UP.py",
 ]
 RED_LIST = [
-    "CORE/TOOLS/msg/down.py",
-    "CORE/TOOLS/CC_triggers_config/add_1_to_COUNTER_OPEN_CROSSING.py",
+    "CORE/BACKEND/A_FLOW_BASED_LINE/D_RUNNERS/CB_OPEN_LINE_DOWN.py",
 ]
 
 def load_config(file_path):

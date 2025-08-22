@@ -8,12 +8,12 @@ import builtins
 # Settings (configurable)
 # =========================
 CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
-CONFIG_HEADER = 'SYSTEM_RUN'
+CONFIG_HEADER = 'RUN_CHECK_SCRIPTS'
 SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/A_CHECK_CANDLE_END/AA_if_candle_ends.py", 
+    # "CORE/TOOLS/msg/long_sell_percent_market_order.py",
 ]
 
 SCRIPTS_NO = [
@@ -71,6 +71,7 @@ else:
     elif config_value == SCRIPTS_DOWN_WORD:
         scripts = SCRIPTS_NO
     else:
+        print(f" - Wrong value key {config_value} for {CONFIG_HEADER}")
         sys.exit(1)
 
 for script in scripts:

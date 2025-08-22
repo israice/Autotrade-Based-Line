@@ -28,13 +28,11 @@ COMPARISON_OPERATOR = "=="         # one of: '==', '!=', '>', '<', '>=', '<='
 
 # ===== Scripts to execute depending on comparison result =====
 SCRIPTS_EQUAL: List[str] = [
-    "CORE/BACKEND/A_FLOW_BASED_LINE/C_CHECK/D_CHECK_HIGH_LOW_CROSS/DAA_CHECK_GREEN_OR_RED.py",
 ]
 SCRIPTS_NOT_EQUAL: List[str] = [
-
+        "CORE/TOOLS/YY_history_candles/GET_CANDLE_1.py",
 ]
 SCRIPTS_NOT_FOUND: List[str] = [
-    # e.g. "CORE/BACKEND/on_not_found.py",
 ]
 
 # ===== Child process execution =====

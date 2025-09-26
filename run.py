@@ -10,13 +10,13 @@ import atexit
 # =========================
 # Settings (configurable)
 # =========================
-CONFIG_PATH = 'CORE/DATA/BB_USER_SETTINGS.yaml'
+CONFIG_PATH = 'settings.yaml'
 CONFIG_HEADER = 'SYSTEM_RUN'
 SCRIPTS_UP_WORD = 'ENABLE'
 SCRIPTS_DOWN_WORD = 'DISABLE'
 
 SCRIPTS_YES = [
-    'CORE/BACKEND/CHOOSE_FLOW.py',
+    'CORE/BACKEND/A_CHECK_CONNECTION_TYPE/A_CHECK_CONNECTION_TYPE.py',
 ]
 
 SCRIPTS_NO = [

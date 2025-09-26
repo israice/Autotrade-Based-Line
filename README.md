@@ -10,7 +10,7 @@ autotrade-based-line — это система мониторинга данны
 
 ## Конфигурация
 
-Отредактируйте файл `CORE/DATA/BB_USER_SETTINGS.yaml` для настройки системы:
+Отредактируйте файл `settings.yaml` для настройки системы:
 
 ## Разработка
 
@@ -37,6 +37,7 @@ autotrade-based-line — это система мониторинга данны
 - все CHECK 🚀 подключены и работают исправно 
   - надо исправить price line cross чтобы он срази определялся на OPEN
 - WORKS🚀 - далее перводим в большие буквы и выводим TOOLS
+- v0.0.3 - заходим по телу предедущей свечи
 
 ## FUTURE PLANS
 
@@ -63,7 +64,7 @@ git fetch origin; git checkout master; git reset --hard 1eaef8b; git clean -fdx
 
 ```
 git add .
-git commit -m "WORKS🚀 - далее перводим в большие буквы и выводим TOOLS"
+git commit -m "v0.0.3 - заходим по телу предедущей свечи"
 git push
 
 ```

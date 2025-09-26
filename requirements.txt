@@ -1,2 +1,6 @@
-PyYAML
+websocket-client
+pyyaml
 python-dotenv
+python-binance
+ruamel.yaml
+

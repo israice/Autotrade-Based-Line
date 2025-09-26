@@ -1,0 +1,34 @@
+
+# #################################
+# ##### GET DATA SETTINGS #########
+# #################################
+DELAY_BY_SETTINGS: 0.1              # in seconds
+WEBSOCKET_RESTART_INTERVAL: 240   # in minutes
+SYSTEM_TIMEFRAME: 1m
+LARGE_CANDLE_TIMEFRAME: 1d
+SYSTEM_SYMBOL: XPLUSDT
+# SYSTEM_SYMBOL: XRPUSDT
+# #################################
+# ##### ORDER SETTINGS ############
+ACCOUNT_ID: REAL3
+START_AMOUNT: 0.2
+# #################################
+TREND_DETECTION: UP
+# #################################
+# ######## SYSTEM SETTINGS ########
+# #################################
+SYSTEM_RUN: ENABLE
+# - ENABLE - run the system
+# - DISABLE - dont start the system
+CHOOSE_FLOW: A
+# - A - Flow Based Line
+# - B - Flow Based Candle Counting
+CONNECTION_TYPE: WEBSCOKET
+# - WEBSCOKET - Websocket connection
+# - REST - REST API connection
+RESET_TYPE: HARD
+# - HARD - reset all settings and database
+# - EASY - reset continue the flow if disconnected
+RUN_CHECK_SCRIPTS: ENABLE
+# - ENABLE - run the check scripts
+# - DISABLE - dont run the check scripts

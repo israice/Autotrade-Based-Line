@@ -12,7 +12,7 @@ Comments are in English as requested.
 # =========================
 # Settings (top of script)
 # =========================
-BB_USER_SETTINGS_PATH = "CORE/DATA/BB_USER_SETTINGS.yaml"     # provides SYSTEM_SYMBOL and SYSTEM_TIMEFRAME
+BB_USER_SETTINGS_PATH = "settings.yaml"     # provides SYSTEM_SYMBOL and SYSTEM_TIMEFRAME
 AA_CANDLE_PATH        = "CORE/DATA/AA_CANDLE.yaml"            # source of candle data
 CC_TRIGGERS_PATH      = "CORE/DATA/CC_TRIGGERS_CONFIG.yaml"   # destination to update
 
